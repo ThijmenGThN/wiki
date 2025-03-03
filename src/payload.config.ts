@@ -1,17 +1,16 @@
-// storage-adapter-import-placeholder
-import { sqliteAdapter } from '@payloadcms/db-sqlite'
-import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
-import { buildConfig } from 'payload'
-import { fileURLToPath } from 'url'
 import sharp from 'sharp'
+import { fileURLToPath } from 'url'
+import { buildConfig } from 'payload'
+import { sqliteAdapter } from '@payloadcms/db-sqlite'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 
+import { migrations } from './migrations'
 import { Users } from './collections/Users'
 import { Pages } from './collections/Pages'
-import { Categories } from './collections/Categories'
 import { Settings } from './collections/Settings'
-import { migrations } from './migrations'
+import { Categories } from './collections/Categories'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -22,6 +21,10 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    meta: {
+      title: 'Payload Wiki',
+      description: "A customizable knowledge base.",
+    }
   },
   collections: [
     Users,
@@ -45,6 +48,5 @@ export default buildConfig({
   sharp,
   plugins: [
     payloadCloudPlugin(),
-    // storage-adapter-placeholder
   ],
 })
