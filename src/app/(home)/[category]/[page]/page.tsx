@@ -1,55 +1,62 @@
 import Link from "next/link"
 import remarkGfm from 'remark-gfm'
-import { getPayload } from 'payload'
-import config from '@payload-config'
 import Markdown from 'react-markdown'
 
 import Search from "@/components/Search"
 import Header from "@/components/Header"
 import Toolbar from "@/components/Toolbar"
+import Footer from "@/components/Footer"
 
 import { ArrowUturnLeftIcon } from "@heroicons/react/20/solid"
 
+import { getPageBySlug } from "@/functions/pages"
+import { getCategoryById } from "@/functions/categories"
+
 export const dynamic = 'force-dynamic'
 
-export default async function Page({ params }: { params: Promise<{ page: string }> }) {
+export default async function Page({ params }: { params: Promise<{ page: string, category: string }> }) {
 
-    const { page: pageSlug } = await params
+    const { page: pageSlug, category: categorySlug } = await params
 
-    const payload = await getPayload({ config })
+    const page = await getPageBySlug(pageSlug)
 
-    const page = await payload.find({ collection: "pages", limit: 1, where: { slug: { equals: pageSlug } } })
-    const category = page.docs[0]?.category as { slug: string }
+    const category = page && typeof page.category === 'number'
+        ? await getCategoryById(page.category)
+        : page?.category
 
     return (
         <>
-            <Header breadcrumb={page?.docs[0]?.title} />
+            <Header breadcrumb={page?.title} />
 
             <Search />
 
             <Toolbar />
 
-            <div className="flex flex-col gap-y-6 mt-16 mx-8 sm:mx-16">
-                <div className="flex flex-col gap-y-4 mx-8">
-                    <p className="text-sm">
-                        {page?.docs[0]?.subtitle}
+            <div className="flex flex-col gap-y-8 mt-20 mx-8 sm:mx-16 md:mx-32 mb-20">
+                <div className="border-l-4 border-black pl-6">
+                    <p className="text-gray-600 leading-relaxed">
+                        {page?.subtitle}
                     </p>
                 </div>
 
-                <div className="rounded border shadow-sm p-8 bg-gradient-to-tr from-gray-50 to-white">
-                    <Markdown remarkPlugins={[remarkGfm]} className='prose min-w-full'>
-                        {page?.docs[0]?.markdown}
-                    </Markdown>
+                <div className="border border-gray-200 bg-white">
+                    <div className="prose prose-gray max-w-none p-8 prose-headings:text-gray-900 prose-p:text-gray-700 prose-strong:text-gray-900 prose-code:text-gray-900 prose-code:bg-gray-100 prose-pre:bg-gray-900 prose-pre:text-gray-100">
+                        <Markdown remarkPlugins={[remarkGfm]}>
+                            {page?.markdown}
+                        </Markdown>
+                    </div>
                 </div>
 
-                <div className="mx-auto mt-16">
-                    <Link href={'/' + (category.slug ?? "")}>
-                        <button className="bg-black rounded-full p-3 text-white items-center hover:scale-105 transition-transform duration-200">
-                            <ArrowUturnLeftIcon className="text-white h-5 w-5" />
+                <div className="flex justify-center mt-16">
+                    <Link href={'/' + (typeof category === 'object' && category?.slug ? category.slug : categorySlug)}>
+                        <button className="group flex items-center justify-center w-12 h-12 border-2 border-gray-300 hover:border-black hover:bg-black transition-all duration-300">
+                            <ArrowUturnLeftIcon className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors" />
                         </button>
                     </Link>
                 </div>
             </div>
+
+            <Footer />
         </>
     )
 }
