@@ -43,7 +43,7 @@ export default async function Page({ params }: { params: Promise<{ category: str
 
                 {/* Pages grid */}
                 <ul className="grid gap-6 md:grid-cols-2">
-                    {pages.map((page: { id: string; slug: string; title: string; subtitle: string }, index: number) => (
+                    {pages.map((page, index: number) => (
                         <li key={page.id}
                             style={{ animationDelay: `${index * 100}ms` }}
                             className="animate-fadeInUp"

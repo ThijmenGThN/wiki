@@ -1,5 +1,5 @@
 
-# Wiki
+# Wikibase
 
 An open-source wiki built ontop of [Payload](https://payloadcms.com), easily deploy this yourself via the instructions below.
 

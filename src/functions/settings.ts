@@ -1,6 +1,6 @@
 "use server"
 
-import { Setting } from '@/types/payload-types'
+import { Setting } from '@/payload-types'
 import { getPayload } from './connector'
 
 export async function getSettings(): Promise<Setting> {

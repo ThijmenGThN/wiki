@@ -1,6 +1,6 @@
 "use server"
 
-import { Category } from '@/types/payload-types'
+import { Category } from '@/payload-types'
 import { getPayload } from './connector'
 
 export async function getCategories(): Promise<Category[]> {

@@ -1,6 +1,6 @@
 "use server"
 
-import { Page } from '@/types/payload-types'
+import { Page } from '@/payload-types'
 import { getPayload } from './connector'
 
 export async function searchContent(query: string): Promise<{
