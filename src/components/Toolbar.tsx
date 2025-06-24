@@ -6,12 +6,12 @@ export default function Toolbar() {
             <ul className="mt-3 flex gap-x-3 divide-x divide-gray-300 underline text-xs px-2 mx-8 sm:mx-16 md:mx-32">
                 <li className="pl-3">
                     <Link href="/admin">
-                        Login as Administrator
+                        Admin
                     </Link>
                 </li>
                 <li className="pl-3">
                     <Link href="https://github.com/ThijmenGThN/Wiki" target="_blank">
-                        Star this project on GitHub
+                        GitHub
                     </Link>
                 </li>
             </ul>
