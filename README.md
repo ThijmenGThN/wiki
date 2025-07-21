@@ -54,13 +54,11 @@ Create a `docker-compose.yml` file in your project directory with the following 
 ```yaml
 services:
   wiki:
-    image: ghcr.io/thijmengthn/wiki:latest
     container_name: wiki
+    image: ghcr.io/thijmengthn/wiki:latest
     restart: unless-stopped
-    volumes:
-      - ./database:/app/database
-    ports:
-      - 3000:3000
+    volumes: ["./database:/app/database"]
+    ports: ["3000:3000"]
     environment:
       - PAYLOAD_SECRET=your_secret_key_here
 ```
