@@ -1,63 +1,66 @@
 import Link from "next/link"
-import { getPayload } from 'payload'
-import config from '@payload-config'
+import { preloadedQueryResult } from "convex/nextjs"
+import { preloadQuery } from "convex/nextjs"
+import { api } from "@/convex/_generated/api"
+import { ArrowLeft } from "lucide-react"
 
-import Search from "@/components/Search"
-import Header from "@/components/Header"
-import Toolbar from "@/components/Toolbar"
+import Search from "@/components/wiki/Search"
+import Header from "@/components/wiki/Header"
+import Toolbar from "@/components/wiki/Toolbar"
 
-import { ArrowUturnLeftIcon } from "@heroicons/react/20/solid"
+export default async function Page({
+	params,
+}: {
+	params: Promise<{ category: string }>
+}) {
+	const { category: categorySlug } = await params
 
-export const dynamic = 'force-dynamic'
+	const preloadedPages = await preloadQuery(api.wiki.listPagesByCategory, { categorySlug })
+	const pages = preloadedQueryResult(preloadedPages)
 
-export default async function Page({ params }: { params: Promise<{ page: string, category: string }> }) {
+	const preloadedCategory = await preloadQuery(api.wiki.getCategoryBySlug, { slug: categorySlug })
+	const category = preloadedQueryResult(preloadedCategory)
 
-    const { category: categorySlug } = await params
+	const preloadedSettings = await preloadQuery(api.wiki.getSettings)
+	const settings = preloadedQueryResult(preloadedSettings)
 
-    const payload = await getPayload({ config })
+	return (
+		<>
+			<Header breadcrumb={category?.title || categorySlug} settings={settings} />
 
-    const pages = await payload.find({ collection: "pages", pagination: false, where: { "category.slug": { equals: categorySlug } } })
-    const category = pages.docs[0]?.category as { title: string, slug: string }
+			<Search />
 
-    return (
-        <>
-            <Header breadcrumb={category?.title ?? categorySlug} />
+			<Toolbar />
 
-            <Search />
+			<div className="flex flex-col gap-y-4 mt-16 mx-8 sm:mx-16">
+				<b>Explore</b>
+				<ul className="grid gap-4 md:grid-cols-2">
+					{pages.map((page) => (
+						<li key={page._id}>
+							<Link
+								className="flex flex-col gap-y-2 rounded bg-gradient-to-tr from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 border p-4 shadow-sm hover:cursor-pointer hover:to-gray-100 dark:hover:to-gray-700"
+								href={`/${categorySlug}/${page.slug}`}
+							>
+								<p>{page.title}</p>
+								<p className="text-xs text-gray-600 dark:text-gray-400">
+									{page.subtitle}
+								</p>
+							</Link>
+						</li>
+					))}
+				</ul>
 
-            <Toolbar />
-
-            <div className="flex flex-col gap-y-4 mt-16 mx-8 sm:mx-16">
-                <b>
-                    Explore
-                </b>
-                <ul className="grid gap-4 md:grid-cols-2">
-                    {
-                        pages.docs.map(page => (
-                            <li key={page.id}>
-                                <Link className="flex flex-col gap-y-2 rounded bg-gradient-to-tr from-gray-50 to-white border p-4 shadow-sm hover:cursor-pointer hover:to-gray-100"
-                                    href={categorySlug + '/' + page?.slug}
-                                >
-                                    <p>
-                                        {page?.title}
-                                    </p>
-                                    <p className="text-xs text-neutral">
-                                        {page?.subtitle}
-                                    </p>
-                                </Link>
-                            </li>
-                        ))
-                    }
-                </ul>
-
-                <div className="mx-auto mt-16">
-                    <Link href='/'>
-                        <button className="bg-black rounded-full p-3 text-white items-center hover:scale-105 transition-transform duration-200">
-                            <ArrowUturnLeftIcon className="text-white h-5 w-5" />
-                        </button>
-                    </Link>
-                </div>
-            </div>
-        </>
-    )
+				<div className="mx-auto mt-16">
+					<Link href="/">
+						<button
+							type="button"
+							className="bg-black dark:bg-white rounded-full p-3 text-white dark:text-black items-center hover:scale-105 transition-transform duration-200"
+						>
+							<ArrowLeft className="h-5 w-5" />
+						</button>
+					</Link>
+				</div>
+			</div>
+		</>
+	)
 }

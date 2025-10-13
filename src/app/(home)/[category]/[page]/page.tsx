@@ -1,55 +1,58 @@
 import Link from "next/link"
-import remarkGfm from 'remark-gfm'
-import { getPayload } from 'payload'
-import config from '@payload-config'
-import Markdown from 'react-markdown'
+import { preloadedQueryResult } from "convex/nextjs"
+import { preloadQuery } from "convex/nextjs"
+import { api } from "@/convex/_generated/api"
+import Markdown from "react-markdown"
+import remarkGfm from "remark-gfm"
+import { ArrowLeft } from "lucide-react"
 
-import Search from "@/components/Search"
-import Header from "@/components/Header"
-import Toolbar from "@/components/Toolbar"
+import Search from "@/components/wiki/Search"
+import Header from "@/components/wiki/Header"
+import Toolbar from "@/components/wiki/Toolbar"
 
-import { ArrowUturnLeftIcon } from "@heroicons/react/20/solid"
+export default async function Page({
+	params,
+}: {
+	params: Promise<{ page: string; category: string }>
+}) {
+	const { page: pageSlug } = await params
 
-export const dynamic = 'force-dynamic'
+	const preloadedPageData = await preloadQuery(api.wiki.getPageBySlug, { slug: pageSlug })
+	const pageData = preloadedQueryResult(preloadedPageData)
 
-export default async function Page({ params }: { params: Promise<{ page: string }> }) {
+	const preloadedSettings = await preloadQuery(api.wiki.getSettings)
+	const settings = preloadedQueryResult(preloadedSettings)
 
-    const { page: pageSlug } = await params
+	return (
+		<>
+			<Header breadcrumb={pageData?.title} settings={settings} />
 
-    const payload = await getPayload({ config })
+			<Search />
 
-    const page = await payload.find({ collection: "pages", limit: 1, where: { slug: { equals: pageSlug } } })
-    const category = page.docs[0]?.category as { slug: string }
+			<Toolbar />
 
-    return (
-        <>
-            <Header breadcrumb={page?.docs[0]?.title} />
+			<div className="flex flex-col gap-y-6 mt-16 mx-8 sm:mx-16">
+				<div className="flex flex-col gap-y-4 mx-8">
+					<p className="text-sm">{pageData?.subtitle}</p>
+				</div>
 
-            <Search />
+				<div className="rounded border shadow-sm p-8 bg-gradient-to-tr from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+					<div className="prose dark:prose-invert min-w-full">
+						<Markdown remarkPlugins={[remarkGfm]}>{pageData?.markdown}</Markdown>
+					</div>
+				</div>
 
-            <Toolbar />
-
-            <div className="flex flex-col gap-y-6 mt-16 mx-8 sm:mx-16">
-                <div className="flex flex-col gap-y-4 mx-8">
-                    <p className="text-sm">
-                        {page?.docs[0]?.subtitle}
-                    </p>
-                </div>
-
-                <div className="rounded border shadow-sm p-8 bg-gradient-to-tr from-gray-50 to-white">
-                    <Markdown remarkPlugins={[remarkGfm]} className='prose min-w-full'>
-                        {page?.docs[0]?.markdown}
-                    </Markdown>
-                </div>
-
-                <div className="mx-auto mt-16">
-                    <Link href={'/' + (category.slug ?? "")}>
-                        <button className="bg-black rounded-full p-3 text-white items-center hover:scale-105 transition-transform duration-200">
-                            <ArrowUturnLeftIcon className="text-white h-5 w-5" />
-                        </button>
-                    </Link>
-                </div>
-            </div>
-        </>
-    )
+				<div className="mx-auto mt-16">
+					<Link href={`/${pageData?.category?.slug || ""}`}>
+						<button
+							type="button"
+							className="bg-black dark:bg-white rounded-full p-3 text-white dark:text-black items-center hover:scale-105 transition-transform duration-200"
+						>
+							<ArrowLeft className="h-5 w-5" />
+						</button>
+					</Link>
+				</div>
+			</div>
+		</>
+	)
 }
