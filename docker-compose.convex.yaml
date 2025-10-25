@@ -1,0 +1,46 @@
+
+services:
+
+  backend:
+    image: ghcr.io/get-convex/convex-backend:latest
+    restart: unless-stopped
+    ports: [ "3210:3210", "3211:3211" ]
+    volumes: [ "convex:/convex/data" ]
+    environment:
+      # Points to convex actions at port 3211.
+      CONVEX_SITE_ORIGIN: "http://localhost:3000"
+      # Points to convex api at port 3210.
+      CONVEX_CLOUD_ORIGIN: "http://localhost:3120" 
+    stop_grace_period: 10s
+    stop_signal: SIGINT
+    healthcheck:
+      test: curl -f http://localhost:3210/version
+      interval: 5s
+      start_period: 10s
+
+  dashboard:
+    image: ghcr.io/get-convex/convex-dashboard:latest
+    restart: unless-stopped
+    ports: [ "6791:6791" ]
+    environment:
+      # Points to convex api at port 3210.
+      NEXT_PUBLIC_DEPLOYMENT_URL: "http://localhost:3120"
+    stop_grace_period: 10s
+    stop_signal: SIGINT
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:17.6
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: next
+      POSTGRES_USER: next
+      POSTGRES_PASSWORD: leaflet
+    volumes: [ "postgres:/var/lib/postgresql/data" ]
+    ports: [ "5432:5432" ]
+
+volumes:
+  convex:
+  postgres:

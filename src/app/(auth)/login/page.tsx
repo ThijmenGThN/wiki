@@ -1,7 +1,7 @@
 "use client"
 
 import { useAuthActions } from "@convex-dev/auth/react"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, Github } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
@@ -38,10 +38,19 @@ export default function LoginForm() {
 			formData.set("flow", "signIn")
 
 			await signIn("password", formData)
-			router.push("/dash")
 		} catch (error: unknown) {
 			toast.error(getAuthErrorMessage(error))
 		} finally {
+			setIsLoading(false)
+		}
+	}
+
+	const handleGitHubSignIn = async () => {
+		setIsLoading(true)
+		try {
+			await signIn("github")
+		} catch (error: unknown) {
+			toast.error(getAuthErrorMessage(error))
 			setIsLoading(false)
 		}
 	}
@@ -61,6 +70,26 @@ export default function LoginForm() {
 						<div className="text-center space-y-2">
 							<h1 className="text-2xl font-bold text-foreground">Welcome back</h1>
 							<p className="text-muted-foreground">Sign in to your account</p>
+						</div>
+
+						<Button
+							type="button"
+							variant="outline"
+							className="w-full"
+							onClick={handleGitHubSignIn}
+							disabled={isLoading}
+						>
+							<Github className="h-4 w-4 mr-2" />
+							Continue with GitHub
+						</Button>
+
+						<div className="relative">
+							<div className="absolute inset-0 flex items-center">
+								<span className="w-full border-t border-border" />
+							</div>
+							<div className="relative flex justify-center text-xs uppercase">
+								<span className="bg-card px-2 text-muted-foreground">Or continue with</span>
+							</div>
 						</div>
 
 						<form onSubmit={handleSubmit(login)} className="space-y-4">
