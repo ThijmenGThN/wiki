@@ -55,9 +55,11 @@ export default defineSchema({
 
 	likes: defineTable({
 		pageId: v.id("pages"),
-		userId: v.id("users"),
+		userId: v.optional(v.id("users")), // Optional to support anonymous likes
+		sessionId: v.optional(v.string()), // For anonymous users
 	})
 		.index("by_page", ["pageId"])
 		.index("by_user", ["userId"])
-		.index("by_page_and_user", ["pageId", "userId"]),
+		.index("by_page_and_user", ["pageId", "userId"])
+		.index("by_page_and_session", ["pageId", "sessionId"]),
 })

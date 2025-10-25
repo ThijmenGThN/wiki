@@ -2,54 +2,45 @@
 
 import { useMutation, useQuery } from "convex/react"
 import { Heart } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { toast } from "sonner"
 import { api } from "@/../convex/_generated/api"
 import type { Id } from "@/../convex/_generated/dataModel"
-import { AuthDialog } from "@/components/auth-dialog"
 import { Button } from "@/components/ui/button"
+import { getSessionId } from "@/lib/session"
 
 interface LikeButtonProps {
 	pageId: Id<"pages">
 }
 
 export function LikeButton({ pageId }: LikeButtonProps) {
-	const [showAuthDialog, setShowAuthDialog] = useState(false)
+	const [sessionId, setSessionId] = useState<string>("")
 	const likeCount = useQuery(api.wiki.getLikeCount, { pageId })
-	const hasLiked = useQuery(api.wiki.hasUserLikedPage, { pageId })
-	const currentUser = useQuery(api.users.current)
+	const hasLiked = useQuery(api.wiki.hasUserLikedPage, { pageId, sessionId: sessionId || undefined })
 	const toggleLike = useMutation(api.wiki.toggleLike)
 
-	const handleToggleLike = async () => {
-		if (!currentUser) {
-			setShowAuthDialog(true)
-			return
-		}
+	// Get session ID on mount (client-side only)
+	useEffect(() => {
+		setSessionId(getSessionId())
+	}, [])
 
+	const handleToggleLike = async () => {
 		try {
-			await toggleLike({ pageId })
+			await toggleLike({ pageId, sessionId: sessionId || undefined })
 		} catch (error) {
 			toast.error("Failed to update like")
 		}
 	}
 
 	return (
-		<>
-			<Button
-				variant={hasLiked ? "default" : "outline"}
-				size="sm"
-				onClick={handleToggleLike}
-				className="gap-2"
-			>
-				<Heart className={`h-4 w-4 ${hasLiked ? "fill-current" : ""}`} />
-				<span>{likeCount ?? 0}</span>
-			</Button>
-
-			<AuthDialog
-				open={showAuthDialog}
-				onOpenChange={setShowAuthDialog}
-				message="You need to be logged in to like pages."
-			/>
-		</>
+		<Button
+			variant={hasLiked ? "default" : "outline"}
+			size="sm"
+			onClick={handleToggleLike}
+			className="gap-2"
+		>
+			<Heart className={`h-4 w-4 ${hasLiked ? "fill-current" : ""}`} />
+			<span>{likeCount ?? 0}</span>
+		</Button>
 	)
 }

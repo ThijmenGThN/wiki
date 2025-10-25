@@ -329,19 +329,32 @@ export const getLikeCount = query({
 	},
 })
 
-// Check if current user has liked a page
+// Check if current user/session has liked a page
 export const hasUserLikedPage = query({
-	args: { pageId: v.id("pages") },
+	args: {
+		pageId: v.id("pages"),
+		sessionId: v.optional(v.string()), // For anonymous users
+	},
 	handler: async (ctx, args) => {
 		const userId = await auth.getUserId(ctx)
-		if (!userId) {
+
+		let like
+
+		if (userId) {
+			// Authenticated user - check by userId
+			like = await ctx.db
+				.query("likes")
+				.withIndex("by_page_and_user", (q) => q.eq("pageId", args.pageId).eq("userId", userId))
+				.first()
+		} else if (args.sessionId) {
+			// Anonymous user - check by sessionId
+			like = await ctx.db
+				.query("likes")
+				.withIndex("by_page_and_session", (q) => q.eq("pageId", args.pageId).eq("sessionId", args.sessionId))
+				.first()
+		} else {
 			return false
 		}
-
-		const like = await ctx.db
-			.query("likes")
-			.withIndex("by_page_and_user", (q) => q.eq("pageId", args.pageId).eq("userId", userId))
-			.first()
 
 		return !!like
 	},
@@ -349,19 +362,35 @@ export const hasUserLikedPage = query({
 
 // ===== AUTHENTICATED MUTATIONS =====
 
-// Toggle like on a page
+// Toggle like on a page (supports both authenticated and anonymous users)
 export const toggleLike = mutation({
-	args: { pageId: v.id("pages") },
+	args: {
+		pageId: v.id("pages"),
+		sessionId: v.optional(v.string()), // For anonymous users
+	},
 	handler: async (ctx, args) => {
 		const userId = await auth.getUserId(ctx)
-		if (!userId) {
-			throw new Error("Must be logged in to like pages")
+
+		// Need either userId or sessionId
+		if (!userId && !args.sessionId) {
+			throw new Error("Session ID required for anonymous likes")
 		}
 
-		const existingLike = await ctx.db
-			.query("likes")
-			.withIndex("by_page_and_user", (q) => q.eq("pageId", args.pageId).eq("userId", userId))
-			.first()
+		let existingLike
+
+		if (userId) {
+			// Authenticated user - check by userId
+			existingLike = await ctx.db
+				.query("likes")
+				.withIndex("by_page_and_user", (q) => q.eq("pageId", args.pageId).eq("userId", userId))
+				.first()
+		} else {
+			// Anonymous user - check by sessionId
+			existingLike = await ctx.db
+				.query("likes")
+				.withIndex("by_page_and_session", (q) => q.eq("pageId", args.pageId).eq("sessionId", args.sessionId))
+				.first()
+		}
 
 		if (existingLike) {
 			// Unlike
@@ -372,7 +401,8 @@ export const toggleLike = mutation({
 		// Like
 		await ctx.db.insert("likes", {
 			pageId: args.pageId,
-			userId,
+			userId: userId || undefined,
+			sessionId: !userId ? args.sessionId : undefined,
 		})
 		return { liked: true }
 	},
