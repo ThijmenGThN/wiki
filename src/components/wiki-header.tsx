@@ -30,7 +30,7 @@ export function WikiHeader() {
 	return (
 		<header className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
 			{/* Main navbar */}
-			<div className="container mx-auto px-4 py-4 flex items-center justify-between relative">
+			<div className="container mx-auto h-24 px-4 py-4 flex items-center justify-between relative">
 				{/* Left - Logo */}
 				<Link href="/" className="inline-block hover:opacity-80 transition-opacity">
 					<Image src={logoSrc} alt="Wiki Logo" className="h-10 w-auto" priority />
