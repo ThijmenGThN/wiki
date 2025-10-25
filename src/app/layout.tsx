@@ -10,8 +10,8 @@ import "@/styles/globals.css"
 import { Toaster } from "@/components/ui/sonner"
 
 export const metadata: Metadata = {
-	title: "next-leaflet",
-	description: "An optimized tech stack for efficiency.",
+	title: "Wiki",
+	description: "Browse through our comprehensive knowledge base.",
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
