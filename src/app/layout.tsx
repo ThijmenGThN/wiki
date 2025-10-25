@@ -4,6 +4,7 @@ import { ThemeProvider } from "next-themes"
 
 import ConvexClientProvider from "@/components/ConvexClientProvider"
 import { ThemeSync } from "@/components/ThemeSync"
+import { WikiHeader } from "@/components/wiki-header"
 
 import "@/styles/globals.css"
 import { Toaster } from "@/components/ui/sonner"
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 					<ConvexClientProvider>
 						<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
 							<ThemeSync />
+							<WikiHeader />
 							{children}
 						</ThemeProvider>
 					</ConvexClientProvider>

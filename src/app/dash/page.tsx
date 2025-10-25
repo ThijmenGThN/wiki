@@ -3,6 +3,7 @@
 import { useAuthActions } from "@convex-dev/auth/react"
 import { useMutation, useQuery } from "convex/react"
 import { LogOut, Mail, CheckCircle2, XCircle, Upload, X } from "lucide-react"
+import { useRouter } from "next/navigation"
 import { useEffect, useState, useRef } from "react"
 import { toast } from "sonner"
 import { api } from "@/../convex/_generated/api"
@@ -15,6 +16,7 @@ import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 
 export default function Page() {
+	const router = useRouter()
 	const { signOut } = useAuthActions()
 	const user = useQuery(api.users.current)
 	const updateName = useMutation(api.users.updateName)
@@ -31,8 +33,12 @@ export default function Page() {
 	useEffect(() => {
 		if (user) {
 			setName(user.name || "")
+			// Check if user is admin
+			if (!user.isAdmin) {
+				router.push("/unauthorized")
+			}
 		}
-	}, [user])
+	}, [user, router])
 
 	const handleSave = async () => {
 		setIsUpdating(true)

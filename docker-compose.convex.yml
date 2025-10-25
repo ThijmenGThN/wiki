@@ -7,10 +7,10 @@ services:
     ports: [ "3210:3210", "3211:3211" ]
     volumes: [ "convex:/convex/data" ]
     environment:
-      # Points to convex actions at port 3211.
-      CONVEX_SITE_ORIGIN: "http://localhost:3000"
       # Points to convex api at port 3210.
-      CONVEX_CLOUD_ORIGIN: "http://localhost:3120" 
+      CONVEX_CLOUD_ORIGIN: "http://localhost:3210" 
+      # Points to convex actions at port 3211.
+      CONVEX_SITE_ORIGIN: "http://localhost:3211"
     stop_grace_period: 10s
     stop_signal: SIGINT
     healthcheck:
@@ -24,7 +24,7 @@ services:
     ports: [ "6791:6791" ]
     environment:
       # Points to convex api at port 3210.
-      NEXT_PUBLIC_DEPLOYMENT_URL: "http://localhost:3120"
+      NEXT_PUBLIC_DEPLOYMENT_URL: "http://localhost:3210"
     stop_grace_period: 10s
     stop_signal: SIGINT
     depends_on:
@@ -37,7 +37,7 @@ services:
     environment:
       POSTGRES_DB: next
       POSTGRES_USER: next
-      POSTGRES_PASSWORD: leaflet
+      POSTGRES_PASSWORD: 6zE5...48W0
     volumes: [ "postgres:/var/lib/postgresql/data" ]
     ports: [ "5432:5432" ]
 

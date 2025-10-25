@@ -16,6 +16,48 @@ export default defineSchema({
 		image: v.optional(v.string()),
 		profilePictureStorageId: v.optional(v.id("_storage")),
 		isAnonymous: v.optional(v.boolean()),
+		isAdmin: v.optional(v.boolean()),
 		theme: v.optional(v.union(v.literal("light"), v.literal("dark"), v.literal("system"))),
 	}).index("email", ["email"]),
+
+	categories: defineTable({
+		slug: v.string(),
+		title: v.string(),
+		subtitle: v.string(),
+	})
+		.index("by_slug", ["slug"])
+		.searchIndex("search_title", {
+			searchField: "title",
+		}),
+
+	pages: defineTable({
+		slug: v.string(),
+		title: v.string(),
+		subtitle: v.string(),
+		categoryId: v.id("categories"),
+		markdown: v.string(),
+	})
+		.index("by_category", ["categoryId"])
+		.index("by_slug", ["slug"])
+		.index("by_category_and_slug", ["categoryId", "slug"])
+		.searchIndex("search_content", {
+			searchField: "title",
+			filterFields: ["categoryId"],
+		}),
+
+	comments: defineTable({
+		pageId: v.id("pages"),
+		userId: v.id("users"),
+		content: v.string(),
+	})
+		.index("by_page", ["pageId"])
+		.index("by_user", ["userId"]),
+
+	likes: defineTable({
+		pageId: v.id("pages"),
+		userId: v.id("users"),
+	})
+		.index("by_page", ["pageId"])
+		.index("by_user", ["userId"])
+		.index("by_page_and_user", ["pageId", "userId"]),
 })

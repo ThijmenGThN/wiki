@@ -14,6 +14,8 @@ export default convexAuthNextjsMiddleware(async (request, { convexAuth }) => {
 	if (isProtectedRoute(request) && !(await convexAuth.isAuthenticated())) {
 		return nextjsMiddlewareRedirect(request, "/login")
 	}
+	// Note: Admin check is done at the page level, not in middleware
+	// This is because middleware runs on the edge and can't easily query Convex with auth context
 })
 
 export const config = {
