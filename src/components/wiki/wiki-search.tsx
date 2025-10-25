@@ -27,14 +27,6 @@ export function WikiSearch() {
 		debouncedSearch.trim().length > 0 ? { searchTerm: debouncedSearch } : "skip",
 	)
 
-	// Debug logging
-	useEffect(() => {
-		if (debouncedSearch.trim().length > 0) {
-			console.log("Search term:", debouncedSearch)
-			console.log("Search results:", searchResults)
-		}
-	}, [debouncedSearch, searchResults])
-
 	// Reset selected index when search results change
 	useEffect(() => {
 		setSelectedIndex(0)
