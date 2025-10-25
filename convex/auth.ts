@@ -1,5 +1,5 @@
-import { Password } from "@convex-dev/auth/providers/Password"
 import { Email } from "@convex-dev/auth/providers/Email"
+import { Password } from "@convex-dev/auth/providers/Password"
 import { convexAuth } from "@convex-dev/auth/server"
 import { internal } from "./_generated/api"
 

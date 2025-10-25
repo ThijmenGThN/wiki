@@ -30,7 +30,7 @@ export default function Page() {
 		try {
 			await updateName({ name })
 			toast.success("Profile updated successfully")
-		} catch (error) {
+		} catch (_error) {
 			toast.error("Failed to update profile")
 		} finally {
 			setIsUpdating(false)

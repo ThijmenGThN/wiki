@@ -1,6 +1,6 @@
-import { spawnSync } from "child_process"
+import { spawnSync } from "node:child_process"
+import fs from "node:fs"
 import { config as loadEnvFile } from "dotenv"
-import fs from "fs"
 import { exportJWK, exportPKCS8, generateKeyPair } from "jose"
 
 // Exit early if .env.local doesn't exist

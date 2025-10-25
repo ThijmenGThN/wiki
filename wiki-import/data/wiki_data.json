@@ -1,1233 +1,1233 @@
 {
-  "categories": [
-    {
-      "id": 6,
-      "slug": "catalogue",
-      "title": "Catalogue",
-      "subtitle": "A vast compendium of knowledge which encompasses a wide range of common issues and their corresponding solutions, offering a convenient and searchable resource for troubleshooting.",
-      "updatedAt": "2024-12-15T23:30:36.981Z",
-      "createdAt": "2024-12-15T23:30:36.981Z"
-    },
-    {
-      "id": 5,
-      "slug": "docker",
-      "title": "Docker",
-      "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-      "updatedAt": "2024-12-15T23:30:26.634Z",
-      "createdAt": "2024-12-15T23:30:26.634Z"
-    },
-    {
-      "id": 4,
-      "slug": "linux",
-      "title": "Linux",
-      "subtitle": "Effortlessly install various services across multiple distributions, with the assistance of automated scripts that are predominantly focused on Ubuntu.",
-      "updatedAt": "2024-12-15T23:30:21.321Z",
-      "createdAt": "2024-12-15T23:30:21.321Z"
-    },
-    {
-      "id": 3,
-      "slug": "proxmox",
-      "title": "Proxmox",
-      "subtitle": "Simplify the process of setting up your Proxmox environment with helpful configuration guides and informative notes that streamline the setup procedure.",
-      "updatedAt": "2024-12-15T23:30:12.781Z",
-      "createdAt": "2024-12-15T23:30:12.781Z"
-    },
-    {
-      "id": 2,
-      "slug": "servers",
-      "title": "Servers",
-      "subtitle": "Extensive and detailed documentation specifically designed for each unique service, providing comprehensive guidance and instructions.",
-      "updatedAt": "2024-12-15T23:30:01.827Z",
-      "createdAt": "2024-12-15T23:29:58.428Z"
-    },
-    {
-      "id": 1,
-      "slug": "windows",
-      "title": "Windows",
-      "subtitle": "Access a comprehensive library of resources specifically tailored to Windows, including step-by-step guides, best practices, and troubleshooting tips for optimal performance.",
-      "updatedAt": "2024-12-15T23:29:51.660Z",
-      "createdAt": "2024-12-15T23:29:51.660Z"
-    }
-  ],
-  "pages": [
-    {
-      "id": 70,
-      "slug": "papermc",
-      "title": "PaperMC",
-      "subtitle": "Paper is a Minecraft game server based on Spigot, designed to greatly improve performance and offer more advanced features and API.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "```\nservices:\n  minecraft:\n    image: 'ghcr.io/thijmengthn/papermc:latest'\n    container_name: minecraft\n    restart: unless-stopped\n    user: 1000:1000\n    ports:\n      - 25565:25565\n    volumes:\n      - ./data:/papermc\n    environment:\n      - EULA=true\n      - MC_VERSION=1.21\n      - MC_RAM=2G\n      - JAVA_OPTS=-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1\n```",
-      "updatedAt": "2025-04-04T14:14:42.388Z",
-      "createdAt": "2025-04-04T14:14:42.388Z"
-    },
-    {
-      "id": 69,
-      "slug": "home-assistant",
-      "title": "Home Assistant",
-      "subtitle": "Open source home automation that puts local control and privacy first. Powered by a worldwide community of tinkerers and DIY enthusiasts.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "Web UI available at http://localhost:8123\n\n```\nservices:\n  homeassistant:\n    image: lscr.io/linuxserver/homeassistant:latest\n    container_name: homeassistant\n    network_mode: host\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Amsterdam\n    volumes: [\"./data:/config\"]\n    restart: unless-stopped\n```",
-      "updatedAt": "2025-02-20T14:53:09.336Z",
-      "createdAt": "2025-02-20T14:47:37.033Z"
-    },
-    {
-      "id": 68,
-      "slug": "pingvin-share",
-      "title": "Pingvin Share",
-      "subtitle": "Pingvin Share is a self-hosted file sharing platform and an alternative for WeTransfer.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "```\nservices:\n  share:\n    image: ghcr.io/stonith404/pingvin-share:v1.8.2\n    restart: unless-stopped\n    ports: [\"3000:3000\"]\n    environment:\n      - TRUST_PROXY=true\n    volumes:\n      - \"./share/data:/opt/app/backend/data\"\n      - \"./share/images:/opt/app/frontend/public/img\"\n```",
-      "updatedAt": "2025-02-09T21:57:05.819Z",
-      "createdAt": "2025-02-09T21:57:05.819Z"
-    },
-    {
-      "id": 67,
-      "slug": "systemctl-template",
-      "title": "Systemctl Template",
-      "subtitle": "A template to quickly setup systemctl services.",
-      "category": {
-        "id": 4,
-        "slug": "linux",
-        "title": "Linux",
-        "subtitle": "Effortlessly install various services across multiple distributions, with the assistance of automated scripts that are predominantly focused on Ubuntu.",
-        "updatedAt": "2024-12-15T23:30:21.321Z",
-        "createdAt": "2024-12-15T23:30:21.321Z"
-      },
-      "markdown": "```\n[Unit]\nDescription=My Binary Service\n\n[Service]\nWorkingDirectory=/your/working/directory\nExecStart=/path/to/your/binary\nRestart=on-failure\n\n[Install]\nWantedBy=multi-user.target\n```",
-      "updatedAt": "2025-02-03T14:16:01.718Z",
-      "createdAt": "2025-02-03T14:16:01.718Z"
-    },
-    {
-      "id": 66,
-      "slug": "install-rust",
-      "title": "Install Rust",
-      "subtitle": "Rust is a breeze to install but the build dependencies are a pain to install, this guide will make it easier to get started.",
-      "category": {
-        "id": 4,
-        "slug": "linux",
-        "title": "Linux",
-        "subtitle": "Effortlessly install various services across multiple distributions, with the assistance of automated scripts that are predominantly focused on Ubuntu.",
-        "updatedAt": "2024-12-15T23:30:21.321Z",
-        "createdAt": "2024-12-15T23:30:21.321Z"
-      },
-      "markdown": "Install Rust\n```\ncurl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh\n```\n\nInstall build dependencies\n```\nsudo apt install -y build-essential pkg-config libssl-dev gcc make\n```",
-      "updatedAt": "2025-02-03T14:09:46.029Z",
-      "createdAt": "2025-02-03T14:09:46.029Z"
-    },
-    {
-      "id": 65,
-      "slug": "install-go",
-      "title": "Install Go",
-      "subtitle": "This script downloads Go 1.23.5 from https://go.dev/dl/go1.23.5.linux-amd64.tar.gz, removes any existing installation in /usr/local/go, extracts the new files to /usr/local, and updates the PATH in ~/.profile for immediate use.",
-      "category": {
-        "id": 4,
-        "slug": "linux",
-        "title": "Linux",
-        "subtitle": "Effortlessly install various services across multiple distributions, with the assistance of automated scripts that are predominantly focused on Ubuntu.",
-        "updatedAt": "2024-12-15T23:30:21.321Z",
-        "createdAt": "2024-12-15T23:30:21.321Z"
-      },
-      "markdown": "# Go 1.23.5 Installation Script\n\nThis script automates the installation of Go 1.23.5 on Linux by performing the following steps:\n\n- **Download:** Retrieves Go 1.23.5 from [https://go.dev/dl/go1.23.5.linux-amd64.tar.gz](https://go.dev/dl/go1.23.5.linux-amd64.tar.gz).\n- **Remove:** Deletes any existing Go installation at `/usr/local/go`.\n- **Extract:** Unpacks the downloaded tarball into `/usr/local`.\n- **Update PATH:** Appends `/usr/local/go/bin` to your PATH in `~/.profile` and reloads the profile, making the `go` command immediately available in your terminal.\n\n```\nwget -q https://go.dev/dl/go1.23.5.linux-amd64.tar.gz && sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.23.5.linux-amd64.tar.gz && echo \"export PATH=\\$PATH:/usr/local/go/bin\" >> ~/.profile && source ~/.profile\n```",
-      "updatedAt": "2025-02-01T00:33:03.386Z",
-      "createdAt": "2025-02-01T00:33:03.386Z"
-    },
-    {
-      "id": 64,
-      "slug": "winutil",
-      "title": "WinUtil",
-      "subtitle": "Chris Titus Tech's Windows Utility - Install Programs, Tweaks, Fixes, and Updates ",
-      "category": {
-        "id": 1,
-        "slug": "windows",
-        "title": "Windows",
-        "subtitle": "Access a comprehensive library of resources specifically tailored to Windows, including step-by-step guides, best practices, and troubleshooting tips for optimal performance.",
-        "updatedAt": "2024-12-15T23:29:51.660Z",
-        "createdAt": "2024-12-15T23:29:51.660Z"
-      },
-      "markdown": "Use the following command in PowerShell.\n\n1. Open PowerShell\n2. Paste in the command.\n3. Press Enter\n4. Enjoy the utillity.\n\n```\nirm \"https://christitus.com/win\" | iex\n```",
-      "updatedAt": "2025-01-31T14:41:32.791Z",
-      "createdAt": "2025-01-31T14:40:34.407Z"
-    },
-    {
-      "id": 63,
-      "slug": "nextcloud",
-      "title": "Nextcloud",
-      "subtitle": "Nextcloud is a suite of client-server software for creating and using file hosting services. Nextcloud provides functionality similar to Dropbox, Office 365, or Google Drive when used with integrated office suites Collabora Online or OnlyOffice.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "```\nservices:\n  cloud:\n    image: lscr.io/linuxserver/nextcloud:latest\n    container_name: cloud\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Amsterdam\n    volumes:\n      - ./config:/config\n      - ./data:/data\n    ports:\n      - 443:443\n    restart: unless-stopped\n\n  database:\n    container_name: database\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - MYSQL_ROOT_PASSWORD=admin\n      - TZ=Europe/Amsterdam\n      - MYSQL_DATABASE=nextcloud\n      - MYSQL_USER=nextcloud\n      - MYSQL_PASSWORD=admin\n    volumes:\n      - ./database:/config\n    restart: always\n    image: lscr.io/linuxserver/mariadb:latest\n```",
-      "updatedAt": "2025-01-21T12:59:56.923Z",
-      "createdAt": "2025-01-21T12:59:56.923Z"
-    },
-    {
-      "id": 62,
-      "slug": "keycloak",
-      "title": "Keycloak",
-      "subtitle": "Keycloak, an open source identity and access management solution.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "```\nservices:\n  keycloak:\n    image: quay.io/keycloak/keycloak:23.0.7\n    restart: unless-stopped\n    environment:\n      KC_DB: postgres\n      KC_DB_URL: jdbc:postgresql://database:5432/keycloak\n      KC_DB_USERNAME: admin\n      KC_DB_PASSWORD: admin\n      KC_HOSTNAME: localhost\n      KC_HOSTNAME_PORT: 8080\n      KC_HOSTNAME_STRICT: false\n      KC_HOSTNAME_STRICT_HTTPS: false\n      KC_LOG_LEVEL: info\n      KC_METRICS_ENABLED: true\n      KC_HEALTH_ENABLED: true\n      KEYCLOAK_ADMIN: admin\n      KEYCLOAK_ADMIN_PASSWORD: admin\n    command: start-dev\n    depends_on:\n      - database\n    ports:\n      - 8080:8080\n\n  database:\n    image: postgres:15\n    restart: unless-stopped\n    volumes:\n      - ./data:/var/lib/postgresql/data\n    environment:\n      POSTGRES_DB: keycloak\n      POSTGRES_USER: admin\n      POSTGRES_PASSWORD: admin\n```",
-      "updatedAt": "2025-01-18T16:03:35.563Z",
-      "createdAt": "2025-01-18T15:47:19.539Z"
-    },
-    {
-      "id": 61,
-      "slug": "xterm-no-ouput-on-firefox",
-      "title": "Xterm no ouput on Firefox",
-      "subtitle": "Is the terminal blank in proxmox when you press console and are you using firefox, it might be due to resistFingerprinting, this setting could be on by default.",
-      "category": {
-        "id": 6,
-        "slug": "catalogue",
-        "title": "Catalogue",
-        "subtitle": "A vast compendium of knowledge which encompasses a wide range of common issues and their corresponding solutions, offering a convenient and searchable resource for troubleshooting.",
-        "updatedAt": "2024-12-15T23:30:36.981Z",
-        "createdAt": "2024-12-15T23:30:36.981Z"
-      },
-      "markdown": "Disable ` privacy.resistFingerprinting ` in the ` about:config ` from firefox.",
-      "updatedAt": "2025-01-14T10:24:45.658Z",
-      "createdAt": "2025-01-14T10:24:45.658Z"
-    },
-    {
-      "id": 60,
-      "slug": "clickhouse-with-ui",
-      "title": "Clickhouse with UI",
-      "subtitle": "Clickhouse with a web interface to easily manage and view metrics of your instance.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "## .env\n```env\nCLICKHOUSE_USER=default\nCLICKHOUSE_PASSWORD=4WF...Ad9\nCLICKHOUSE_DB=main\n```\n\n## docker-compose.yml\n```yml\nservices:\n  clickhouse:\n    image: clickhouse/clickhouse-server:latest\n    container_name: clickhouse\n    restart: unless-stopped\n    env_file: .env\n    ports:\n      - \"8123:8123\"\n      - \"9000:9000\"\n      - \"9009:9009\"\n    volumes:\n      - \"./clickhouse:/var/lib/clickhouse\"\n\n  clickhouse-ui:\n    image: ghcr.io/caioricciuti/ch-ui:latest\n    container_name: clickhouse-ui\n    restart: unless-stopped\n    env_file: .env\n    ports:\n      - \"5521:5521\"\n    environment:\n      VITE_CLICKHOUSE_URL: \"http://0.0.0.0:8123\"\n```",
-      "updatedAt": "2025-01-08T21:22:47.806Z",
-      "createdAt": "2025-01-08T21:22:47.806Z"
-    },
-    {
-      "id": 58,
-      "slug": "grant-me-ssh-access",
-      "title": "Grant me SSH Access",
-      "subtitle": "Are you asking me for my public SSH key or am I requesting access, use this script to easily allow me access.",
-      "category": {
-        "id": 6,
-        "slug": "catalogue",
-        "title": "Catalogue",
-        "subtitle": "A vast compendium of knowledge which encompasses a wide range of common issues and their corresponding solutions, offering a convenient and searchable resource for troubleshooting.",
-        "updatedAt": "2024-12-15T23:30:36.981Z",
-        "createdAt": "2024-12-15T23:30:36.981Z"
-      },
-      "markdown": "> Tested on Debian 12 and Ubuntu 22.04\n\nRun this one-liner to grant Thijmen access to your server via SSH:\n\n```sh\nwget -qO- https://heuve.link/keychain >> ~/.ssh/authorized_keys\n```",
-      "updatedAt": "2025-02-11T23:05:47.373Z",
-      "createdAt": "2024-12-22T14:50:44.020Z"
-    },
-    {
-      "id": 57,
-      "slug": "vps-ubuntu-22.04",
-      "title": "VPS - Ubuntu 22.04",
-      "subtitle": "This is an overview of all packages and modifications that have been made on the templated VPS on the Leaflet Proxmox Server which I host. - Thijmen Heuvelink",
-      "category": {
-        "id": 2,
-        "slug": "servers",
-        "title": "Servers",
-        "subtitle": "Extensive and detailed documentation specifically designed for each unique service, providing comprehensive guidance and instructions.",
-        "updatedAt": "2024-12-15T23:30:01.827Z",
-        "createdAt": "2024-12-15T23:29:58.428Z"
-      },
-      "markdown": "( No-longer maintained )\n\n## Pre-Installed Packages\n- curl\n- fail2ban\n- git\n- net-tools\n- screen\n- trash-cli\n- unzip\n- vim\n- wget\n\n## Changelog\n\n- v0.2.1\n\n * Added docker + compose install script.\n\n- v0.2.0\n\n  * Added trash command.\n  * Automated trash removal, 28 days.\n  * Adjusted MOTD.\n\n- v0.1.1\n\n  * Adjusted MOTD.\n  * Installed fail2ban\n  * Disabled root SSH.\n\n- v0.1.0\n\n  * Initial Setup.",
-      "updatedAt": "2024-12-15T23:45:13.320Z",
-      "createdAt": "2024-12-15T23:45:13.320Z"
-    },
-    {
-      "id": 56,
-      "slug": "customized-ps1",
-      "title": "Customized PS1",
-      "subtitle": "Enhance your terminal's appearance with these custom PS1 scripts for your .bashrc file, offering a more polished and visually appealing alternative to the default setup.",
-      "category": {
-        "id": 4,
-        "slug": "linux",
-        "title": "Linux",
-        "subtitle": "Effortlessly install various services across multiple distributions, with the assistance of automated scripts that are predominantly focused on Ubuntu.",
-        "updatedAt": "2024-12-15T23:30:21.321Z",
-        "createdAt": "2024-12-15T23:30:21.321Z"
-      },
-      "markdown": "### **Customizing Your Terminal Prompt with PS1 Scripts**\n\nYou can enhance your terminal's appearance by modifying the `PS1` variable in your `.bashrc` file. Below are two examples of PS1 scripts, along with instructions on how to use them.\n\n#### **Script 1: Dynamic Prompt with User and Host Information**\n\n```bash\nexport PS1='\\[\\e[0;1m\\]\\u\\[\\e[0m\\]@\\[\\e[0;1m\\]\\H \\[\\e[0;36m\\]\\w \\[\\e[0m\\]\\$ '\n```\n\n- **What it does**: This prompt displays:\n  - The username (`\\u`)\n  - The hostname (`\\H`)\n  - The current working directory (`\\w`)\n  - A `$` symbol to indicate the shell is ready for input\n- **Formatting**: The username and hostname are bold, and the working directory is highlighted in teal.\n- **Use case**: Ideal for users who need a clear view of the current user, host, and directory while navigating remote servers or multi-user systems.\n\n#### **Script 2: Personalized Prompt**\n\n```bash\nexport PS1='\\[\\e[0;1m\\]ThijmenGThN \\[\\e[0;36m\\]\\w \\[\\e[0m\\]\\$ '\n```\n\n- **What it does**: This prompt is personalized with a static label, \"ThijmenGThN,\" followed by:\n  - The current working directory (`\\w`)\n  - A `$` symbol for input\n- **Formatting**: The label is bold, and the directory is highlighted in teal.\n- **Use case**: Perfect for personal setups where a static identifier (like a custom username) is desired for aesthetic or branding purposes.\n\n### **How to Use These Scripts**\n\n1. **Edit your `.bashrc` file**:\n   Open your `.bashrc` file in a text editor:\n   ```bash\n   nano ~/.bashrc\n   ```\n\n2. **Add the desired script**:\n   Paste one of the scripts at the end of the file.\n\n3. **Apply the changes**:\n   Save the file and reload the shell configuration by running:\n   ```bash\n   source ~/.bashrc\n   ```\n\n4. **Enjoy your new prompt**:\n   Your terminal prompt will now display according to the selected script!\n\nFeel free to tweak the scripts to match your personal preferences or workflow needs. For example, you can add the current time, change colors, or adjust formatting.",
-      "updatedAt": "2025-01-12T19:04:39.577Z",
-      "createdAt": "2024-12-15T23:44:46.994Z"
-    },
-    {
-      "id": 55,
-      "slug": "install-nodejs-via-nvm",
-      "title": "Install NodeJS via NVM",
-      "subtitle": "Looking to install nodejs, this can be easily done with node version manager.",
-      "category": {
-        "id": 4,
-        "slug": "linux",
-        "title": "Linux",
-        "subtitle": "Effortlessly install various services across multiple distributions, with the assistance of automated scripts that are predominantly focused on Ubuntu.",
-        "updatedAt": "2024-12-15T23:30:21.321Z",
-        "createdAt": "2024-12-15T23:30:21.321Z"
-      },
-      "markdown": "#### Tested on\n\n- Ubuntu 22.04\n- Ubuntu 20.04\n\n> You can also install nvm on windows, there's an repository with an installer for it, [nvm-windows](https://github.com/coreybutler/nvm-windows/releases) scroll down to assets.\n\n### Install Node Version Manager\n```\ncurl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash\n```\n\n### Install any version of NodeJS\n```\nnvm install 20\n```\n\n### Start using a specific version\n```\nnvm use 20\n```\n\n#### Error: nvm: command not found\n> This error is to be expected, you need to restart your session after NVM has been installed. Meaning you have to log out and back into your system.",
-      "updatedAt": "2024-12-15T23:44:35.604Z",
-      "createdAt": "2024-12-15T23:44:35.604Z"
-    },
-    {
-      "id": 54,
-      "slug": "ubuntu-disk-resize",
-      "title": "Ubuntu Disk Resize",
-      "subtitle": "After expanding the space on your disk ubuntu won't automatically use the entire volume, in Windows you'd open Disk Manager and do it in there. This is a bit harder to do on the terminal though.",
-      "category": {
-        "id": 6,
-        "slug": "catalogue",
-        "title": "Catalogue",
-        "subtitle": "A vast compendium of knowledge which encompasses a wide range of common issues and their corresponding solutions, offering a convenient and searchable resource for troubleshooting.",
-        "updatedAt": "2024-12-15T23:30:36.981Z",
-        "createdAt": "2024-12-15T23:30:36.981Z"
-      },
-      "markdown": "### This has been tested on\n\n- Ubuntu 20.04\n\n### Get started\n\nExpanding your logical volume on your system via the following commands:\n\n> 1. \n> ```\n> apt install -y parted\n> ```\n\n> 2. \n> ```\n> parted\n> ```\n\n> 2a. \n> ```\n> print\n> ``` \n\n> 2b. \n> ```\n> resizepart\n> ```\n\n> 2c. \n> ```\n> quit\n> ```\n\n> 3. \n> ```\n> pvresize /dev/sda3\n> ```\n\n> 4. \n> ```\n> lvextend /dev/ubuntu-vg/ubuntu-lv -l+100%FREE\n> ```\n\n> 5. \n> ```\n> resize2fs /dev/ubuntu-vg/ubuntu-lv\n> ```",
-      "updatedAt": "2024-12-15T23:44:23.795Z",
-      "createdAt": "2024-12-15T23:44:23.795Z"
-    },
-    {
-      "id": 53,
-      "slug": "install-docker",
-      "title": "Install Docker",
-      "subtitle": "This script will install the latest version of Docker and also includes Docker Compose.",
-      "category": {
-        "id": 4,
-        "slug": "linux",
-        "title": "Linux",
-        "subtitle": "Effortlessly install various services across multiple distributions, with the assistance of automated scripts that are predominantly focused on Ubuntu.",
-        "updatedAt": "2024-12-15T23:30:21.321Z",
-        "createdAt": "2024-12-15T23:30:21.321Z"
-      },
-      "markdown": "# Install Docker with the Compose plugin\n```\ncurl -sSL https://get.docker.com/ | sudo sh\n```\n\n## Allow a non-root to use Docker\n```\nsudo usermod -aG docker $USER\n```\n\n## Tested on\n\n- Ubuntu 20.04\n- Ubuntu 22.04 ",
-      "updatedAt": "2024-12-15T23:44:07.569Z",
-      "createdAt": "2024-12-15T23:44:07.569Z"
-    },
-    {
-      "id": 52,
-      "slug": "port-25-occupied",
-      "title": "Port 25 Occupied",
-      "subtitle": "Are you facing difficulties with setting up a mail server as port 25 is already in use by Ubuntu for postfix? Follow the instructions to free up port 25.",
-      "category": {
-        "id": 6,
-        "slug": "catalogue",
-        "title": "Catalogue",
-        "subtitle": "A vast compendium of knowledge which encompasses a wide range of common issues and their corresponding solutions, offering a convenient and searchable resource for troubleshooting.",
-        "updatedAt": "2024-12-15T23:30:36.981Z",
-        "createdAt": "2024-12-15T23:30:36.981Z"
-      },
-      "markdown": "1. Edit the master configuration file of postfix using the following command:\n```\nvim /etc/postfix/master.cf\n```\n\n2. Locate the line that specifies port 25 and modify it to use a different port, such as 2525:\n```\nsmtp            inet      n      -       n       -       -        smtpd\n```\n\nChange it to:\n```\n2525            inet      n      -       n       -       -        smtpd\n```\n\n3. Save the changes and exit the file.\n\n4. Apply the modifications to postfix by restarting the service:\n```\n/etc/init.d/postfix restart\n```",
-      "updatedAt": "2024-12-15T23:43:55.864Z",
-      "createdAt": "2024-12-15T23:43:55.864Z"
-    },
-    {
-      "id": 51,
-      "slug": "resolvconf-not-found",
-      "title": "Resolvconf not found",
-      "subtitle": "Resolveconf: command not found, is an error that occurs when the package has not been mapped to your user bin directory.",
-      "category": {
-        "id": 6,
-        "slug": "catalogue",
-        "title": "Catalogue",
-        "subtitle": "A vast compendium of knowledge which encompasses a wide range of common issues and their corresponding solutions, offering a convenient and searchable resource for troubleshooting.",
-        "updatedAt": "2024-12-15T23:30:36.981Z",
-        "createdAt": "2024-12-15T23:30:36.981Z"
-      },
-      "markdown": "Run the following command to map resolvconf to your user bin, this'll allow you to run the command straight from the Shell again.\n\n```\nln -s /usr/bin/resolvectl /usr/local/bin/resolvconf\n```",
-      "updatedAt": "2024-12-15T23:43:44.735Z",
-      "createdAt": "2024-12-15T23:43:44.735Z"
-    },
-    {
-      "id": 50,
-      "slug": "github-save-access-token",
-      "title": "GitHub Save Access Token",
-      "subtitle": "Hate the hassle of having to constantly authenticate for each GIT actions you perform and would like to sacrifice some security over it? ",
-      "category": {
-        "id": 6,
-        "slug": "catalogue",
-        "title": "Catalogue",
-        "subtitle": "A vast compendium of knowledge which encompasses a wide range of common issues and their corresponding solutions, offering a convenient and searchable resource for troubleshooting.",
-        "updatedAt": "2024-12-15T23:30:36.981Z",
-        "createdAt": "2024-12-15T23:30:36.981Z"
-      },
-      "markdown": "You can run the command below to save your personal access token generated on GitHub.\n\n```\ngit config --global credential.helper store\n```\n> Do keep in mind that this action requires you to authenticate **one more** time!\n\nGenerate your own token here: [Access Tokens](https://github.com/settings/tokens)",
-      "updatedAt": "2024-12-15T23:43:33.269Z",
-      "createdAt": "2024-12-15T23:43:33.269Z"
-    },
-    {
-      "id": 49,
-      "slug": "portainer-is-unreachable",
-      "title": "Portainer is unreachable",
-      "subtitle": "Having trouble accessing Portainer behind a proxy such as nginx proxy manager, a setting can solve that.",
-      "category": {
-        "id": 6,
-        "slug": "catalogue",
-        "title": "Catalogue",
-        "subtitle": "A vast compendium of knowledge which encompasses a wide range of common issues and their corresponding solutions, offering a convenient and searchable resource for troubleshooting.",
-        "updatedAt": "2024-12-15T23:30:36.981Z",
-        "createdAt": "2024-12-15T23:30:36.981Z"
-      },
-      "markdown": "Add the following to your advanced tab in Nginx Proxy Manager:\n\n|This can be found at:|Advanced > Custom Nginx Configuration|\n|-|-|\n\n```\nproxy_ssl_protocols TLSv1.3;\n```",
-      "updatedAt": "2024-12-15T23:43:08.377Z",
-      "createdAt": "2024-12-15T23:43:08.377Z"
-    },
-    {
-      "id": 48,
-      "slug": "github-runner-root-error",
-      "title": "GitHub Runner - Root Error",
-      "subtitle": "This error occurs by default, GitHub prevents their runners from being run on a root account.",
-      "category": {
-        "id": 6,
-        "slug": "catalogue",
-        "title": "Catalogue",
-        "subtitle": "A vast compendium of knowledge which encompasses a wide range of common issues and their corresponding solutions, offering a convenient and searchable resource for troubleshooting.",
-        "updatedAt": "2024-12-15T23:30:36.981Z",
-        "createdAt": "2024-12-15T23:30:36.981Z"
-      },
-      "markdown": "The following command should solve this issue by setting the environment variable which negates the check if a user is root or not.\n\n```\nexport RUNNER_ALLOW_RUNASROOT=\"1\"\n```",
-      "updatedAt": "2024-12-15T23:42:56.219Z",
-      "createdAt": "2024-12-15T23:42:56.219Z"
-    },
-    {
-      "id": 47,
-      "slug": "nvidia-gpu-passthrough-for-lxcs",
-      "title": "Nvidia GPU passthrough for LXCs",
-      "subtitle": "Enhancing GPU Passthrough on Proxmox: A Comprehensive Guide for Nvidia GPUs Across Multiple LXCs with Shared GPU Access",
-      "category": {
-        "id": 3,
-        "slug": "proxmox",
-        "title": "Proxmox",
-        "subtitle": "Simplify the process of setting up your Proxmox environment with helpful configuration guides and informative notes that streamline the setup procedure.",
-        "updatedAt": "2024-12-15T23:30:12.781Z",
-        "createdAt": "2024-12-15T23:30:12.781Z"
-      },
-      "markdown": "## Guide for Nvidia GPU Integration\n\n### System Specifications\n\n```\nMotherboard: Asrock B550M Pro4\nCPU: Ryzen 5 5600G\nRAM: 2x32GB 3200 DDR4\nGPU: Nvidia 750 Ti (2GB)\n```\n```\nProxmox: 8.1.10\n```\n\n### Acknowledgements\n\nThis guide benefited from various sources, including:\n\n- [Proxmox: PCI Passthrough](https://pve.proxmox.com/wiki/PCI_Passthrough)\n- [Jim's Garage: vGPU for Intel based cards (YouTube)](https://www.youtube.com/watch?v=0ZDr5h52OOE)\n- [Jim's Garage: Set of instructions (GitHub)](https://github.com/JamesTurland/JimsGarage/blob/main/LXC/Jellyfin/readme.md)\n\n### Introduction\n\nThis comprehensive guide aims to streamline the integration process of Nvidia GPUs with Proxmox and LXC containers. It condenses knowledge from various sources into a practical, step-by-step format for ease of implementation.\n\n### Installing Nvidia Drivers on the Proxmox Host\n\n#### Download and Install Driver\n\n1. Visit [Nvidia's Driver download page](https://www.nvidia.com/download/index.aspx) and select the appropriate driver for your GPU.\n2. Copy the download link and execute the following commands:\n\n    ```bash\n    wget <YOUR_DRIVER_DOWNLOAD_LINK> -O driver.run\n    chmod +x ./driver.run\n    sudo ./driver.run\n    ```\n\n3. Follow on-screen prompts, selecting defaults as necessary. If prompted to overwrite X defaults, choose \"yes.\"\n\n#### Verification\n\nEnsure the driver installation was successful by running:\n\n```bash\nnvidia-smi\n```\n\nThe output should look similiar to this:\n\n![Output of nvidia-smi](https://wiki.thijmenheuvelink.nl/pb/api/files/kblyx6ommv2lhn8/dwdjmzx3l6h3rnz/snipaste_2024_04_25_15_38_18_UTXbzrKR8a.png?token=)\n\n### Making the GPU Available to LXC Containers on Proxmox (Host Configuration)\n\nFor a detailed understanding of device and group identification, refer to [Jim's video](https://www.youtube.com/watch?v=0ZDr5h52OOE).\n\n#### Identify Device Numbers\n\n```bash\nls -l /dev/dri\n```\n\n#### Identify Group Numbers\n\n```bash\ncat /etc/group\n```\n\n#### Update Subgid\n\nEdit the subgid file:\n\n```bash\nnano /etc/subgid\n```\n\nReplace values with those obtained earlier.\n\n#### Edit LXC Configuration\n\nEdit the LXC configuration file:\n\n```bash\nnano /etc/pve/lxc/<lxc-id>.conf\n```\n\nAdd the following lines:\n\n```bash\nlxc.cgroup2.devices.allow: c 226:0 rwm\nlxc.cgroup2.devices.allow: c 226:128 rwm\nlxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file\nlxc.idmap: u 0 100000 65536\nlxc.idmap: g 0 100000 44\nlxc.idmap: g 44 44 1\nlxc.idmap: g 45 100045 62\nlxc.idmap: g 107 104 1\nlxc.idmap: g 108 100108 65428\nlxc.mount.entry: /dev/nvidia0 dev/nvidia0 none bind,optional,create=file\nlxc.mount.entry: /dev/nvidiactl dev/nvidiactl none bind,optional,create=file\nlxc.mount.entry: /dev/nvidia-uvm dev/nvidia-uvm none bind,optional,create=file\nlxc.mount.entry: /dev/nvidia-modeset dev/nvidia-modeset none bind,optional,create=file\nlxc.mount.entry: /dev/nvidia-uvm-tools dev/nvidia-uvm-tools none bind,optional,create=file\n```\n\n#### Add Root to Groups\n\nGrant root user access to necessary groups:\n\n```bash\nusermod -aG render,video root\n```\n\n### Setting up Your LXC\n\n### System Specifications\n\n```\nOS: Ubuntu 22.04\n```\n\n#### Install Nvidia Docker Container Toolkit\n\nFollow the installation guide [here](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#configuration), adapting steps as necessary.\n\n#### Installing Nvidia Driver (LXC)\n\nEnsure consistency of Nvidia driver versions between Proxmox host and LXC.\n\n1. Download and install the driver:\n\n    ```bash\n    wget <YOUR_DRIVER_DOWNLOAD_LINK> -O driver.run\n    chmod +x ./driver.run\n    sudo ./driver.run --no-kernel-module\n    ```\n\n2. Follow prompts, using default settings. Use the flag \"--no-kernel-module\" to prevent kernel reinstallation.\n\n#### Verification\n\nConfirm driver installation within LXC:\n\n```bash\nnvidia-smi\n```\n\nThe output should look similiar to this:\n\n![Output of nvidia-smi](https://wiki.thijmenheuvelink.nl/pb/api/files/kblyx6ommv2lhn8/dwdjmzx3l6h3rnz/snipaste_2024_04_25_15_38_18_UTXbzrKR8a.png?token=)\n\n## Conclusion\n\nYour LXC container is now configured to utilize the Nvidia GPU effectively. For scaling to additional LXCs, repeat the configuration steps outlined above.\n\nFor further inquiries or assistance, feel free to reach out:\n\n- Email: mail@thijmenheuvelink.nl\n- Discord: thijmengthn",
-      "updatedAt": "2024-12-15T23:42:42.367Z",
-      "createdAt": "2024-12-15T23:42:42.367Z"
-    },
-    {
-      "id": 46,
-      "slug": "lxc-tun-unavailable-(vpn)",
-      "title": "LXC Tun Unavailable (VPN)",
-      "subtitle": "To address the problem of LXC Tun being inaccessible, a proposed solution is to make adjustments in the LXC configuration file to grant the required permissions and bindings.",
-      "category": {
-        "id": 3,
-        "slug": "proxmox",
-        "title": "Proxmox",
-        "subtitle": "Simplify the process of setting up your Proxmox environment with helpful configuration guides and informative notes that streamline the setup procedure.",
-        "updatedAt": "2024-12-15T23:30:12.781Z",
-        "createdAt": "2024-12-15T23:30:12.781Z"
-      },
-      "markdown": "Improved readme instructions:\n\n1. Open the shell on your node.\n2. Navigate to the directory `/etc/pve/lxc`.\n3. Locate and open the configuration file for the LXC that you want to modify.\n4. At the end of the config file, add the following rules:\n```\nlxc.cgroup.devices.allow: c 10:200 rwm\nlxc.mount.entry: /dev/net dev/net none bind,create=dir\n```\n5. Save the config file and exit the editor.\n6. Reboot the LXC to apply the changes.\n7. After the reboot, the error should now be resolved.",
-      "updatedAt": "2024-12-15T23:42:30.562Z",
-      "createdAt": "2024-12-15T23:42:30.562Z"
-    },
-    {
-      "id": 45,
-      "slug": "usb-automount",
-      "title": "USB Automount",
-      "subtitle": "Automatically mount any usb inserted into your PVE node as a disk",
-      "category": {
-        "id": 3,
-        "slug": "proxmox",
-        "title": "Proxmox",
-        "subtitle": "Simplify the process of setting up your Proxmox environment with helpful configuration guides and informative notes that streamline the setup procedure.",
-        "updatedAt": "2024-12-15T23:30:12.781Z",
-        "createdAt": "2024-12-15T23:30:12.781Z"
-      },
-      "markdown": "### 1. Register the Third-Party repo\n\nRun **one of the following** in your PVE Node Shell depending on the codename of it's release. \n\n|Codename|Command|\n|-|-|\n|Bionic|echo \"deb https://apt.iteas.at/iteas bionic main\" > /etc/apt/sources.list.d/iteas.list|\n|Focal|echo \"deb https://apt.iteas.at/iteas focal main\" > /etc/apt/sources.list.d/iteas.list|\n|Buster|echo \"deb https://apt.iteas.at/iteas buster main\" > /etc/apt/sources.list.d/iteas.list|\n|Bullseye|echo \"deb https://apt.iteas.at/iteas bullseye main\" > /etc/apt/sources.list.d/iteas.list|\n\n### 2. Install the auto mounter\n\n```\nsudo apt update\n```\n\n```\nsudo apt install -y pve7-usb-automount\n```\n\n#### An error occured, here's a common solution.\n\nThis command adds a GPG key from the keyserver.ubuntu.com keyserver to the list of trusted keys on the system.\n\n```\napt-key adv --recv-keys --keyserver keyserver.ubuntu.com <your-key-displayed-in-console>\n``` ",
-      "updatedAt": "2024-12-15T23:42:20.238Z",
-      "createdAt": "2024-12-15T23:42:20.238Z"
-    },
-    {
-      "id": 44,
-      "slug": "install-a-dark-theme",
-      "title": "Install a Dark Theme",
-      "subtitle": "This theme is inspired by the color-scheme of Discord and is very easy on the eyes, especially at night.",
-      "category": {
-        "id": 3,
-        "slug": "proxmox",
-        "title": "Proxmox",
-        "subtitle": "Simplify the process of setting up your Proxmox environment with helpful configuration guides and informative notes that streamline the setup procedure.",
-        "updatedAt": "2024-12-15T23:30:12.781Z",
-        "createdAt": "2024-12-15T23:30:12.781Z"
-      },
-      "markdown": "### Installation script to install the dark theme\n\nPaste the following command in your PVE Node it's Shell:\n\n```\nbash <(curl -s https://raw.githubusercontent.com/Weilbyte/PVEDiscordDark/master/PVEDiscordDark.sh ) install\n```\n\n#### Theme Preview\n\n![preview](https://wiki.thijmenheuvelink.nl/pb/api/files/kblyx6ommv2lhn8/azdam2he23bgfys/image_2023_12_17_005530093_Q6V1ePrOme.png?token=)",
-      "updatedAt": "2024-12-15T23:42:02.659Z",
-      "createdAt": "2024-12-15T23:42:02.659Z"
-    },
-    {
-      "id": 43,
-      "slug": "remove-subscription-notice",
-      "title": "Remove Subscription Notice",
-      "subtitle": "A useful script to get rid of the no-subscription message proxmox displays on login when using the non-production ready repository.",
-      "category": {
-        "id": 3,
-        "slug": "proxmox",
-        "title": "Proxmox",
-        "subtitle": "Simplify the process of setting up your Proxmox environment with helpful configuration guides and informative notes that streamline the setup procedure.",
-        "updatedAt": "2024-12-15T23:30:12.781Z",
-        "createdAt": "2024-12-15T23:30:12.781Z"
-      },
-      "markdown": "### Tested on \n\n- PVE 7.1-10.x\n- PVE 8.0-1.x\n\n## Subscription notice removal script\n\nPaste the following command in your PVE Node it's Shell:\n\n```\nsed -Ezi.bak \"s/(Ext.Msg.show\\(\\{\\s+title: gettext\\('No valid sub)/void\\(\\{ \\/\\/\\1/g\" /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js && systemctl restart pveproxy.service\n```",
-      "updatedAt": "2024-12-15T23:41:50.639Z",
-      "createdAt": "2024-12-15T23:41:50.639Z"
-    },
-    {
-      "id": 42,
-      "slug": "merge-disks-after-installation",
-      "title": "Merge disks after installation",
-      "subtitle": "This guide contains a clip from Network Chuck who will explain how to combine your two disks into a singular enlarged disk.",
-      "category": {
-        "id": 3,
-        "slug": "proxmox",
-        "title": "Proxmox",
-        "subtitle": "Simplify the process of setting up your Proxmox environment with helpful configuration guides and informative notes that streamline the setup procedure.",
-        "updatedAt": "2024-12-15T23:30:12.781Z",
-        "createdAt": "2024-12-15T23:30:12.781Z"
-      },
-      "markdown": "The clip of the video below will explain how to combine your local and local-lvm disks into a singular enlarged disk. This is optimal in most cases.\n\nhttps://www.youtube.com/watch?v=_u8qTN3cCnQ&t=960s\n\n[![Video by Network Chuck](https://wiki.thijmenheuvelink.nl/pb/api/files/kblyx6ommv2lhn8/a11kp1nxn2se3tu/image_2023_12_17_004438865_IyiZSFFzNc.png?token=)](https://www.youtube.com/watch?v=_u8qTN3cCnQ&t=960s)",
-      "updatedAt": "2024-12-15T23:41:37.066Z",
-      "createdAt": "2024-12-15T23:41:37.066Z"
-    },
-    {
-      "id": 41,
-      "slug": "setup-emails",
-      "title": "Setup Emails",
-      "subtitle": "The following guide provides a detailed set of instructions on how to enable sending emails on Proxmox.",
-      "category": {
-        "id": 3,
-        "slug": "proxmox",
-        "title": "Proxmox",
-        "subtitle": "Simplify the process of setting up your Proxmox environment with helpful configuration guides and informative notes that streamline the setup procedure.",
-        "updatedAt": "2024-12-15T23:30:12.781Z",
-        "createdAt": "2024-12-15T23:30:12.781Z"
-      },
-      "markdown": "## Email configuration\n\n##Configuring User E-mail Address\n\n- In a web browser, navigate to the Proxmox web UI and login\n- Select Datacenter > Permissions > Users from the left navigation menus\n- Double click the user to configure\n- Complete the E-mail field on the Edit User form > Click OK\n\n### Simple Configuration via Web UI\n\n*By default, Proxmox will try to use the domain portion of the \"Email from address\" as the e-mail relay server.*\n\n- Select Datacenter > Options from the left navigation menus\n- Double click the Email from address field\n- Enter the e-mail address that Proxmox will send outgoing e-mails from > Click OK\n- Expand Datacenter > Select the node name > Click Shell in the left navigation menus\n- Run the following commands in the terminal\n\n```\n# send a basic test email\necho \"Test email from Proxmox: $(hostname)\" | /usr/bin/pvemailforward\n# output the mail log\ncat /var/log/mail.log\n```\n\n### Advanced Configuration via CLI\n\n*To make more advanced configuration changes, like using a gmail account, you need to edit the postfix settings via command line.*\n\n- Back in the Proxmox web shell, run the following commands in the terminal.\n\n```\n# install libsasl\napt install libsasl2-modules -y\n# edit the postfix config\nnano /etc/postfix/main.cf\n```\n\n- Press CTRL+W and search for mydestination\n- Comment out mydestination by adding a # to the beginning of the line\n- Press CTRL+W and search for relayhost\n- Comment out relayhost by adding a # to the beginning of the line\n- Update or add the following configuration\n\n```\nrelayhost = smtp.gmail.com:587\nsmtp_use_tls = yes\nsmtp_sasl_auth_enable = yes\nsmtp_sasl_security_options =\nsmtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd\nsmtp_tls_CAfile = /etc/ssl/certs/Entrust_Root_Certification_Authority.pem\n```\n\n- Press CTRL+O, Enter, CTRL+X to write the changes\n- Continue with the following commands in the terminal\n\n```\n# create /etc/postfix/sasl_passwd\nnano /etc/postfix/sasl_passwd\n```\n\n- Add a line to configure gmail authentication\n\n```\nsmtp.gmail.com:587 <%youraccount%>@gmail.com:<%yourpassword%>\n```\n\n- Press CTRL+O, Enter, CTRL+X to write the changes\n- Continue with the following commands in the terminal\n\n```\n# update postfix lookup tables\npostmap hash:/etc/postfix/sasl_passwd\n# limit access to sasl_passwd to only root\nchmod 600 /etc/postfix/sasl_passwd\n# restart postfix service\nsystemctl restart postfix\n# test from postfix directly\necho \"Test email from Proxmox: $(hostname)\" | mail -s \"Proxmox Testing\" <%youraccount%>@gmail.com\n# send a test from proxmox\necho \"Test email from Proxmox: $(hostname)\" | /usr/bin/pvemailforward\n```\n",
-      "updatedAt": "2024-12-15T23:41:23.580Z",
-      "createdAt": "2024-12-15T23:41:23.580Z"
-    },
-    {
-      "id": 40,
-      "slug": "activate-windows",
-      "title": "Activate Windows",
-      "subtitle": "A Windows and Office activator using HWID / Ohook / KMS38 / Online KMS activation methods",
-      "category": {
-        "id": 1,
-        "slug": "windows",
-        "title": "Windows",
-        "subtitle": "Access a comprehensive library of resources specifically tailored to Windows, including step-by-step guides, best practices, and troubleshooting tips for optimal performance.",
-        "updatedAt": "2024-12-15T23:29:51.660Z",
-        "createdAt": "2024-12-15T23:29:51.660Z"
-      },
-      "markdown": "## Getting started\n\n-   Right-click on the Windows start menu and select PowerShell or Terminal (Not CMD).\n-   Copy and paste the code below and press enter  \n  ```\nirm https://get.activated.win | iex\n```  \n-   You will see the activation options. Follow the on-screen instructions.\n\n### Maintained by Massgravel\n\nGitHub: https://github.com/massgravel/Microsoft-Activation-Scripts",
-      "updatedAt": "2024-12-15T23:41:09.106Z",
-      "createdAt": "2024-12-15T23:41:09.106Z"
-    },
-    {
-      "id": 39,
-      "slug": "portable-programs",
-      "title": "Portable Programs",
-      "subtitle": "A list of portable apps which can run from a USB drive without installation, allowing easy use of favorite programs on multiple computers.",
-      "category": {
-        "id": 1,
-        "slug": "windows",
-        "title": "Windows",
-        "subtitle": "Access a comprehensive library of resources specifically tailored to Windows, including step-by-step guides, best practices, and troubleshooting tips for optimal performance.",
-        "updatedAt": "2024-12-15T23:29:51.660Z",
-        "createdAt": "2024-12-15T23:29:51.660Z"
-      },
-      "markdown": "_Simply click on the name of any program to instantly access its contents and conveniently download it._\n\n### [7zip](https://cloud.thijmenheuvelink.nl/s/RaxZYfLNTJ3dHgj)\nFile compression software that allows you to compress and decompress files in various formats.\n\n### [Auto Clicker](https://cloud.thijmenheuvelink.nl/s/FAK9oAS4sNJdyxW)\nA program that automatically clicks the mouse at specified intervals, useful for repetitive tasks or gaming.\n\n### [File structure editor](https://cloud.thijmenheuvelink.nl/s/n9DkjM8t4QdDrSJ)\nA registry editor that enables you to remove folders in the file explorer and customize your file system. \n\n### [Filezilla](https://cloud.thijmenheuvelink.nl/s/5wgiqSbaMqDzz4s)\nAn open-source FTP client that allows you to transfer files between your computer and a remote server. \n\n### [GIMP](https://cloud.thijmenheuvelink.nl/s/tFMHwopwP9orFym)\nA powerful, free image editing software that offers a wide range of tools and features.\n\n### [IP/Port scanner](https://cloud.thijmenheuvelink.nl/s/AAgEZmJLzLezqrs)\nSoftware that scans a network to identify active IP addresses, their port and gather information about connected devices. \n\n### [Rufus](https://cloud.thijmenheuvelink.nl/s/CTT2d9NPK3RjkWr)\nA utility that allows you to create bootable USB drives, making it easy to install operating systems or run diagnostic tools. \n\n### [Speccy](https://cloud.thijmenheuvelink.nl/s/Aaf4Zq5ZKa47xWL)\nA system information tool that provides detailed information about your computer's hardware components. \n\n### [Everything](https://cloud.thijmenheuvelink.nl/s/XTkrjEnFXTrFTco)\nLocate files and folders by name instantly on your entire computer, like magic.\n\n### [TreeSize](https://cloud.thijmenheuvelink.nl/s/yoRKE3Mw9oLWAgF)\nA disk space management tool that visually represents the size of folders and files on your hard drive, helping you identify and manage disk space usage efficiently. \n\n### [Torrent](https://cloud.thijmenheuvelink.nl/s/poD3qQBm9bfm4fr)\nA peer-to-peer file sharing protocol that facilitates the distribution and downloading of large files, often used for sharing media files such as movies or software.",
-      "updatedAt": "2024-12-15T23:40:56.540Z",
-      "createdAt": "2024-12-15T23:40:56.540Z"
-    },
-    {
-      "id": 38,
-      "slug": "win-11-local-account",
-      "title": "Win 11 Local Account",
-      "subtitle": "Instructions on how to install Windows 11 using a local account.",
-      "category": {
-        "id": 1,
-        "slug": "windows",
-        "title": "Windows",
-        "subtitle": "Access a comprehensive library of resources specifically tailored to Windows, including step-by-step guides, best practices, and troubleshooting tips for optimal performance.",
-        "updatedAt": "2024-12-15T23:29:51.660Z",
-        "createdAt": "2024-12-15T23:29:51.660Z"
-      },
-      "markdown": "To install Windows 11 with a local account, follow the steps below:\n\n1. Disable your internet connection.\n2. Proceed with the Windows 11 installation process until you reach the \"Sign in with Microsoft\" screen.\n3. Enter the following email address: `no@thankyou.com`.\n4. Set any password of your choice, and click on the \"Next\" button.\n5. An error message will be displayed stating that the sign-in couldn't be completed. Click on the \"Next\" button to proceed.\n6. You can now continue setting up your local account by following the on-screen instructions.\n\n_It is recommended to re-enable your internet connection after completing the installation process to ensure full functionality and access to relevant updates and features._\n\n![Preview](https://wiki.thijmenheuvelink.nl/pb/api/files/kblyx6ommv2lhn8/4wxj69ryrzhh6xg/image_2023_12_17_163254304_YYWyFMN23N.png?token=)",
-      "updatedAt": "2024-12-15T23:40:45.274Z",
-      "createdAt": "2024-12-15T23:40:45.274Z"
-    },
-    {
-      "id": 37,
-      "slug": "powershell-running-scripts",
-      "title": "PowerShell Running Scripts",
-      "subtitle": "By default windows has this disabled for powershell, most commonly packages managers like Yarn require running scripts to be enabled.",
-      "category": {
-        "id": 1,
-        "slug": "windows",
-        "title": "Windows",
-        "subtitle": "Access a comprehensive library of resources specifically tailored to Windows, including step-by-step guides, best practices, and troubleshooting tips for optimal performance.",
-        "updatedAt": "2024-12-15T23:29:51.660Z",
-        "createdAt": "2024-12-15T23:29:51.660Z"
-      },
-      "markdown": "To allow running scripts on your system, the following has to be inserted into PowerShell:\n```\nset-executionpolicy remotesigned\n```\n\n![Execution Sample](https://wiki.thijmenheuvelink.nl/pb/api/files/kblyx6ommv2lhn8/zelezc71mvzd26u/image_2023_12_16_203416674_1tMPWiIdEX.png?token=)",
-      "updatedAt": "2024-12-15T23:40:33.924Z",
-      "createdAt": "2024-12-15T23:40:33.924Z"
-    },
-    {
-      "id": 36,
-      "slug": "adguard-dns",
-      "title": "AdGuard DNS",
-      "subtitle": "AdGuard Home is a network-wide software for blocking ads and tracking. It functions as a DNS server that can filter traffic and improve privacy for your devices.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### via Docker Compose\n\n```\nservices:\n  adguard:\n    image: adguard/adguardhome\n    container_name: adguard\n    restart: unless-stopped\n    volumes:\n      - ./data/workdir:/opt/adguardhome/work\n      - ./data/confdir:/opt/adguardhome/conf\n    ports:\n      - \"53:53/tcp\"\n      - \"53:53/udp\"\n      - \"67:67/udp\"\n      - \"68:68/udp\"\n      - \"80:80/tcp\"\n      - \"443:443/tcp\"\n      - \"443:443/udp\"\n      - \"3000:3000/tcp\"\n      - \"853:853/tcp\"\n      - \"784:784/udp\"\n      - \"853:853/udp\"\n      - \"8853:8853/udp\"\n      - \"5443:5443/tcp\"\n      - \"5443:5443/udp\"\n```\n\n### Launching AdGuard\n\n1. Save the above content as docker-compose.yml in your desired directory.\n2. Navigate to the directory in your terminal.\n3. Run the following command to start the container:\n\n```\ndocker-compose up -d\n```\n\nThe service will now be running in detached mode. You can access the AdGuard Home web interface using the IP address of your host machine on port 3000.",
-      "updatedAt": "2024-12-15T23:40:16.781Z",
-      "createdAt": "2024-12-15T23:40:16.781Z"
-    },
-    {
-      "id": 35,
-      "slug": "bazarr",
-      "title": "Bazarr",
-      "subtitle": "Bazarr is a handy tool designed to manage and download subtitles for your media files, ensuring that your movies and TV shows are equipped with accurate subtitles for an enhanced viewing experience.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"2.1\"\nservices:\n  bazarr:\n    image: lscr.io/linuxserver/bazarr:latest\n    container_name: bazarr\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Amsterdam\n    volumes:\n      - ./config:/config\n      - ./data/movies:/movies\n      - ./data/series:/tv\n    ports:\n      - 6767:6767\n    restart: unless-stopped\n```\n\n### Start it\n\n```\ndocker-compose up -d\n```",
-      "updatedAt": "2024-12-15T23:40:00.204Z",
-      "createdAt": "2024-12-15T23:40:00.204Z"
-    },
-    {
-      "id": 34,
-      "slug": "flareresolverr",
-      "title": "Flareresolverr",
-      "subtitle": "FlareSolverr is a proxy server to bypass Cloudflare and DDoS-GUARD protection.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"2.1\"\nservices:\n  flaresolverr:\n    image: flaresolverr/flaresolverr:latest\n    container_name: flaresolverr\n    environment:\n      - TZ=Europe/Amsterdam\n    ports:\n      - \"8191:8191\"\n    restart: unless-stopped\n```\n\n### Start it\n\n```\ndocker-compose up -d\n```",
-      "updatedAt": "2024-12-15T23:39:49.729Z",
-      "createdAt": "2024-12-15T23:39:49.729Z"
-    },
-    {
-      "id": 33,
-      "slug": "jellyseerr",
-      "title": "Jellyseerr",
-      "subtitle": "Jellyseerr is a free and open source software application for managing requests for your media library.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: '3'\nservices:\n    jellyseerr:\n       image: fallenbagel/jellyseerr:latest\n       container_name: jellyseerr\n       environment:\n            - TZ=Europe/Amsterdam\n       ports:\n            - 5055:5055\n       volumes:\n            - ./config:/app/config\n       restart: unless-stopped\n```\n\n### Start it\n\n```\ndocker-compose up -d\n```",
-      "updatedAt": "2024-12-15T23:39:37.660Z",
-      "createdAt": "2024-12-15T23:39:37.660Z"
-    },
-    {
-      "id": 32,
-      "slug": "prowlarr",
-      "title": "Prowlarr",
-      "subtitle": "Prowlarr is a versatile application that consolidates multiple torrent trackers, enhancing the efficiency of content searching and downloading within the Usenet community.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"2.1\"\nservices:\n  prowlarr:\n    image: lscr.io/linuxserver/prowlarr:latest\n    container_name: prowlarr\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Amsterdam\n    volumes:\n      - ./config:/config\n    ports:\n      - 9696:9696\n    restart: unless-stopped\n```\n\n### Start it\n\n```\ndocker-compose up -d\n```",
-      "updatedAt": "2024-12-15T23:39:21.816Z",
-      "createdAt": "2024-12-15T23:39:21.816Z"
-    },
-    {
-      "id": 31,
-      "slug": "sonarr",
-      "title": "Sonarr",
-      "subtitle": "Sonarr is a widely used software for automating the retrieval and management of TV shows, making it effortless to keep up with your favorite series.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"2.1\"\nservices:\n  sonarr:\n    image: lscr.io/linuxserver/sonarr:latest\n    container_name: sonarr\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Amsterdam\n    volumes:\n      - ./config:/config\n      - ./data/series:/series\n      - ./data/downloads:/downloads\n    ports:\n      - 8989:8989\n    restart: unless-stopped\n```\n\n### Start it\n\n```\ndocker-compose up -d\n```",
-      "updatedAt": "2024-12-15T23:39:10.867Z",
-      "createdAt": "2024-12-15T23:39:10.867Z"
-    },
-    {
-      "id": 30,
-      "slug": "radarr",
-      "title": "Radarr",
-      "subtitle": "Radarr is a popular open-source tool for managing and automating movie downloads.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"2.1\"\nservices:\n  radarr:\n    image: lscr.io/linuxserver/radarr:latest\n    container_name: radarr\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Amsterdam\n    volumes:\n      - ./config:/config\n      - ./data/movies:/movies\n      - ./data/downloads:/downloads\n    ports:\n      - 7878:7878\n    restart: unless-stopped\n```\n\n### Start it\n\n```\ndocker-compose up -d\n```",
-      "updatedAt": "2024-12-15T23:38:59.765Z",
-      "createdAt": "2024-12-15T23:38:59.765Z"
-    },
-    {
-      "id": 29,
-      "slug": "ollama-ui",
-      "title": "Ollama UI",
-      "subtitle": "Ollama with WebUI",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "```yml\nservices:\n  ollama-engine:\n    image: ollama/ollama:latest\n    container_name: ollama-engine\n    restart: unless-stopped\n    ports: [\"11434:11434\"]\n    volumes:\n      - ./ollama/engine:/root/.ollama\n    # OPTIONAL: Nvidia GPU Support for faster generation. \n    # environment:\n    #   - gpus=all\n    # deploy:\n    #   resources:\n    #     reservations:\n    #       devices:\n    #       - driver: nvidia\n    #         capabilities: [gpu]\n\n  ollama-webui:\n    image: ghcr.io/open-webui/open-webui:main\n    container_name: ollama-webui\n    restart: unless-stopped\n    ports: [\"8080:8080\"]\n    environment:\n      - OLLAMA_BASE_URL=http://ollama-engine:11434\n    volumes:\n      - ./ollama/webui:/app/backend/data\n    extra_hosts:\n      - host.docker.internal:host-gateway\n    depends_on:\n      - ollama-engine\n```",
-      "updatedAt": "2024-12-15T23:38:48.691Z",
-      "createdAt": "2024-12-15T23:38:48.691Z"
-    },
-    {
-      "id": 28,
-      "slug": "pocketbase",
-      "title": "Pocketbase",
-      "subtitle": "Open Source backend in 1 file - Use as a standalone app OR as a framework, that you can extend via Go and JavaScript hooks to create your own custom portable backend.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"3\"\n\nservices:\n\n  pocketbase:\n    image: ghcr.io/muchobien/pocketbase:latest\n    restart: unless-stopped\n    ports: [ \"8090:8090\" ]\n    volumes: \n      - pb_data:/pb_data\n      # - ./types.d.ts:/pb_data/types.d.ts\n      - ./migrations:/pb_migrations\n      - ./hooks:/pb_hooks\n      - ./public:/pb_public\n\nvolumes:\n  pb_data:\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
-      "updatedAt": "2024-12-15T23:38:32.320Z",
-      "createdAt": "2024-12-15T23:38:32.320Z"
-    },
-    {
-      "id": 27,
-      "slug": "focalboard",
-      "title": "Focalboard",
-      "subtitle": "Focalboard is 100% open source. Focalboard is an open source alternative to tools like Asana, Trello, and Notion.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"3\"\nservices:\n  focal:\n    image: mattermost/focalboard\n    container_name: focal\n    ports: [ \"3000:8000\" ]\n    restart: unless-stopped\n    volumes:\n      - ./config:/opt/focalboard/data\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
-      "updatedAt": "2024-12-15T23:38:21.349Z",
-      "createdAt": "2024-12-15T23:38:21.349Z"
-    },
-    {
-      "id": 26,
-      "slug": "osticket",
-      "title": "osTicket",
-      "subtitle": "osTicket is a widely used and trusted open source support ticketing system. Easily scale and streamline your customer service.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: '3'\nservices:\n  osticket:\n    image: devinsolutions/osticket:latest\n    container_name: osticket\n    restart: unless-stopped\n    ports: [ \"80:80\" ]\n    environment:\n      MYSQL_USER: osticket\n      MYSQL_PASSWORD: b00kst4ck\n      MYSQL_HOST: database\n      MYSQL_DATABASE: osticket\n  database:\n    image: mysql:5.7\n    container_name: database\n    restart: unless-stopped\n    environment:\n      MYSQL_USER: osticket\n      MYSQL_PASSWORD: b00kst4ck\n      MYSQL_ROOT_PASSWORD: b00kst4ck\n      MYSQL_DATABASE: osticket\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
-      "updatedAt": "2024-12-15T23:38:11.387Z",
-      "createdAt": "2024-12-15T23:38:11.387Z"
-    },
-    {
-      "id": 25,
-      "slug": "vscode-server",
-      "title": "VSCode Server",
-      "subtitle": "The Visual Studio Code Server is a service you can run on a remote development machine, like your desktop PC or a virtual machine (VM).",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"2.1\"\nservices:\n  code-server:\n    image: lscr.io/linuxserver/code-server:latest\n    container_name: vscode-server\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Amsterdam\n      - PASSWORD=b00kst4ck\n      - SUDO_PASSWORD=b00kst4ck #optional\n      - PROXY_DOMAIN=vscode-server.my.domain #optional\n      - DEFAULT_WORKSPACE=/config/workspace #optional\n    volumes:\n      - /home/$USER/env/vscode-server:/config\n    ports:\n      - 8443:8443\n    restart: unless-stopped\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
-      "updatedAt": "2024-12-15T23:38:01.765Z",
-      "createdAt": "2024-12-15T23:38:01.765Z"
-    },
-    {
-      "id": 24,
-      "slug": "postgresql-+-pgadmin",
-      "title": "PostgreSQL + pgAdmin",
-      "subtitle": "This image combines both PostgreSQL and an admin front-end named pgAdmin, this way you can easily manage your database.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: '3.8'\nservices:\n  postgresql:\n    container_name: postgresql\n    image: postgres\n    restart: unless-stopped\n    environment:\n      POSTGRES_PASSWORD: b00kst4ck\n    ports:\n      - \"5432:5432\"\n    volumes:\n      - /home/$USER/env/postgres:/var/lib/postgresql/data\n  pgadmin:\n    container_name: pgadmin\n    image: dpage/pgadmin4\n    restart: unless-stopped\n    environment:\n      PGADMIN_DEFAULT_EMAIL: admin@leaflet.app\n      PGADMIN_DEFAULT_PASSWORD: b00kst4ck\n    ports:\n      - \"5050:80\"\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
-      "updatedAt": "2024-12-15T23:37:41.729Z",
-      "createdAt": "2024-12-15T23:37:41.729Z"
-    },
-    {
-      "id": 23,
-      "slug": "flame",
-      "title": "Flame",
-      "subtitle": "Flame is self-hosted startpage for your server. Its design is inspired (heavily) by SUI. Flame is very easy to setup and use.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: '3.6'\n\nservices:\n  flame:\n    image: pawelmalak/flame\n    container_name: flame\n    volumes:\n      - /home/$USER/env/flame:/app/data\n    ports:\n      - 5005:5005\n    environment:\n      - PASSWORD=b00kst4ck\n    restart: unless-stopped\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
-      "updatedAt": "2024-12-15T23:37:30.550Z",
-      "createdAt": "2024-12-15T23:37:30.550Z"
-    },
-    {
-      "id": 22,
-      "slug": "mysql-+-adminer",
-      "title": "MySQL + Adminer",
-      "subtitle": "This image combines both MySQL and an admin front-end named Adminer, this way you can easily manage your database.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"3.8\"\nservices:\n  mysql:\n    image: mysql:latest\n    container_name: mysql\n    restart: unless-stopped\n    environment:\n      MYSQL_ROOT_PASSWORD: \"b00kst4ck\"\n    ports:\n      - 3306:3306\n    volumes:\n      - /home/$USER/env/mysql:/var/lib/mysql\n  adminer:\n    image: adminer:latest\n    container_name: adminer\n    links:\n      - mysql\n    environment:\n      ADMINER_DEFAULT_SERVER: mysql\n      ADMINER_DESIGN: pepa-linha-dark\n    restart: unless-stopped\n    ports:\n      - 8080:8080\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
-      "updatedAt": "2024-12-15T23:37:19.237Z",
-      "createdAt": "2024-12-15T23:37:19.237Z"
-    },
-    {
-      "id": 21,
-      "slug": "mysql-+-phpmyadmin",
-      "title": "MySQL + phpmyadmin",
-      "subtitle": "This image combines both MySQL and an admin front-end named phpmyadmin, this way you can easily manage your database.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: '3'\n \nservices:\n  mysql:\n    image: mysql:latest\n    container_name: mysql\n    restart: unless-stopped\n    environment:\n      MYSQL_ROOT_PASSWORD: b00kst4ck\n    ports:\n      - \"3306:3306\"\n    volumes:\n      - /home/$USER/mysql:/var/lib/mysql\n  phpmyadmin:\n    image: phpmyadmin:latest\n    container_name: phpmyadmin\n    links:\n      - mysql\n    environment:\n      PMA_ARBITRARY: 1\n      PMA_HOST: mysql\n      PMA_PORT: 3306\n    restart: unless-stopped\n    ports:\n      - 80:80\n    volumes:\n      - /home/$USER/theme:/var/www/html/themes/custom\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
-      "updatedAt": "2024-12-15T23:37:01.176Z",
-      "createdAt": "2024-12-15T23:37:01.176Z"
-    },
-    {
-      "id": 20,
-      "slug": "jackett",
-      "title": "Jackett",
-      "subtitle": "Jackett works as a proxy server: it translates queries from apps (Sonarr, Radarr, SickRage, CouchPotato, Mylar3, Lidarr, DuckieTV, qBittorrent, Nefarious etc.) into tracker-site-specific http queries, parses the html or json response, and then sends results back to the requesting software.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Run it with Docker\n\n```\ndocker run -d \\\n  --name=jackett \\\n  -e PUID=1000 \\\n  -e PGID=1000 \\\n  -e TZ=Europe/Amsterdam \\\n  -e AUTO_UPDATE=true `#optional` \\\n  -p 9117:9117 \\\n  -v /root/env/jackett/config:/config \\\n  -v /root/env/jackett/cache:/downloads \\\n  --restart unless-stopped \\\n  lscr.io/linuxserver/jackett:latest\n```",
-      "updatedAt": "2024-12-15T23:36:49.025Z",
-      "createdAt": "2024-12-15T23:36:49.025Z"
-    },
-    {
-      "id": 19,
-      "slug": "qbittorrent",
-      "title": "Qbittorrent",
-      "subtitle": "qBittorrent is a cross-platform free and open-source BitTorrent client written in native C++.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"2.1\"\nservices:\n  qbittorrent:\n    image: lscr.io/linuxserver/qbittorrent:latest\n    container_name: qbittorrent\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Amsterdam\n      - WEBUI_PORT=8080\n    volumes:\n      - /home/$USER/env/config:/config\n      - /home/$USER/env/downloads:/downloads\n    ports:\n      - 8080:8080\n      - 6881:6881\n      - 6881:6881/udp\n    restart: unless-stopped\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```\n\n### Default credentials\n\n|Username|Password|\n|-|-|\n|admin|adminadmin|",
-      "updatedAt": "2024-12-15T23:36:22.648Z",
-      "createdAt": "2024-12-15T23:36:22.648Z"
-    },
-    {
-      "id": 18,
-      "slug": "wiki.js",
-      "title": "Wiki.js",
-      "subtitle": "Wiki.js is a wiki engine running on Node.js and written in JavaScript.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Run it with Docker\n\n```\ndocker run -d \\\n  --name=wiki \\\n  --restart unless-stopped \\\n  -e PUID=1000 \\\n  -e PGID=1000 \\\n  -e TZ=Europe/Amsterdam \\\n  -p 8080:3000 \\\n  -v /root/env/wiki/config:/config \\\n  -v /root/env/wiki/data:/data \\\n  --restart unless-stopped \\\n  lscr.io/linuxserver/wikijs:latest\n```",
-      "updatedAt": "2024-12-15T23:36:12.855Z",
-      "createdAt": "2024-12-15T23:36:12.855Z"
-    },
-    {
-      "id": 17,
-      "slug": "vaultwarden",
-      "title": "Vaultwarden",
-      "subtitle": "Unofficial Bitwarden compatible server written in Rust, Bitwarden is a freemium open-source password management service that stores sensitive information such as website credentials in an encrypted vault.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: '3'\n\nservices:\n  vaultwarden:\n    image: vaultwarden/server:latest\n    container_name: vaultwarden\n    restart: unless-stopped\n    volumes: [/home/$USER/env/:/data/]\n    ports: [8080:80]\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
-      "updatedAt": "2024-12-15T23:35:48.717Z",
-      "createdAt": "2024-12-15T23:35:48.717Z"
-    },
-    {
-      "id": 16,
-      "slug": "directus",
-      "title": "Directus",
-      "subtitle": "Directus is a free and open-source data platform built entirely in JavaScript. It instantly wraps any SQL database with a real-time GraphQL+REST API and an intuitive app for non-technical users.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Run it with Docker\n\n```\ndocker run -d \\\n  -e KEY=255d861b-5ea1-5996-9aa3-922530ec40b1 \\\n  -e SECRET=6116487b-cda1-52c2-b5b5-c8022c45e263 \\\n  --name directus \\\n  --restart unless-stopped \\\n  -p 8055:8055 \\\n  -e ADMIN_EMAIL=\"admin@example.com\" \\\n  -e ADMIN_PASSWORD=\"b00kst4ck\" \\\n  -v /root/env/directus/uploads:/directus/uploads \\\n  -v /root/env/directus/extensions:/directus/extensions \\\n  -v /root/env/directus/database:/directus/database \\\n  directus/directus\n```",
-      "updatedAt": "2024-12-15T23:35:36.549Z",
-      "createdAt": "2024-12-15T23:35:36.549Z"
-    },
-    {
-      "id": 15,
-      "slug": "photoprism",
-      "title": "Photoprism",
-      "subtitle": "Photoprism is an AI-Powered Photos App for the Decentralized Web. It makes use of the latest technologies to tag and find pictures automatically without getting in your way. You can run it at home, on a private server, or in the cloud.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Run it with Docker\n\n```\ndocker run -d \\\n  --name fotos \\\n  --restart unless-stopped \\\n  --security-opt seccomp=unconfined \\\n  --security-opt apparmor=unconfined \\\n  -p 2342:2342 \\\n  -e PHOTOPRISM_UPLOAD_NSFW=\"true\" \\\n  -e PHOTOPRISM_ADMIN_PASSWORD=\"admin\" \\\n  -v /root/env:/photoprism/storage \\\n  photoprism/photoprism\n```\n\n### About this stack\n\nThe following credentials can be used to sign in, do mind to **change them** when you've got the chance!\n\n|Username|Password|\n|-|-|\n|admin|admin|",
-      "updatedAt": "2024-12-15T23:35:24.711Z",
-      "createdAt": "2024-12-15T23:35:24.711Z"
-    },
-    {
-      "id": 14,
-      "slug": "wg-easy",
-      "title": "WG Easy",
-      "subtitle": "The easiest way to install & manage WireGuard on any Linux host, this docker image comes with a web ui to easily manage your whitelist vpn connections.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "# Install WG-Easy\n\n## 1. Generate a hash for your password\n\n```\ndocker run -it ghcr.io/wg-easy/wg-easy wgpw YOUR_PASSWORD\n```\n\n## 2. Copy the generated hash, use it in the compose file\n\n> Remove the single quotes and insert an extra $ before each existing $\n\n```\nservices:\n  wireguard:\n    image: ghcr.io/wg-easy/wg-easy\n    container_name: wireguard\n    environment:\n      WG_HOST: \"ext.heuve.link\"\n      PASSWORD_HASH: \"<Your Generated Hash>\"\n      WG_DEFAULT_DNS: 1.1.1.1\n    volumes:\n      - ./data:/etc/wireguard\n    ports:\n      - \"51820:51820/udp\"\n      - \"51821:51821/tcp\"\n    cap_add:\n      - NET_ADMIN\n      - SYS_MODULE\n    sysctls:\n      net.ipv4.conf.all.src_valid_mark: \"1\"\n      net.ipv4.ip_forward: \"1\"\n    restart: unless-stopped\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```\n\n#### Preview\n\n![Preview](https://wiki.thijmenheuvelink.nl/pb/api/files/kblyx6ommv2lhn8/vekg3an1er8tip8/image_2023_12_17_013354729_3NYLAwTxks.png?token=)",
-      "updatedAt": "2024-12-15T23:35:12.321Z",
-      "createdAt": "2024-12-15T23:35:12.321Z"
-    },
-    {
-      "id": 13,
-      "slug": "lychee",
-      "title": "Lychee",
-      "subtitle": "Lychee is a free photo-management tool, which runs on your server or web-space. Installing is a matter of seconds. Upload, manage and share photos like from a native application. Lychee comes with everything you need and all your photos are stored securely.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"3\"\nservices:\n  mariadb:\n    image: lscr.io/linuxserver/mariadb:latest\n    container_name: lychee-db\n    restart: unless-stopped\n    volumes:\n      - /root/env/fotos/db:/config\n    environment:\n      - MYSQL_ROOT_PASSWORD=wikirootpassword\n      - MYSQL_DATABASE=lychee\n      - MYSQL_USER=lychee\n      - MYSQL_PASSWORD=wikipassword\n      - PGID=1000\n      - PUID=1000\n      - TZ=Europe/Amsterdam\n  lychee:\n    image: lscr.io/linuxserver/lychee:latest\n    container_name: lychee\n    restart: unless-stopped\n    depends_on:\n      - mariadb\n    volumes:\n      - /root/env/fotos/config:/config\n      - /root/env/fotos/gallery:/pictures\n    environment:\n      - DB_HOST=mariadb\n      - DB_USERNAME=lychee\n      - DB_PASSWORD=wikipassword\n      - DB_DATABASE=lychee\n      - DB_PORT=3306\n      - PGID=1000\n      - PUID=1000\n      - TZ=Europe/Amsterdam\n    ports:\n      - 3001:80\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
-      "updatedAt": "2024-12-15T23:34:35.248Z",
-      "createdAt": "2024-12-15T23:34:35.248Z"
-    },
-    {
-      "id": 12,
-      "slug": "gitea",
-      "title": "Gitea",
-      "subtitle": "Gitea is a forge software package for hosting software development version control using Git as well as other collaborative features like bug tracking, code review, continuous integration, kanban boards, tickets, and wikis.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"3\"\n\nnetworks:\n  gitea:\n    external: false\n\nservices:\n  server:\n    image: gitea/gitea:1.16.9\n    container_name: gitea\n    environment:\n      - USER_UID=1000\n      - USER_GID=1000\n    restart: unless-stopped\n    networks:\n      - gitea\n    volumes:\n      - /root/env/gitea:/data\n      - /etc/timezone:/etc/timezone:ro\n      - /etc/localtime:/etc/localtime:ro\n    ports:\n      - \"3000:3000\"\n      - \"222:22\"\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
-      "updatedAt": "2024-12-15T23:34:23.457Z",
-      "createdAt": "2024-12-15T23:34:23.457Z"
-    },
-    {
-      "id": 11,
-      "slug": "pi-hole",
-      "title": "Pi Hole",
-      "subtitle": "Pi-hole is a Linux network-level advertisement and Internet tracker blocking application which acts as a DNS sinkhole and optionally a DHCP server, intended for use on a private network.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"3\"\n\nservices:\n  pihole:\n    container_name: pihole\n    image: pihole/pihole:latest\n    ports:\n      - \"53:53/tcp\"\n      - \"53:53/udp\"\n      - \"67:67/udp\"\n      - \"80:80/tcp\"\n    environment:\n      TZ: 'Europe/Amsterdam'\n      WEBPASSWORD: 'b00kst4ck'\n    volumes:\n      - './etc-pihole:/etc/pihole'\n      - './etc-dnsmasq.d:/etc/dnsmasq.d'\n    cap_add:\n      - NET_ADMIN\n    restart: unless-stopped\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```\n\n### OR install it without Docker\n\n```\ncurl -sSL https://install.pi-hole.net | bash\n```",
-      "updatedAt": "2024-12-15T23:34:03.160Z",
-      "createdAt": "2024-12-15T23:34:03.160Z"
-    },
-    {
-      "id": 10,
-      "slug": "uptime-kuma",
-      "title": "UpTime Kuma",
-      "subtitle": "Uptime Kuma is an easy-to-use self-hosted monitoring tool.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Run it with Docker\n\n```\ndocker run -d \\\n    --restart=unless-stopped \\\n    -p 3001:3001 \\\n    -v /root/env/uptime-kuma:/app/data \\\n    --name uptime-kuma \\\n    louislam/uptime-kuma:1\n```",
-      "updatedAt": "2024-12-15T23:33:49.011Z",
-      "createdAt": "2024-12-15T23:33:49.011Z"
-    },
-    {
-      "id": 9,
-      "slug": "wordpress",
-      "title": "Wordpress",
-      "subtitle": "WordPress is a web content management system.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"3.3\"\n    \nservices:\n  db:\n    image: mysql:5.7\n    volumes:\n      - /root/env/wp/db:/var/lib/mysql\n    restart: unless-stopped\n    environment:\n      MYSQL_USER: wp\n      MYSQL_DATABASE: wp\n      MYSQL_ROOT_PASSWORD: b00kst4ck\n      MYSQL_PASSWORD: b00kst4ck\n    \n  app:\n    depends_on:\n      - db\n    image: wordpress:latest\n    volumes:\n      - /root/env/wp/www:/var/www/html\n    ports:\n      - 8080:80\n    restart: unless-stopped\n    environment:\n      WORDPRESS_DB_HOST: db\n      WORDPRESS_DB_USER: wp\n      WORDPRESS_DB_NAME: wp\n      WORDPRESS_DB_PASSWORD: b00kst4ck\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```\n\n### Running it through Cloudflare\n\nIf You're routing wordpress through Cloudflare behind a reverse proxy like **Nginx Proxy Manager** then you must install a plugin on wordpress called \"**Flexible SSL for CloudFlare**\".",
-      "updatedAt": "2024-12-15T23:33:35.253Z",
-      "createdAt": "2024-12-15T23:33:35.253Z"
-    },
-    {
-      "id": 8,
-      "slug": "shlink",
-      "title": "Shlink",
-      "subtitle": "Keep control over all your shortened URLs, by serving them under your own domains, using this simple yet powerful tool.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"3\"\n\nservices:\n  shlink:\n    image: shlinkio/shlink:stable\n    restart: unless-stopped\n    container_name: shlink\n    environment:\n      - TZ=\"Europe/Amsterdam\"\n      - DEFAULT_DOMAIN=example.com\n      - GEOLITE_LICENSE_KEY=<YOUR KEY>\n      - DB_DRIVER=maria\n      - DB_USER=shlink\n      - DB_NAME=shlink\n      - DB_PASSWORD=b00kst4ck\n      - DB_HOST=database\n    ports:\n      - 8080:8080\n\n  database:\n    image: mariadb:latest\n    restart: unless-stopped\n    container_name: database\n    environment:\n      - MARIADB_ROOT_PASSWORD=b00kst4ck\n      - MARIADB_DATABASE=shlink\n      - MARIADB_USER=shlink\n      - MARIADB_PASSWORD=b00kst4ck\n    volumes:\n      - ./env/database:/var/lib/mysql\n\n  client:\n    image: shlinkio/shlink-web-client\n    restart: unless-stopped\n    container_name: client\n    volumes:\n      - ./env/client/servers.json:/usr/share/nginx/html/servers.json\n    ports:\n      - 3000:80\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```\n\n### About this stack\n\nGenerate an Access Token\n\n```\ndocker exec -it shlink shlink api-key:generate\n```",
-      "updatedAt": "2024-12-15T23:33:22.326Z",
-      "createdAt": "2024-12-15T23:33:22.326Z"
-    },
-    {
-      "id": 7,
-      "slug": "portainer",
-      "title": "Portainer",
-      "subtitle": "Portainer is your container management software to deploy, troubleshoot, and secure applications across cloud, datacenter, and Industrial IoT use cases.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Run it with Docker\n\n```\ndocker run \\\n    -p 8000:8000 -p 9000:9443 \\\n    -v /var/run/docker.sock:/var/run/docker.sock \\\n    -d --name portainer --restart unless-stopped \\\n    portainer/portainer-ce:2.16.2\n```\n\n#### Running into issues?\n\nCheckout the Catalogue on this wiki about Portainer not being accessible via Nginx Proxy Manager",
-      "updatedAt": "2024-12-15T23:33:10.457Z",
-      "createdAt": "2024-12-15T23:33:10.457Z"
-    },
-    {
-      "id": 6,
-      "slug": "nginx-proxy-manager",
-      "title": "Nginx Proxy Manager",
-      "subtitle": "Expose web services on your network, Free SSL with Let's Encrypt, designed with security in mind, perfect for home networks.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nservices:\n  npm:\n    image: 'jc21/nginx-proxy-manager:latest'\n    container_name: npm\n    restart: unless-stopped\n    ports:\n      - '80:80'\n      - '443:443'\n      - '81:81'\n    volumes:\n      - ./data/npm:/data\n      - ./data/letsencrypt:/etc/letsencrypt\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```\n\n### Logging in (default credentials)\n\n> Email: admin@example.com\n> Pass: changeme\n",
-      "updatedAt": "2024-12-15T23:32:57.644Z",
-      "createdAt": "2024-12-15T23:32:57.644Z"
-    },
-    {
-      "id": 5,
-      "slug": "nginx",
-      "title": "Nginx",
-      "subtitle": "Nginx is a web server that can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Run it with Docker\n\n```\ndocker run \\\n\t--restart unless-stopped \\\n\t--name nginx \\\n\t-d -p 8080:80 \\\n\t-v /home/$USER/env/nginx:/usr/share/nginx/html:ro \\\n\tnginx\n```\n\n### Run it with Docker Compose\n```\nservices:\n  nginx:\n    image: nginx:latest\n    container_name: nginx\n    restart: unless-stopped\n    ports: [ \"80:80\" ]\n    volumes: \n      - ./www:/usr/share/nginx/html:ro\n```",
-      "updatedAt": "2024-12-15T23:32:43.794Z",
-      "createdAt": "2024-12-15T23:32:43.794Z"
-    },
-    {
-      "id": 4,
-      "slug": "mongodb",
-      "title": "MongoDB",
-      "subtitle": "Get your ideas to market faster with a developer data platform built on the leading modern database. MongoDB makes working with data easy.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Run it with Docker\n\n```\ndocker run \\\n\t--name db \\\n\t-v /root/env/db:/data/db \\\n\t-p 12107:27017 \\\n\t-e MONGO_INITDB_ROOT_USERNAME=<username> \\\n\t-e MONGO_INITDB_ROOT_PASSWORD=<password> \\\n\t--restart unless-stopped \\\n\t-d mongo\n```",
-      "updatedAt": "2024-12-15T23:32:31.070Z",
-      "createdAt": "2024-12-15T23:32:31.070Z"
-    },
-    {
-      "id": 3,
-      "slug": "jellyfin",
-      "title": "Jellyfin",
-      "subtitle": "Jellyfin is the volunteer-built media solution that puts you in control of your media. Stream to any device from your own server, with no strings attached. Your media, your server, your way.",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"2.1\"\nservices:\n  jellyfin:\n    image: lscr.io/linuxserver/jellyfin:latest\n    container_name: jellyfin\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Amsterdam\n    volumes:\n      - ./config:/config\n      - ./data/movies:/data/media/movies\n      - ./data/series:/data/media/series\n    ports:\n      - 8096:8096\n      - 8920:8920\n      - 7359:7359/udp\n      - 1900:1900/udp\n    restart: unless-stopped\n```\n\n### Start it\n\n```\ndocker-compose up -d\n```",
-      "updatedAt": "2024-12-15T23:32:18.479Z",
-      "createdAt": "2024-12-15T23:32:18.479Z"
-    },
-    {
-      "id": 2,
-      "slug": "filebrowser",
-      "title": "Filebrowser",
-      "subtitle": "This is surely one of the greatest open-source file manager that's accessible as a webapp, easily manage users and share your files via the web!",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "1. Create the database file:\n```\ntouch filebrowser.db\n```\n\n2. Create a docker-compose file:\n```\nservices:\n  filebrowser:\n    image: filebrowser/filebrowser\n    container_name: filebrowser\n    restart: unless-stopped\n    ports:\n      - \"8080:80\"\n    volumes:\n      - ./data:/srv\n      - ./branding:/branding\n      - ./filebrowser.db:/database.db\n```\n\n3. Run Docker Compose:\n```\ndocker-compose up -d\n```\n\n4. Visit the web ui and login\n\nGo to http://localhost:8080 and login with user: admin, pass: admin.",
-      "updatedAt": "2025-02-16T01:11:14.355Z",
-      "createdAt": "2024-12-15T23:32:06.416Z"
-    },
-    {
-      "id": 1,
-      "slug": "bookstack",
-      "title": "Bookstack",
-      "subtitle": "An easy-to-deploy opensource wiki, used to be this website!",
-      "category": {
-        "id": 5,
-        "slug": "docker",
-        "title": "Docker",
-        "subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
-        "updatedAt": "2024-12-15T23:30:26.634Z",
-        "createdAt": "2024-12-15T23:30:26.634Z"
-      },
-      "markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"2\"\nservices:\n  bookstack:\n    image: lscr.io/linuxserver/bookstack\n    container_name: bookstack\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - APP_URL=https://wiki.thijmenheuvelink.nl\n      - DB_HOST=bookstack_db\n      - DB_USER=bookstack\n      - DB_PASS=yourdbpass\n      - DB_DATABASE=bookstackapp\n    volumes:\n      - /root/wiki:/cli/config\n    ports:\n      - 6875:80\n    restart: unless-stopped\n    depends_on:\n      - bookstack_db\n  bookstack_db:\n    image: lscr.io/linuxserver/mariadb\n    container_name: bookstack_db\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - MYSQL_ROOT_PASSWORD=yourdbrootpass\n      - TZ=Europe/London\n      - MYSQL_DATABASE=bookstackapp\n      - MYSQL_USER=bookstack\n      - MYSQL_PASSWORD=yourdbpass\n    volumes:\n      - /root/wiki:/db/config\n    restart: unless-stopped\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```\n\n### About this stack\n\nLogin with the following credentials, do mind to **change them** in settings afterwards to something secure!\n\n|Username|Password|\n|-|-|\n|admin＠admin.com|password|",
-      "updatedAt": "2024-12-15T23:31:54.795Z",
-      "createdAt": "2024-12-15T23:31:54.795Z"
-    }
-  ],
-  "metadata": {
-    "scraped_at": "2025-10-12T19:39:25.461143",
-    "source_url": "https://wiki.thijmenheuvelink.nl",
-    "total_categories": 6,
-    "total_pages": 69
-  }
+	"categories": [
+		{
+			"id": 6,
+			"slug": "catalogue",
+			"title": "Catalogue",
+			"subtitle": "A vast compendium of knowledge which encompasses a wide range of common issues and their corresponding solutions, offering a convenient and searchable resource for troubleshooting.",
+			"updatedAt": "2024-12-15T23:30:36.981Z",
+			"createdAt": "2024-12-15T23:30:36.981Z"
+		},
+		{
+			"id": 5,
+			"slug": "docker",
+			"title": "Docker",
+			"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+			"updatedAt": "2024-12-15T23:30:26.634Z",
+			"createdAt": "2024-12-15T23:30:26.634Z"
+		},
+		{
+			"id": 4,
+			"slug": "linux",
+			"title": "Linux",
+			"subtitle": "Effortlessly install various services across multiple distributions, with the assistance of automated scripts that are predominantly focused on Ubuntu.",
+			"updatedAt": "2024-12-15T23:30:21.321Z",
+			"createdAt": "2024-12-15T23:30:21.321Z"
+		},
+		{
+			"id": 3,
+			"slug": "proxmox",
+			"title": "Proxmox",
+			"subtitle": "Simplify the process of setting up your Proxmox environment with helpful configuration guides and informative notes that streamline the setup procedure.",
+			"updatedAt": "2024-12-15T23:30:12.781Z",
+			"createdAt": "2024-12-15T23:30:12.781Z"
+		},
+		{
+			"id": 2,
+			"slug": "servers",
+			"title": "Servers",
+			"subtitle": "Extensive and detailed documentation specifically designed for each unique service, providing comprehensive guidance and instructions.",
+			"updatedAt": "2024-12-15T23:30:01.827Z",
+			"createdAt": "2024-12-15T23:29:58.428Z"
+		},
+		{
+			"id": 1,
+			"slug": "windows",
+			"title": "Windows",
+			"subtitle": "Access a comprehensive library of resources specifically tailored to Windows, including step-by-step guides, best practices, and troubleshooting tips for optimal performance.",
+			"updatedAt": "2024-12-15T23:29:51.660Z",
+			"createdAt": "2024-12-15T23:29:51.660Z"
+		}
+	],
+	"pages": [
+		{
+			"id": 70,
+			"slug": "papermc",
+			"title": "PaperMC",
+			"subtitle": "Paper is a Minecraft game server based on Spigot, designed to greatly improve performance and offer more advanced features and API.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "```\nservices:\n  minecraft:\n    image: 'ghcr.io/thijmengthn/papermc:latest'\n    container_name: minecraft\n    restart: unless-stopped\n    user: 1000:1000\n    ports:\n      - 25565:25565\n    volumes:\n      - ./data:/papermc\n    environment:\n      - EULA=true\n      - MC_VERSION=1.21\n      - MC_RAM=2G\n      - JAVA_OPTS=-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1\n```",
+			"updatedAt": "2025-04-04T14:14:42.388Z",
+			"createdAt": "2025-04-04T14:14:42.388Z"
+		},
+		{
+			"id": 69,
+			"slug": "home-assistant",
+			"title": "Home Assistant",
+			"subtitle": "Open source home automation that puts local control and privacy first. Powered by a worldwide community of tinkerers and DIY enthusiasts.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "Web UI available at http://localhost:8123\n\n```\nservices:\n  homeassistant:\n    image: lscr.io/linuxserver/homeassistant:latest\n    container_name: homeassistant\n    network_mode: host\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Amsterdam\n    volumes: [\"./data:/config\"]\n    restart: unless-stopped\n```",
+			"updatedAt": "2025-02-20T14:53:09.336Z",
+			"createdAt": "2025-02-20T14:47:37.033Z"
+		},
+		{
+			"id": 68,
+			"slug": "pingvin-share",
+			"title": "Pingvin Share",
+			"subtitle": "Pingvin Share is a self-hosted file sharing platform and an alternative for WeTransfer.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "```\nservices:\n  share:\n    image: ghcr.io/stonith404/pingvin-share:v1.8.2\n    restart: unless-stopped\n    ports: [\"3000:3000\"]\n    environment:\n      - TRUST_PROXY=true\n    volumes:\n      - \"./share/data:/opt/app/backend/data\"\n      - \"./share/images:/opt/app/frontend/public/img\"\n```",
+			"updatedAt": "2025-02-09T21:57:05.819Z",
+			"createdAt": "2025-02-09T21:57:05.819Z"
+		},
+		{
+			"id": 67,
+			"slug": "systemctl-template",
+			"title": "Systemctl Template",
+			"subtitle": "A template to quickly setup systemctl services.",
+			"category": {
+				"id": 4,
+				"slug": "linux",
+				"title": "Linux",
+				"subtitle": "Effortlessly install various services across multiple distributions, with the assistance of automated scripts that are predominantly focused on Ubuntu.",
+				"updatedAt": "2024-12-15T23:30:21.321Z",
+				"createdAt": "2024-12-15T23:30:21.321Z"
+			},
+			"markdown": "```\n[Unit]\nDescription=My Binary Service\n\n[Service]\nWorkingDirectory=/your/working/directory\nExecStart=/path/to/your/binary\nRestart=on-failure\n\n[Install]\nWantedBy=multi-user.target\n```",
+			"updatedAt": "2025-02-03T14:16:01.718Z",
+			"createdAt": "2025-02-03T14:16:01.718Z"
+		},
+		{
+			"id": 66,
+			"slug": "install-rust",
+			"title": "Install Rust",
+			"subtitle": "Rust is a breeze to install but the build dependencies are a pain to install, this guide will make it easier to get started.",
+			"category": {
+				"id": 4,
+				"slug": "linux",
+				"title": "Linux",
+				"subtitle": "Effortlessly install various services across multiple distributions, with the assistance of automated scripts that are predominantly focused on Ubuntu.",
+				"updatedAt": "2024-12-15T23:30:21.321Z",
+				"createdAt": "2024-12-15T23:30:21.321Z"
+			},
+			"markdown": "Install Rust\n```\ncurl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh\n```\n\nInstall build dependencies\n```\nsudo apt install -y build-essential pkg-config libssl-dev gcc make\n```",
+			"updatedAt": "2025-02-03T14:09:46.029Z",
+			"createdAt": "2025-02-03T14:09:46.029Z"
+		},
+		{
+			"id": 65,
+			"slug": "install-go",
+			"title": "Install Go",
+			"subtitle": "This script downloads Go 1.23.5 from https://go.dev/dl/go1.23.5.linux-amd64.tar.gz, removes any existing installation in /usr/local/go, extracts the new files to /usr/local, and updates the PATH in ~/.profile for immediate use.",
+			"category": {
+				"id": 4,
+				"slug": "linux",
+				"title": "Linux",
+				"subtitle": "Effortlessly install various services across multiple distributions, with the assistance of automated scripts that are predominantly focused on Ubuntu.",
+				"updatedAt": "2024-12-15T23:30:21.321Z",
+				"createdAt": "2024-12-15T23:30:21.321Z"
+			},
+			"markdown": "# Go 1.23.5 Installation Script\n\nThis script automates the installation of Go 1.23.5 on Linux by performing the following steps:\n\n- **Download:** Retrieves Go 1.23.5 from [https://go.dev/dl/go1.23.5.linux-amd64.tar.gz](https://go.dev/dl/go1.23.5.linux-amd64.tar.gz).\n- **Remove:** Deletes any existing Go installation at `/usr/local/go`.\n- **Extract:** Unpacks the downloaded tarball into `/usr/local`.\n- **Update PATH:** Appends `/usr/local/go/bin` to your PATH in `~/.profile` and reloads the profile, making the `go` command immediately available in your terminal.\n\n```\nwget -q https://go.dev/dl/go1.23.5.linux-amd64.tar.gz && sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.23.5.linux-amd64.tar.gz && echo \"export PATH=\\$PATH:/usr/local/go/bin\" >> ~/.profile && source ~/.profile\n```",
+			"updatedAt": "2025-02-01T00:33:03.386Z",
+			"createdAt": "2025-02-01T00:33:03.386Z"
+		},
+		{
+			"id": 64,
+			"slug": "winutil",
+			"title": "WinUtil",
+			"subtitle": "Chris Titus Tech's Windows Utility - Install Programs, Tweaks, Fixes, and Updates ",
+			"category": {
+				"id": 1,
+				"slug": "windows",
+				"title": "Windows",
+				"subtitle": "Access a comprehensive library of resources specifically tailored to Windows, including step-by-step guides, best practices, and troubleshooting tips for optimal performance.",
+				"updatedAt": "2024-12-15T23:29:51.660Z",
+				"createdAt": "2024-12-15T23:29:51.660Z"
+			},
+			"markdown": "Use the following command in PowerShell.\n\n1. Open PowerShell\n2. Paste in the command.\n3. Press Enter\n4. Enjoy the utillity.\n\n```\nirm \"https://christitus.com/win\" | iex\n```",
+			"updatedAt": "2025-01-31T14:41:32.791Z",
+			"createdAt": "2025-01-31T14:40:34.407Z"
+		},
+		{
+			"id": 63,
+			"slug": "nextcloud",
+			"title": "Nextcloud",
+			"subtitle": "Nextcloud is a suite of client-server software for creating and using file hosting services. Nextcloud provides functionality similar to Dropbox, Office 365, or Google Drive when used with integrated office suites Collabora Online or OnlyOffice.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "```\nservices:\n  cloud:\n    image: lscr.io/linuxserver/nextcloud:latest\n    container_name: cloud\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Amsterdam\n    volumes:\n      - ./config:/config\n      - ./data:/data\n    ports:\n      - 443:443\n    restart: unless-stopped\n\n  database:\n    container_name: database\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - MYSQL_ROOT_PASSWORD=admin\n      - TZ=Europe/Amsterdam\n      - MYSQL_DATABASE=nextcloud\n      - MYSQL_USER=nextcloud\n      - MYSQL_PASSWORD=admin\n    volumes:\n      - ./database:/config\n    restart: always\n    image: lscr.io/linuxserver/mariadb:latest\n```",
+			"updatedAt": "2025-01-21T12:59:56.923Z",
+			"createdAt": "2025-01-21T12:59:56.923Z"
+		},
+		{
+			"id": 62,
+			"slug": "keycloak",
+			"title": "Keycloak",
+			"subtitle": "Keycloak, an open source identity and access management solution.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "```\nservices:\n  keycloak:\n    image: quay.io/keycloak/keycloak:23.0.7\n    restart: unless-stopped\n    environment:\n      KC_DB: postgres\n      KC_DB_URL: jdbc:postgresql://database:5432/keycloak\n      KC_DB_USERNAME: admin\n      KC_DB_PASSWORD: admin\n      KC_HOSTNAME: localhost\n      KC_HOSTNAME_PORT: 8080\n      KC_HOSTNAME_STRICT: false\n      KC_HOSTNAME_STRICT_HTTPS: false\n      KC_LOG_LEVEL: info\n      KC_METRICS_ENABLED: true\n      KC_HEALTH_ENABLED: true\n      KEYCLOAK_ADMIN: admin\n      KEYCLOAK_ADMIN_PASSWORD: admin\n    command: start-dev\n    depends_on:\n      - database\n    ports:\n      - 8080:8080\n\n  database:\n    image: postgres:15\n    restart: unless-stopped\n    volumes:\n      - ./data:/var/lib/postgresql/data\n    environment:\n      POSTGRES_DB: keycloak\n      POSTGRES_USER: admin\n      POSTGRES_PASSWORD: admin\n```",
+			"updatedAt": "2025-01-18T16:03:35.563Z",
+			"createdAt": "2025-01-18T15:47:19.539Z"
+		},
+		{
+			"id": 61,
+			"slug": "xterm-no-ouput-on-firefox",
+			"title": "Xterm no ouput on Firefox",
+			"subtitle": "Is the terminal blank in proxmox when you press console and are you using firefox, it might be due to resistFingerprinting, this setting could be on by default.",
+			"category": {
+				"id": 6,
+				"slug": "catalogue",
+				"title": "Catalogue",
+				"subtitle": "A vast compendium of knowledge which encompasses a wide range of common issues and their corresponding solutions, offering a convenient and searchable resource for troubleshooting.",
+				"updatedAt": "2024-12-15T23:30:36.981Z",
+				"createdAt": "2024-12-15T23:30:36.981Z"
+			},
+			"markdown": "Disable ` privacy.resistFingerprinting ` in the ` about:config ` from firefox.",
+			"updatedAt": "2025-01-14T10:24:45.658Z",
+			"createdAt": "2025-01-14T10:24:45.658Z"
+		},
+		{
+			"id": 60,
+			"slug": "clickhouse-with-ui",
+			"title": "Clickhouse with UI",
+			"subtitle": "Clickhouse with a web interface to easily manage and view metrics of your instance.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "## .env\n```env\nCLICKHOUSE_USER=default\nCLICKHOUSE_PASSWORD=4WF...Ad9\nCLICKHOUSE_DB=main\n```\n\n## docker-compose.yml\n```yml\nservices:\n  clickhouse:\n    image: clickhouse/clickhouse-server:latest\n    container_name: clickhouse\n    restart: unless-stopped\n    env_file: .env\n    ports:\n      - \"8123:8123\"\n      - \"9000:9000\"\n      - \"9009:9009\"\n    volumes:\n      - \"./clickhouse:/var/lib/clickhouse\"\n\n  clickhouse-ui:\n    image: ghcr.io/caioricciuti/ch-ui:latest\n    container_name: clickhouse-ui\n    restart: unless-stopped\n    env_file: .env\n    ports:\n      - \"5521:5521\"\n    environment:\n      VITE_CLICKHOUSE_URL: \"http://0.0.0.0:8123\"\n```",
+			"updatedAt": "2025-01-08T21:22:47.806Z",
+			"createdAt": "2025-01-08T21:22:47.806Z"
+		},
+		{
+			"id": 58,
+			"slug": "grant-me-ssh-access",
+			"title": "Grant me SSH Access",
+			"subtitle": "Are you asking me for my public SSH key or am I requesting access, use this script to easily allow me access.",
+			"category": {
+				"id": 6,
+				"slug": "catalogue",
+				"title": "Catalogue",
+				"subtitle": "A vast compendium of knowledge which encompasses a wide range of common issues and their corresponding solutions, offering a convenient and searchable resource for troubleshooting.",
+				"updatedAt": "2024-12-15T23:30:36.981Z",
+				"createdAt": "2024-12-15T23:30:36.981Z"
+			},
+			"markdown": "> Tested on Debian 12 and Ubuntu 22.04\n\nRun this one-liner to grant Thijmen access to your server via SSH:\n\n```sh\nwget -qO- https://heuve.link/keychain >> ~/.ssh/authorized_keys\n```",
+			"updatedAt": "2025-02-11T23:05:47.373Z",
+			"createdAt": "2024-12-22T14:50:44.020Z"
+		},
+		{
+			"id": 57,
+			"slug": "vps-ubuntu-22.04",
+			"title": "VPS - Ubuntu 22.04",
+			"subtitle": "This is an overview of all packages and modifications that have been made on the templated VPS on the Leaflet Proxmox Server which I host. - Thijmen Heuvelink",
+			"category": {
+				"id": 2,
+				"slug": "servers",
+				"title": "Servers",
+				"subtitle": "Extensive and detailed documentation specifically designed for each unique service, providing comprehensive guidance and instructions.",
+				"updatedAt": "2024-12-15T23:30:01.827Z",
+				"createdAt": "2024-12-15T23:29:58.428Z"
+			},
+			"markdown": "( No-longer maintained )\n\n## Pre-Installed Packages\n- curl\n- fail2ban\n- git\n- net-tools\n- screen\n- trash-cli\n- unzip\n- vim\n- wget\n\n## Changelog\n\n- v0.2.1\n\n * Added docker + compose install script.\n\n- v0.2.0\n\n  * Added trash command.\n  * Automated trash removal, 28 days.\n  * Adjusted MOTD.\n\n- v0.1.1\n\n  * Adjusted MOTD.\n  * Installed fail2ban\n  * Disabled root SSH.\n\n- v0.1.0\n\n  * Initial Setup.",
+			"updatedAt": "2024-12-15T23:45:13.320Z",
+			"createdAt": "2024-12-15T23:45:13.320Z"
+		},
+		{
+			"id": 56,
+			"slug": "customized-ps1",
+			"title": "Customized PS1",
+			"subtitle": "Enhance your terminal's appearance with these custom PS1 scripts for your .bashrc file, offering a more polished and visually appealing alternative to the default setup.",
+			"category": {
+				"id": 4,
+				"slug": "linux",
+				"title": "Linux",
+				"subtitle": "Effortlessly install various services across multiple distributions, with the assistance of automated scripts that are predominantly focused on Ubuntu.",
+				"updatedAt": "2024-12-15T23:30:21.321Z",
+				"createdAt": "2024-12-15T23:30:21.321Z"
+			},
+			"markdown": "### **Customizing Your Terminal Prompt with PS1 Scripts**\n\nYou can enhance your terminal's appearance by modifying the `PS1` variable in your `.bashrc` file. Below are two examples of PS1 scripts, along with instructions on how to use them.\n\n#### **Script 1: Dynamic Prompt with User and Host Information**\n\n```bash\nexport PS1='\\[\\e[0;1m\\]\\u\\[\\e[0m\\]@\\[\\e[0;1m\\]\\H \\[\\e[0;36m\\]\\w \\[\\e[0m\\]\\$ '\n```\n\n- **What it does**: This prompt displays:\n  - The username (`\\u`)\n  - The hostname (`\\H`)\n  - The current working directory (`\\w`)\n  - A `$` symbol to indicate the shell is ready for input\n- **Formatting**: The username and hostname are bold, and the working directory is highlighted in teal.\n- **Use case**: Ideal for users who need a clear view of the current user, host, and directory while navigating remote servers or multi-user systems.\n\n#### **Script 2: Personalized Prompt**\n\n```bash\nexport PS1='\\[\\e[0;1m\\]ThijmenGThN \\[\\e[0;36m\\]\\w \\[\\e[0m\\]\\$ '\n```\n\n- **What it does**: This prompt is personalized with a static label, \"ThijmenGThN,\" followed by:\n  - The current working directory (`\\w`)\n  - A `$` symbol for input\n- **Formatting**: The label is bold, and the directory is highlighted in teal.\n- **Use case**: Perfect for personal setups where a static identifier (like a custom username) is desired for aesthetic or branding purposes.\n\n### **How to Use These Scripts**\n\n1. **Edit your `.bashrc` file**:\n   Open your `.bashrc` file in a text editor:\n   ```bash\n   nano ~/.bashrc\n   ```\n\n2. **Add the desired script**:\n   Paste one of the scripts at the end of the file.\n\n3. **Apply the changes**:\n   Save the file and reload the shell configuration by running:\n   ```bash\n   source ~/.bashrc\n   ```\n\n4. **Enjoy your new prompt**:\n   Your terminal prompt will now display according to the selected script!\n\nFeel free to tweak the scripts to match your personal preferences or workflow needs. For example, you can add the current time, change colors, or adjust formatting.",
+			"updatedAt": "2025-01-12T19:04:39.577Z",
+			"createdAt": "2024-12-15T23:44:46.994Z"
+		},
+		{
+			"id": 55,
+			"slug": "install-nodejs-via-nvm",
+			"title": "Install NodeJS via NVM",
+			"subtitle": "Looking to install nodejs, this can be easily done with node version manager.",
+			"category": {
+				"id": 4,
+				"slug": "linux",
+				"title": "Linux",
+				"subtitle": "Effortlessly install various services across multiple distributions, with the assistance of automated scripts that are predominantly focused on Ubuntu.",
+				"updatedAt": "2024-12-15T23:30:21.321Z",
+				"createdAt": "2024-12-15T23:30:21.321Z"
+			},
+			"markdown": "#### Tested on\n\n- Ubuntu 22.04\n- Ubuntu 20.04\n\n> You can also install nvm on windows, there's an repository with an installer for it, [nvm-windows](https://github.com/coreybutler/nvm-windows/releases) scroll down to assets.\n\n### Install Node Version Manager\n```\ncurl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash\n```\n\n### Install any version of NodeJS\n```\nnvm install 20\n```\n\n### Start using a specific version\n```\nnvm use 20\n```\n\n#### Error: nvm: command not found\n> This error is to be expected, you need to restart your session after NVM has been installed. Meaning you have to log out and back into your system.",
+			"updatedAt": "2024-12-15T23:44:35.604Z",
+			"createdAt": "2024-12-15T23:44:35.604Z"
+		},
+		{
+			"id": 54,
+			"slug": "ubuntu-disk-resize",
+			"title": "Ubuntu Disk Resize",
+			"subtitle": "After expanding the space on your disk ubuntu won't automatically use the entire volume, in Windows you'd open Disk Manager and do it in there. This is a bit harder to do on the terminal though.",
+			"category": {
+				"id": 6,
+				"slug": "catalogue",
+				"title": "Catalogue",
+				"subtitle": "A vast compendium of knowledge which encompasses a wide range of common issues and their corresponding solutions, offering a convenient and searchable resource for troubleshooting.",
+				"updatedAt": "2024-12-15T23:30:36.981Z",
+				"createdAt": "2024-12-15T23:30:36.981Z"
+			},
+			"markdown": "### This has been tested on\n\n- Ubuntu 20.04\n\n### Get started\n\nExpanding your logical volume on your system via the following commands:\n\n> 1. \n> ```\n> apt install -y parted\n> ```\n\n> 2. \n> ```\n> parted\n> ```\n\n> 2a. \n> ```\n> print\n> ``` \n\n> 2b. \n> ```\n> resizepart\n> ```\n\n> 2c. \n> ```\n> quit\n> ```\n\n> 3. \n> ```\n> pvresize /dev/sda3\n> ```\n\n> 4. \n> ```\n> lvextend /dev/ubuntu-vg/ubuntu-lv -l+100%FREE\n> ```\n\n> 5. \n> ```\n> resize2fs /dev/ubuntu-vg/ubuntu-lv\n> ```",
+			"updatedAt": "2024-12-15T23:44:23.795Z",
+			"createdAt": "2024-12-15T23:44:23.795Z"
+		},
+		{
+			"id": 53,
+			"slug": "install-docker",
+			"title": "Install Docker",
+			"subtitle": "This script will install the latest version of Docker and also includes Docker Compose.",
+			"category": {
+				"id": 4,
+				"slug": "linux",
+				"title": "Linux",
+				"subtitle": "Effortlessly install various services across multiple distributions, with the assistance of automated scripts that are predominantly focused on Ubuntu.",
+				"updatedAt": "2024-12-15T23:30:21.321Z",
+				"createdAt": "2024-12-15T23:30:21.321Z"
+			},
+			"markdown": "# Install Docker with the Compose plugin\n```\ncurl -sSL https://get.docker.com/ | sudo sh\n```\n\n## Allow a non-root to use Docker\n```\nsudo usermod -aG docker $USER\n```\n\n## Tested on\n\n- Ubuntu 20.04\n- Ubuntu 22.04 ",
+			"updatedAt": "2024-12-15T23:44:07.569Z",
+			"createdAt": "2024-12-15T23:44:07.569Z"
+		},
+		{
+			"id": 52,
+			"slug": "port-25-occupied",
+			"title": "Port 25 Occupied",
+			"subtitle": "Are you facing difficulties with setting up a mail server as port 25 is already in use by Ubuntu for postfix? Follow the instructions to free up port 25.",
+			"category": {
+				"id": 6,
+				"slug": "catalogue",
+				"title": "Catalogue",
+				"subtitle": "A vast compendium of knowledge which encompasses a wide range of common issues and their corresponding solutions, offering a convenient and searchable resource for troubleshooting.",
+				"updatedAt": "2024-12-15T23:30:36.981Z",
+				"createdAt": "2024-12-15T23:30:36.981Z"
+			},
+			"markdown": "1. Edit the master configuration file of postfix using the following command:\n```\nvim /etc/postfix/master.cf\n```\n\n2. Locate the line that specifies port 25 and modify it to use a different port, such as 2525:\n```\nsmtp            inet      n      -       n       -       -        smtpd\n```\n\nChange it to:\n```\n2525            inet      n      -       n       -       -        smtpd\n```\n\n3. Save the changes and exit the file.\n\n4. Apply the modifications to postfix by restarting the service:\n```\n/etc/init.d/postfix restart\n```",
+			"updatedAt": "2024-12-15T23:43:55.864Z",
+			"createdAt": "2024-12-15T23:43:55.864Z"
+		},
+		{
+			"id": 51,
+			"slug": "resolvconf-not-found",
+			"title": "Resolvconf not found",
+			"subtitle": "Resolveconf: command not found, is an error that occurs when the package has not been mapped to your user bin directory.",
+			"category": {
+				"id": 6,
+				"slug": "catalogue",
+				"title": "Catalogue",
+				"subtitle": "A vast compendium of knowledge which encompasses a wide range of common issues and their corresponding solutions, offering a convenient and searchable resource for troubleshooting.",
+				"updatedAt": "2024-12-15T23:30:36.981Z",
+				"createdAt": "2024-12-15T23:30:36.981Z"
+			},
+			"markdown": "Run the following command to map resolvconf to your user bin, this'll allow you to run the command straight from the Shell again.\n\n```\nln -s /usr/bin/resolvectl /usr/local/bin/resolvconf\n```",
+			"updatedAt": "2024-12-15T23:43:44.735Z",
+			"createdAt": "2024-12-15T23:43:44.735Z"
+		},
+		{
+			"id": 50,
+			"slug": "github-save-access-token",
+			"title": "GitHub Save Access Token",
+			"subtitle": "Hate the hassle of having to constantly authenticate for each GIT actions you perform and would like to sacrifice some security over it? ",
+			"category": {
+				"id": 6,
+				"slug": "catalogue",
+				"title": "Catalogue",
+				"subtitle": "A vast compendium of knowledge which encompasses a wide range of common issues and their corresponding solutions, offering a convenient and searchable resource for troubleshooting.",
+				"updatedAt": "2024-12-15T23:30:36.981Z",
+				"createdAt": "2024-12-15T23:30:36.981Z"
+			},
+			"markdown": "You can run the command below to save your personal access token generated on GitHub.\n\n```\ngit config --global credential.helper store\n```\n> Do keep in mind that this action requires you to authenticate **one more** time!\n\nGenerate your own token here: [Access Tokens](https://github.com/settings/tokens)",
+			"updatedAt": "2024-12-15T23:43:33.269Z",
+			"createdAt": "2024-12-15T23:43:33.269Z"
+		},
+		{
+			"id": 49,
+			"slug": "portainer-is-unreachable",
+			"title": "Portainer is unreachable",
+			"subtitle": "Having trouble accessing Portainer behind a proxy such as nginx proxy manager, a setting can solve that.",
+			"category": {
+				"id": 6,
+				"slug": "catalogue",
+				"title": "Catalogue",
+				"subtitle": "A vast compendium of knowledge which encompasses a wide range of common issues and their corresponding solutions, offering a convenient and searchable resource for troubleshooting.",
+				"updatedAt": "2024-12-15T23:30:36.981Z",
+				"createdAt": "2024-12-15T23:30:36.981Z"
+			},
+			"markdown": "Add the following to your advanced tab in Nginx Proxy Manager:\n\n|This can be found at:|Advanced > Custom Nginx Configuration|\n|-|-|\n\n```\nproxy_ssl_protocols TLSv1.3;\n```",
+			"updatedAt": "2024-12-15T23:43:08.377Z",
+			"createdAt": "2024-12-15T23:43:08.377Z"
+		},
+		{
+			"id": 48,
+			"slug": "github-runner-root-error",
+			"title": "GitHub Runner - Root Error",
+			"subtitle": "This error occurs by default, GitHub prevents their runners from being run on a root account.",
+			"category": {
+				"id": 6,
+				"slug": "catalogue",
+				"title": "Catalogue",
+				"subtitle": "A vast compendium of knowledge which encompasses a wide range of common issues and their corresponding solutions, offering a convenient and searchable resource for troubleshooting.",
+				"updatedAt": "2024-12-15T23:30:36.981Z",
+				"createdAt": "2024-12-15T23:30:36.981Z"
+			},
+			"markdown": "The following command should solve this issue by setting the environment variable which negates the check if a user is root or not.\n\n```\nexport RUNNER_ALLOW_RUNASROOT=\"1\"\n```",
+			"updatedAt": "2024-12-15T23:42:56.219Z",
+			"createdAt": "2024-12-15T23:42:56.219Z"
+		},
+		{
+			"id": 47,
+			"slug": "nvidia-gpu-passthrough-for-lxcs",
+			"title": "Nvidia GPU passthrough for LXCs",
+			"subtitle": "Enhancing GPU Passthrough on Proxmox: A Comprehensive Guide for Nvidia GPUs Across Multiple LXCs with Shared GPU Access",
+			"category": {
+				"id": 3,
+				"slug": "proxmox",
+				"title": "Proxmox",
+				"subtitle": "Simplify the process of setting up your Proxmox environment with helpful configuration guides and informative notes that streamline the setup procedure.",
+				"updatedAt": "2024-12-15T23:30:12.781Z",
+				"createdAt": "2024-12-15T23:30:12.781Z"
+			},
+			"markdown": "## Guide for Nvidia GPU Integration\n\n### System Specifications\n\n```\nMotherboard: Asrock B550M Pro4\nCPU: Ryzen 5 5600G\nRAM: 2x32GB 3200 DDR4\nGPU: Nvidia 750 Ti (2GB)\n```\n```\nProxmox: 8.1.10\n```\n\n### Acknowledgements\n\nThis guide benefited from various sources, including:\n\n- [Proxmox: PCI Passthrough](https://pve.proxmox.com/wiki/PCI_Passthrough)\n- [Jim's Garage: vGPU for Intel based cards (YouTube)](https://www.youtube.com/watch?v=0ZDr5h52OOE)\n- [Jim's Garage: Set of instructions (GitHub)](https://github.com/JamesTurland/JimsGarage/blob/main/LXC/Jellyfin/readme.md)\n\n### Introduction\n\nThis comprehensive guide aims to streamline the integration process of Nvidia GPUs with Proxmox and LXC containers. It condenses knowledge from various sources into a practical, step-by-step format for ease of implementation.\n\n### Installing Nvidia Drivers on the Proxmox Host\n\n#### Download and Install Driver\n\n1. Visit [Nvidia's Driver download page](https://www.nvidia.com/download/index.aspx) and select the appropriate driver for your GPU.\n2. Copy the download link and execute the following commands:\n\n    ```bash\n    wget <YOUR_DRIVER_DOWNLOAD_LINK> -O driver.run\n    chmod +x ./driver.run\n    sudo ./driver.run\n    ```\n\n3. Follow on-screen prompts, selecting defaults as necessary. If prompted to overwrite X defaults, choose \"yes.\"\n\n#### Verification\n\nEnsure the driver installation was successful by running:\n\n```bash\nnvidia-smi\n```\n\nThe output should look similiar to this:\n\n![Output of nvidia-smi](https://wiki.thijmenheuvelink.nl/pb/api/files/kblyx6ommv2lhn8/dwdjmzx3l6h3rnz/snipaste_2024_04_25_15_38_18_UTXbzrKR8a.png?token=)\n\n### Making the GPU Available to LXC Containers on Proxmox (Host Configuration)\n\nFor a detailed understanding of device and group identification, refer to [Jim's video](https://www.youtube.com/watch?v=0ZDr5h52OOE).\n\n#### Identify Device Numbers\n\n```bash\nls -l /dev/dri\n```\n\n#### Identify Group Numbers\n\n```bash\ncat /etc/group\n```\n\n#### Update Subgid\n\nEdit the subgid file:\n\n```bash\nnano /etc/subgid\n```\n\nReplace values with those obtained earlier.\n\n#### Edit LXC Configuration\n\nEdit the LXC configuration file:\n\n```bash\nnano /etc/pve/lxc/<lxc-id>.conf\n```\n\nAdd the following lines:\n\n```bash\nlxc.cgroup2.devices.allow: c 226:0 rwm\nlxc.cgroup2.devices.allow: c 226:128 rwm\nlxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file\nlxc.idmap: u 0 100000 65536\nlxc.idmap: g 0 100000 44\nlxc.idmap: g 44 44 1\nlxc.idmap: g 45 100045 62\nlxc.idmap: g 107 104 1\nlxc.idmap: g 108 100108 65428\nlxc.mount.entry: /dev/nvidia0 dev/nvidia0 none bind,optional,create=file\nlxc.mount.entry: /dev/nvidiactl dev/nvidiactl none bind,optional,create=file\nlxc.mount.entry: /dev/nvidia-uvm dev/nvidia-uvm none bind,optional,create=file\nlxc.mount.entry: /dev/nvidia-modeset dev/nvidia-modeset none bind,optional,create=file\nlxc.mount.entry: /dev/nvidia-uvm-tools dev/nvidia-uvm-tools none bind,optional,create=file\n```\n\n#### Add Root to Groups\n\nGrant root user access to necessary groups:\n\n```bash\nusermod -aG render,video root\n```\n\n### Setting up Your LXC\n\n### System Specifications\n\n```\nOS: Ubuntu 22.04\n```\n\n#### Install Nvidia Docker Container Toolkit\n\nFollow the installation guide [here](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#configuration), adapting steps as necessary.\n\n#### Installing Nvidia Driver (LXC)\n\nEnsure consistency of Nvidia driver versions between Proxmox host and LXC.\n\n1. Download and install the driver:\n\n    ```bash\n    wget <YOUR_DRIVER_DOWNLOAD_LINK> -O driver.run\n    chmod +x ./driver.run\n    sudo ./driver.run --no-kernel-module\n    ```\n\n2. Follow prompts, using default settings. Use the flag \"--no-kernel-module\" to prevent kernel reinstallation.\n\n#### Verification\n\nConfirm driver installation within LXC:\n\n```bash\nnvidia-smi\n```\n\nThe output should look similiar to this:\n\n![Output of nvidia-smi](https://wiki.thijmenheuvelink.nl/pb/api/files/kblyx6ommv2lhn8/dwdjmzx3l6h3rnz/snipaste_2024_04_25_15_38_18_UTXbzrKR8a.png?token=)\n\n## Conclusion\n\nYour LXC container is now configured to utilize the Nvidia GPU effectively. For scaling to additional LXCs, repeat the configuration steps outlined above.\n\nFor further inquiries or assistance, feel free to reach out:\n\n- Email: mail@thijmenheuvelink.nl\n- Discord: thijmengthn",
+			"updatedAt": "2024-12-15T23:42:42.367Z",
+			"createdAt": "2024-12-15T23:42:42.367Z"
+		},
+		{
+			"id": 46,
+			"slug": "lxc-tun-unavailable-(vpn)",
+			"title": "LXC Tun Unavailable (VPN)",
+			"subtitle": "To address the problem of LXC Tun being inaccessible, a proposed solution is to make adjustments in the LXC configuration file to grant the required permissions and bindings.",
+			"category": {
+				"id": 3,
+				"slug": "proxmox",
+				"title": "Proxmox",
+				"subtitle": "Simplify the process of setting up your Proxmox environment with helpful configuration guides and informative notes that streamline the setup procedure.",
+				"updatedAt": "2024-12-15T23:30:12.781Z",
+				"createdAt": "2024-12-15T23:30:12.781Z"
+			},
+			"markdown": "Improved readme instructions:\n\n1. Open the shell on your node.\n2. Navigate to the directory `/etc/pve/lxc`.\n3. Locate and open the configuration file for the LXC that you want to modify.\n4. At the end of the config file, add the following rules:\n```\nlxc.cgroup.devices.allow: c 10:200 rwm\nlxc.mount.entry: /dev/net dev/net none bind,create=dir\n```\n5. Save the config file and exit the editor.\n6. Reboot the LXC to apply the changes.\n7. After the reboot, the error should now be resolved.",
+			"updatedAt": "2024-12-15T23:42:30.562Z",
+			"createdAt": "2024-12-15T23:42:30.562Z"
+		},
+		{
+			"id": 45,
+			"slug": "usb-automount",
+			"title": "USB Automount",
+			"subtitle": "Automatically mount any usb inserted into your PVE node as a disk",
+			"category": {
+				"id": 3,
+				"slug": "proxmox",
+				"title": "Proxmox",
+				"subtitle": "Simplify the process of setting up your Proxmox environment with helpful configuration guides and informative notes that streamline the setup procedure.",
+				"updatedAt": "2024-12-15T23:30:12.781Z",
+				"createdAt": "2024-12-15T23:30:12.781Z"
+			},
+			"markdown": "### 1. Register the Third-Party repo\n\nRun **one of the following** in your PVE Node Shell depending on the codename of it's release. \n\n|Codename|Command|\n|-|-|\n|Bionic|echo \"deb https://apt.iteas.at/iteas bionic main\" > /etc/apt/sources.list.d/iteas.list|\n|Focal|echo \"deb https://apt.iteas.at/iteas focal main\" > /etc/apt/sources.list.d/iteas.list|\n|Buster|echo \"deb https://apt.iteas.at/iteas buster main\" > /etc/apt/sources.list.d/iteas.list|\n|Bullseye|echo \"deb https://apt.iteas.at/iteas bullseye main\" > /etc/apt/sources.list.d/iteas.list|\n\n### 2. Install the auto mounter\n\n```\nsudo apt update\n```\n\n```\nsudo apt install -y pve7-usb-automount\n```\n\n#### An error occured, here's a common solution.\n\nThis command adds a GPG key from the keyserver.ubuntu.com keyserver to the list of trusted keys on the system.\n\n```\napt-key adv --recv-keys --keyserver keyserver.ubuntu.com <your-key-displayed-in-console>\n``` ",
+			"updatedAt": "2024-12-15T23:42:20.238Z",
+			"createdAt": "2024-12-15T23:42:20.238Z"
+		},
+		{
+			"id": 44,
+			"slug": "install-a-dark-theme",
+			"title": "Install a Dark Theme",
+			"subtitle": "This theme is inspired by the color-scheme of Discord and is very easy on the eyes, especially at night.",
+			"category": {
+				"id": 3,
+				"slug": "proxmox",
+				"title": "Proxmox",
+				"subtitle": "Simplify the process of setting up your Proxmox environment with helpful configuration guides and informative notes that streamline the setup procedure.",
+				"updatedAt": "2024-12-15T23:30:12.781Z",
+				"createdAt": "2024-12-15T23:30:12.781Z"
+			},
+			"markdown": "### Installation script to install the dark theme\n\nPaste the following command in your PVE Node it's Shell:\n\n```\nbash <(curl -s https://raw.githubusercontent.com/Weilbyte/PVEDiscordDark/master/PVEDiscordDark.sh ) install\n```\n\n#### Theme Preview\n\n![preview](https://wiki.thijmenheuvelink.nl/pb/api/files/kblyx6ommv2lhn8/azdam2he23bgfys/image_2023_12_17_005530093_Q6V1ePrOme.png?token=)",
+			"updatedAt": "2024-12-15T23:42:02.659Z",
+			"createdAt": "2024-12-15T23:42:02.659Z"
+		},
+		{
+			"id": 43,
+			"slug": "remove-subscription-notice",
+			"title": "Remove Subscription Notice",
+			"subtitle": "A useful script to get rid of the no-subscription message proxmox displays on login when using the non-production ready repository.",
+			"category": {
+				"id": 3,
+				"slug": "proxmox",
+				"title": "Proxmox",
+				"subtitle": "Simplify the process of setting up your Proxmox environment with helpful configuration guides and informative notes that streamline the setup procedure.",
+				"updatedAt": "2024-12-15T23:30:12.781Z",
+				"createdAt": "2024-12-15T23:30:12.781Z"
+			},
+			"markdown": "### Tested on \n\n- PVE 7.1-10.x\n- PVE 8.0-1.x\n\n## Subscription notice removal script\n\nPaste the following command in your PVE Node it's Shell:\n\n```\nsed -Ezi.bak \"s/(Ext.Msg.show\\(\\{\\s+title: gettext\\('No valid sub)/void\\(\\{ \\/\\/\\1/g\" /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js && systemctl restart pveproxy.service\n```",
+			"updatedAt": "2024-12-15T23:41:50.639Z",
+			"createdAt": "2024-12-15T23:41:50.639Z"
+		},
+		{
+			"id": 42,
+			"slug": "merge-disks-after-installation",
+			"title": "Merge disks after installation",
+			"subtitle": "This guide contains a clip from Network Chuck who will explain how to combine your two disks into a singular enlarged disk.",
+			"category": {
+				"id": 3,
+				"slug": "proxmox",
+				"title": "Proxmox",
+				"subtitle": "Simplify the process of setting up your Proxmox environment with helpful configuration guides and informative notes that streamline the setup procedure.",
+				"updatedAt": "2024-12-15T23:30:12.781Z",
+				"createdAt": "2024-12-15T23:30:12.781Z"
+			},
+			"markdown": "The clip of the video below will explain how to combine your local and local-lvm disks into a singular enlarged disk. This is optimal in most cases.\n\nhttps://www.youtube.com/watch?v=_u8qTN3cCnQ&t=960s\n\n[![Video by Network Chuck](https://wiki.thijmenheuvelink.nl/pb/api/files/kblyx6ommv2lhn8/a11kp1nxn2se3tu/image_2023_12_17_004438865_IyiZSFFzNc.png?token=)](https://www.youtube.com/watch?v=_u8qTN3cCnQ&t=960s)",
+			"updatedAt": "2024-12-15T23:41:37.066Z",
+			"createdAt": "2024-12-15T23:41:37.066Z"
+		},
+		{
+			"id": 41,
+			"slug": "setup-emails",
+			"title": "Setup Emails",
+			"subtitle": "The following guide provides a detailed set of instructions on how to enable sending emails on Proxmox.",
+			"category": {
+				"id": 3,
+				"slug": "proxmox",
+				"title": "Proxmox",
+				"subtitle": "Simplify the process of setting up your Proxmox environment with helpful configuration guides and informative notes that streamline the setup procedure.",
+				"updatedAt": "2024-12-15T23:30:12.781Z",
+				"createdAt": "2024-12-15T23:30:12.781Z"
+			},
+			"markdown": "## Email configuration\n\n##Configuring User E-mail Address\n\n- In a web browser, navigate to the Proxmox web UI and login\n- Select Datacenter > Permissions > Users from the left navigation menus\n- Double click the user to configure\n- Complete the E-mail field on the Edit User form > Click OK\n\n### Simple Configuration via Web UI\n\n*By default, Proxmox will try to use the domain portion of the \"Email from address\" as the e-mail relay server.*\n\n- Select Datacenter > Options from the left navigation menus\n- Double click the Email from address field\n- Enter the e-mail address that Proxmox will send outgoing e-mails from > Click OK\n- Expand Datacenter > Select the node name > Click Shell in the left navigation menus\n- Run the following commands in the terminal\n\n```\n# send a basic test email\necho \"Test email from Proxmox: $(hostname)\" | /usr/bin/pvemailforward\n# output the mail log\ncat /var/log/mail.log\n```\n\n### Advanced Configuration via CLI\n\n*To make more advanced configuration changes, like using a gmail account, you need to edit the postfix settings via command line.*\n\n- Back in the Proxmox web shell, run the following commands in the terminal.\n\n```\n# install libsasl\napt install libsasl2-modules -y\n# edit the postfix config\nnano /etc/postfix/main.cf\n```\n\n- Press CTRL+W and search for mydestination\n- Comment out mydestination by adding a # to the beginning of the line\n- Press CTRL+W and search for relayhost\n- Comment out relayhost by adding a # to the beginning of the line\n- Update or add the following configuration\n\n```\nrelayhost = smtp.gmail.com:587\nsmtp_use_tls = yes\nsmtp_sasl_auth_enable = yes\nsmtp_sasl_security_options =\nsmtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd\nsmtp_tls_CAfile = /etc/ssl/certs/Entrust_Root_Certification_Authority.pem\n```\n\n- Press CTRL+O, Enter, CTRL+X to write the changes\n- Continue with the following commands in the terminal\n\n```\n# create /etc/postfix/sasl_passwd\nnano /etc/postfix/sasl_passwd\n```\n\n- Add a line to configure gmail authentication\n\n```\nsmtp.gmail.com:587 <%youraccount%>@gmail.com:<%yourpassword%>\n```\n\n- Press CTRL+O, Enter, CTRL+X to write the changes\n- Continue with the following commands in the terminal\n\n```\n# update postfix lookup tables\npostmap hash:/etc/postfix/sasl_passwd\n# limit access to sasl_passwd to only root\nchmod 600 /etc/postfix/sasl_passwd\n# restart postfix service\nsystemctl restart postfix\n# test from postfix directly\necho \"Test email from Proxmox: $(hostname)\" | mail -s \"Proxmox Testing\" <%youraccount%>@gmail.com\n# send a test from proxmox\necho \"Test email from Proxmox: $(hostname)\" | /usr/bin/pvemailforward\n```\n",
+			"updatedAt": "2024-12-15T23:41:23.580Z",
+			"createdAt": "2024-12-15T23:41:23.580Z"
+		},
+		{
+			"id": 40,
+			"slug": "activate-windows",
+			"title": "Activate Windows",
+			"subtitle": "A Windows and Office activator using HWID / Ohook / KMS38 / Online KMS activation methods",
+			"category": {
+				"id": 1,
+				"slug": "windows",
+				"title": "Windows",
+				"subtitle": "Access a comprehensive library of resources specifically tailored to Windows, including step-by-step guides, best practices, and troubleshooting tips for optimal performance.",
+				"updatedAt": "2024-12-15T23:29:51.660Z",
+				"createdAt": "2024-12-15T23:29:51.660Z"
+			},
+			"markdown": "## Getting started\n\n-   Right-click on the Windows start menu and select PowerShell or Terminal (Not CMD).\n-   Copy and paste the code below and press enter  \n  ```\nirm https://get.activated.win | iex\n```  \n-   You will see the activation options. Follow the on-screen instructions.\n\n### Maintained by Massgravel\n\nGitHub: https://github.com/massgravel/Microsoft-Activation-Scripts",
+			"updatedAt": "2024-12-15T23:41:09.106Z",
+			"createdAt": "2024-12-15T23:41:09.106Z"
+		},
+		{
+			"id": 39,
+			"slug": "portable-programs",
+			"title": "Portable Programs",
+			"subtitle": "A list of portable apps which can run from a USB drive without installation, allowing easy use of favorite programs on multiple computers.",
+			"category": {
+				"id": 1,
+				"slug": "windows",
+				"title": "Windows",
+				"subtitle": "Access a comprehensive library of resources specifically tailored to Windows, including step-by-step guides, best practices, and troubleshooting tips for optimal performance.",
+				"updatedAt": "2024-12-15T23:29:51.660Z",
+				"createdAt": "2024-12-15T23:29:51.660Z"
+			},
+			"markdown": "_Simply click on the name of any program to instantly access its contents and conveniently download it._\n\n### [7zip](https://cloud.thijmenheuvelink.nl/s/RaxZYfLNTJ3dHgj)\nFile compression software that allows you to compress and decompress files in various formats.\n\n### [Auto Clicker](https://cloud.thijmenheuvelink.nl/s/FAK9oAS4sNJdyxW)\nA program that automatically clicks the mouse at specified intervals, useful for repetitive tasks or gaming.\n\n### [File structure editor](https://cloud.thijmenheuvelink.nl/s/n9DkjM8t4QdDrSJ)\nA registry editor that enables you to remove folders in the file explorer and customize your file system. \n\n### [Filezilla](https://cloud.thijmenheuvelink.nl/s/5wgiqSbaMqDzz4s)\nAn open-source FTP client that allows you to transfer files between your computer and a remote server. \n\n### [GIMP](https://cloud.thijmenheuvelink.nl/s/tFMHwopwP9orFym)\nA powerful, free image editing software that offers a wide range of tools and features.\n\n### [IP/Port scanner](https://cloud.thijmenheuvelink.nl/s/AAgEZmJLzLezqrs)\nSoftware that scans a network to identify active IP addresses, their port and gather information about connected devices. \n\n### [Rufus](https://cloud.thijmenheuvelink.nl/s/CTT2d9NPK3RjkWr)\nA utility that allows you to create bootable USB drives, making it easy to install operating systems or run diagnostic tools. \n\n### [Speccy](https://cloud.thijmenheuvelink.nl/s/Aaf4Zq5ZKa47xWL)\nA system information tool that provides detailed information about your computer's hardware components. \n\n### [Everything](https://cloud.thijmenheuvelink.nl/s/XTkrjEnFXTrFTco)\nLocate files and folders by name instantly on your entire computer, like magic.\n\n### [TreeSize](https://cloud.thijmenheuvelink.nl/s/yoRKE3Mw9oLWAgF)\nA disk space management tool that visually represents the size of folders and files on your hard drive, helping you identify and manage disk space usage efficiently. \n\n### [Torrent](https://cloud.thijmenheuvelink.nl/s/poD3qQBm9bfm4fr)\nA peer-to-peer file sharing protocol that facilitates the distribution and downloading of large files, often used for sharing media files such as movies or software.",
+			"updatedAt": "2024-12-15T23:40:56.540Z",
+			"createdAt": "2024-12-15T23:40:56.540Z"
+		},
+		{
+			"id": 38,
+			"slug": "win-11-local-account",
+			"title": "Win 11 Local Account",
+			"subtitle": "Instructions on how to install Windows 11 using a local account.",
+			"category": {
+				"id": 1,
+				"slug": "windows",
+				"title": "Windows",
+				"subtitle": "Access a comprehensive library of resources specifically tailored to Windows, including step-by-step guides, best practices, and troubleshooting tips for optimal performance.",
+				"updatedAt": "2024-12-15T23:29:51.660Z",
+				"createdAt": "2024-12-15T23:29:51.660Z"
+			},
+			"markdown": "To install Windows 11 with a local account, follow the steps below:\n\n1. Disable your internet connection.\n2. Proceed with the Windows 11 installation process until you reach the \"Sign in with Microsoft\" screen.\n3. Enter the following email address: `no@thankyou.com`.\n4. Set any password of your choice, and click on the \"Next\" button.\n5. An error message will be displayed stating that the sign-in couldn't be completed. Click on the \"Next\" button to proceed.\n6. You can now continue setting up your local account by following the on-screen instructions.\n\n_It is recommended to re-enable your internet connection after completing the installation process to ensure full functionality and access to relevant updates and features._\n\n![Preview](https://wiki.thijmenheuvelink.nl/pb/api/files/kblyx6ommv2lhn8/4wxj69ryrzhh6xg/image_2023_12_17_163254304_YYWyFMN23N.png?token=)",
+			"updatedAt": "2024-12-15T23:40:45.274Z",
+			"createdAt": "2024-12-15T23:40:45.274Z"
+		},
+		{
+			"id": 37,
+			"slug": "powershell-running-scripts",
+			"title": "PowerShell Running Scripts",
+			"subtitle": "By default windows has this disabled for powershell, most commonly packages managers like Yarn require running scripts to be enabled.",
+			"category": {
+				"id": 1,
+				"slug": "windows",
+				"title": "Windows",
+				"subtitle": "Access a comprehensive library of resources specifically tailored to Windows, including step-by-step guides, best practices, and troubleshooting tips for optimal performance.",
+				"updatedAt": "2024-12-15T23:29:51.660Z",
+				"createdAt": "2024-12-15T23:29:51.660Z"
+			},
+			"markdown": "To allow running scripts on your system, the following has to be inserted into PowerShell:\n```\nset-executionpolicy remotesigned\n```\n\n![Execution Sample](https://wiki.thijmenheuvelink.nl/pb/api/files/kblyx6ommv2lhn8/zelezc71mvzd26u/image_2023_12_16_203416674_1tMPWiIdEX.png?token=)",
+			"updatedAt": "2024-12-15T23:40:33.924Z",
+			"createdAt": "2024-12-15T23:40:33.924Z"
+		},
+		{
+			"id": 36,
+			"slug": "adguard-dns",
+			"title": "AdGuard DNS",
+			"subtitle": "AdGuard Home is a network-wide software for blocking ads and tracking. It functions as a DNS server that can filter traffic and improve privacy for your devices.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### via Docker Compose\n\n```\nservices:\n  adguard:\n    image: adguard/adguardhome\n    container_name: adguard\n    restart: unless-stopped\n    volumes:\n      - ./data/workdir:/opt/adguardhome/work\n      - ./data/confdir:/opt/adguardhome/conf\n    ports:\n      - \"53:53/tcp\"\n      - \"53:53/udp\"\n      - \"67:67/udp\"\n      - \"68:68/udp\"\n      - \"80:80/tcp\"\n      - \"443:443/tcp\"\n      - \"443:443/udp\"\n      - \"3000:3000/tcp\"\n      - \"853:853/tcp\"\n      - \"784:784/udp\"\n      - \"853:853/udp\"\n      - \"8853:8853/udp\"\n      - \"5443:5443/tcp\"\n      - \"5443:5443/udp\"\n```\n\n### Launching AdGuard\n\n1. Save the above content as docker-compose.yml in your desired directory.\n2. Navigate to the directory in your terminal.\n3. Run the following command to start the container:\n\n```\ndocker-compose up -d\n```\n\nThe service will now be running in detached mode. You can access the AdGuard Home web interface using the IP address of your host machine on port 3000.",
+			"updatedAt": "2024-12-15T23:40:16.781Z",
+			"createdAt": "2024-12-15T23:40:16.781Z"
+		},
+		{
+			"id": 35,
+			"slug": "bazarr",
+			"title": "Bazarr",
+			"subtitle": "Bazarr is a handy tool designed to manage and download subtitles for your media files, ensuring that your movies and TV shows are equipped with accurate subtitles for an enhanced viewing experience.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"2.1\"\nservices:\n  bazarr:\n    image: lscr.io/linuxserver/bazarr:latest\n    container_name: bazarr\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Amsterdam\n    volumes:\n      - ./config:/config\n      - ./data/movies:/movies\n      - ./data/series:/tv\n    ports:\n      - 6767:6767\n    restart: unless-stopped\n```\n\n### Start it\n\n```\ndocker-compose up -d\n```",
+			"updatedAt": "2024-12-15T23:40:00.204Z",
+			"createdAt": "2024-12-15T23:40:00.204Z"
+		},
+		{
+			"id": 34,
+			"slug": "flareresolverr",
+			"title": "Flareresolverr",
+			"subtitle": "FlareSolverr is a proxy server to bypass Cloudflare and DDoS-GUARD protection.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"2.1\"\nservices:\n  flaresolverr:\n    image: flaresolverr/flaresolverr:latest\n    container_name: flaresolverr\n    environment:\n      - TZ=Europe/Amsterdam\n    ports:\n      - \"8191:8191\"\n    restart: unless-stopped\n```\n\n### Start it\n\n```\ndocker-compose up -d\n```",
+			"updatedAt": "2024-12-15T23:39:49.729Z",
+			"createdAt": "2024-12-15T23:39:49.729Z"
+		},
+		{
+			"id": 33,
+			"slug": "jellyseerr",
+			"title": "Jellyseerr",
+			"subtitle": "Jellyseerr is a free and open source software application for managing requests for your media library.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: '3'\nservices:\n    jellyseerr:\n       image: fallenbagel/jellyseerr:latest\n       container_name: jellyseerr\n       environment:\n            - TZ=Europe/Amsterdam\n       ports:\n            - 5055:5055\n       volumes:\n            - ./config:/app/config\n       restart: unless-stopped\n```\n\n### Start it\n\n```\ndocker-compose up -d\n```",
+			"updatedAt": "2024-12-15T23:39:37.660Z",
+			"createdAt": "2024-12-15T23:39:37.660Z"
+		},
+		{
+			"id": 32,
+			"slug": "prowlarr",
+			"title": "Prowlarr",
+			"subtitle": "Prowlarr is a versatile application that consolidates multiple torrent trackers, enhancing the efficiency of content searching and downloading within the Usenet community.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"2.1\"\nservices:\n  prowlarr:\n    image: lscr.io/linuxserver/prowlarr:latest\n    container_name: prowlarr\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Amsterdam\n    volumes:\n      - ./config:/config\n    ports:\n      - 9696:9696\n    restart: unless-stopped\n```\n\n### Start it\n\n```\ndocker-compose up -d\n```",
+			"updatedAt": "2024-12-15T23:39:21.816Z",
+			"createdAt": "2024-12-15T23:39:21.816Z"
+		},
+		{
+			"id": 31,
+			"slug": "sonarr",
+			"title": "Sonarr",
+			"subtitle": "Sonarr is a widely used software for automating the retrieval and management of TV shows, making it effortless to keep up with your favorite series.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"2.1\"\nservices:\n  sonarr:\n    image: lscr.io/linuxserver/sonarr:latest\n    container_name: sonarr\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Amsterdam\n    volumes:\n      - ./config:/config\n      - ./data/series:/series\n      - ./data/downloads:/downloads\n    ports:\n      - 8989:8989\n    restart: unless-stopped\n```\n\n### Start it\n\n```\ndocker-compose up -d\n```",
+			"updatedAt": "2024-12-15T23:39:10.867Z",
+			"createdAt": "2024-12-15T23:39:10.867Z"
+		},
+		{
+			"id": 30,
+			"slug": "radarr",
+			"title": "Radarr",
+			"subtitle": "Radarr is a popular open-source tool for managing and automating movie downloads.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"2.1\"\nservices:\n  radarr:\n    image: lscr.io/linuxserver/radarr:latest\n    container_name: radarr\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Amsterdam\n    volumes:\n      - ./config:/config\n      - ./data/movies:/movies\n      - ./data/downloads:/downloads\n    ports:\n      - 7878:7878\n    restart: unless-stopped\n```\n\n### Start it\n\n```\ndocker-compose up -d\n```",
+			"updatedAt": "2024-12-15T23:38:59.765Z",
+			"createdAt": "2024-12-15T23:38:59.765Z"
+		},
+		{
+			"id": 29,
+			"slug": "ollama-ui",
+			"title": "Ollama UI",
+			"subtitle": "Ollama with WebUI",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "```yml\nservices:\n  ollama-engine:\n    image: ollama/ollama:latest\n    container_name: ollama-engine\n    restart: unless-stopped\n    ports: [\"11434:11434\"]\n    volumes:\n      - ./ollama/engine:/root/.ollama\n    # OPTIONAL: Nvidia GPU Support for faster generation. \n    # environment:\n    #   - gpus=all\n    # deploy:\n    #   resources:\n    #     reservations:\n    #       devices:\n    #       - driver: nvidia\n    #         capabilities: [gpu]\n\n  ollama-webui:\n    image: ghcr.io/open-webui/open-webui:main\n    container_name: ollama-webui\n    restart: unless-stopped\n    ports: [\"8080:8080\"]\n    environment:\n      - OLLAMA_BASE_URL=http://ollama-engine:11434\n    volumes:\n      - ./ollama/webui:/app/backend/data\n    extra_hosts:\n      - host.docker.internal:host-gateway\n    depends_on:\n      - ollama-engine\n```",
+			"updatedAt": "2024-12-15T23:38:48.691Z",
+			"createdAt": "2024-12-15T23:38:48.691Z"
+		},
+		{
+			"id": 28,
+			"slug": "pocketbase",
+			"title": "Pocketbase",
+			"subtitle": "Open Source backend in 1 file - Use as a standalone app OR as a framework, that you can extend via Go and JavaScript hooks to create your own custom portable backend.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"3\"\n\nservices:\n\n  pocketbase:\n    image: ghcr.io/muchobien/pocketbase:latest\n    restart: unless-stopped\n    ports: [ \"8090:8090\" ]\n    volumes: \n      - pb_data:/pb_data\n      # - ./types.d.ts:/pb_data/types.d.ts\n      - ./migrations:/pb_migrations\n      - ./hooks:/pb_hooks\n      - ./public:/pb_public\n\nvolumes:\n  pb_data:\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
+			"updatedAt": "2024-12-15T23:38:32.320Z",
+			"createdAt": "2024-12-15T23:38:32.320Z"
+		},
+		{
+			"id": 27,
+			"slug": "focalboard",
+			"title": "Focalboard",
+			"subtitle": "Focalboard is 100% open source. Focalboard is an open source alternative to tools like Asana, Trello, and Notion.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"3\"\nservices:\n  focal:\n    image: mattermost/focalboard\n    container_name: focal\n    ports: [ \"3000:8000\" ]\n    restart: unless-stopped\n    volumes:\n      - ./config:/opt/focalboard/data\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
+			"updatedAt": "2024-12-15T23:38:21.349Z",
+			"createdAt": "2024-12-15T23:38:21.349Z"
+		},
+		{
+			"id": 26,
+			"slug": "osticket",
+			"title": "osTicket",
+			"subtitle": "osTicket is a widely used and trusted open source support ticketing system. Easily scale and streamline your customer service.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: '3'\nservices:\n  osticket:\n    image: devinsolutions/osticket:latest\n    container_name: osticket\n    restart: unless-stopped\n    ports: [ \"80:80\" ]\n    environment:\n      MYSQL_USER: osticket\n      MYSQL_PASSWORD: b00kst4ck\n      MYSQL_HOST: database\n      MYSQL_DATABASE: osticket\n  database:\n    image: mysql:5.7\n    container_name: database\n    restart: unless-stopped\n    environment:\n      MYSQL_USER: osticket\n      MYSQL_PASSWORD: b00kst4ck\n      MYSQL_ROOT_PASSWORD: b00kst4ck\n      MYSQL_DATABASE: osticket\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
+			"updatedAt": "2024-12-15T23:38:11.387Z",
+			"createdAt": "2024-12-15T23:38:11.387Z"
+		},
+		{
+			"id": 25,
+			"slug": "vscode-server",
+			"title": "VSCode Server",
+			"subtitle": "The Visual Studio Code Server is a service you can run on a remote development machine, like your desktop PC or a virtual machine (VM).",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"2.1\"\nservices:\n  code-server:\n    image: lscr.io/linuxserver/code-server:latest\n    container_name: vscode-server\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Amsterdam\n      - PASSWORD=b00kst4ck\n      - SUDO_PASSWORD=b00kst4ck #optional\n      - PROXY_DOMAIN=vscode-server.my.domain #optional\n      - DEFAULT_WORKSPACE=/config/workspace #optional\n    volumes:\n      - /home/$USER/env/vscode-server:/config\n    ports:\n      - 8443:8443\n    restart: unless-stopped\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
+			"updatedAt": "2024-12-15T23:38:01.765Z",
+			"createdAt": "2024-12-15T23:38:01.765Z"
+		},
+		{
+			"id": 24,
+			"slug": "postgresql-+-pgadmin",
+			"title": "PostgreSQL + pgAdmin",
+			"subtitle": "This image combines both PostgreSQL and an admin front-end named pgAdmin, this way you can easily manage your database.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: '3.8'\nservices:\n  postgresql:\n    container_name: postgresql\n    image: postgres\n    restart: unless-stopped\n    environment:\n      POSTGRES_PASSWORD: b00kst4ck\n    ports:\n      - \"5432:5432\"\n    volumes:\n      - /home/$USER/env/postgres:/var/lib/postgresql/data\n  pgadmin:\n    container_name: pgadmin\n    image: dpage/pgadmin4\n    restart: unless-stopped\n    environment:\n      PGADMIN_DEFAULT_EMAIL: admin@leaflet.app\n      PGADMIN_DEFAULT_PASSWORD: b00kst4ck\n    ports:\n      - \"5050:80\"\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
+			"updatedAt": "2024-12-15T23:37:41.729Z",
+			"createdAt": "2024-12-15T23:37:41.729Z"
+		},
+		{
+			"id": 23,
+			"slug": "flame",
+			"title": "Flame",
+			"subtitle": "Flame is self-hosted startpage for your server. Its design is inspired (heavily) by SUI. Flame is very easy to setup and use.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: '3.6'\n\nservices:\n  flame:\n    image: pawelmalak/flame\n    container_name: flame\n    volumes:\n      - /home/$USER/env/flame:/app/data\n    ports:\n      - 5005:5005\n    environment:\n      - PASSWORD=b00kst4ck\n    restart: unless-stopped\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
+			"updatedAt": "2024-12-15T23:37:30.550Z",
+			"createdAt": "2024-12-15T23:37:30.550Z"
+		},
+		{
+			"id": 22,
+			"slug": "mysql-+-adminer",
+			"title": "MySQL + Adminer",
+			"subtitle": "This image combines both MySQL and an admin front-end named Adminer, this way you can easily manage your database.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"3.8\"\nservices:\n  mysql:\n    image: mysql:latest\n    container_name: mysql\n    restart: unless-stopped\n    environment:\n      MYSQL_ROOT_PASSWORD: \"b00kst4ck\"\n    ports:\n      - 3306:3306\n    volumes:\n      - /home/$USER/env/mysql:/var/lib/mysql\n  adminer:\n    image: adminer:latest\n    container_name: adminer\n    links:\n      - mysql\n    environment:\n      ADMINER_DEFAULT_SERVER: mysql\n      ADMINER_DESIGN: pepa-linha-dark\n    restart: unless-stopped\n    ports:\n      - 8080:8080\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
+			"updatedAt": "2024-12-15T23:37:19.237Z",
+			"createdAt": "2024-12-15T23:37:19.237Z"
+		},
+		{
+			"id": 21,
+			"slug": "mysql-+-phpmyadmin",
+			"title": "MySQL + phpmyadmin",
+			"subtitle": "This image combines both MySQL and an admin front-end named phpmyadmin, this way you can easily manage your database.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: '3'\n \nservices:\n  mysql:\n    image: mysql:latest\n    container_name: mysql\n    restart: unless-stopped\n    environment:\n      MYSQL_ROOT_PASSWORD: b00kst4ck\n    ports:\n      - \"3306:3306\"\n    volumes:\n      - /home/$USER/mysql:/var/lib/mysql\n  phpmyadmin:\n    image: phpmyadmin:latest\n    container_name: phpmyadmin\n    links:\n      - mysql\n    environment:\n      PMA_ARBITRARY: 1\n      PMA_HOST: mysql\n      PMA_PORT: 3306\n    restart: unless-stopped\n    ports:\n      - 80:80\n    volumes:\n      - /home/$USER/theme:/var/www/html/themes/custom\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
+			"updatedAt": "2024-12-15T23:37:01.176Z",
+			"createdAt": "2024-12-15T23:37:01.176Z"
+		},
+		{
+			"id": 20,
+			"slug": "jackett",
+			"title": "Jackett",
+			"subtitle": "Jackett works as a proxy server: it translates queries from apps (Sonarr, Radarr, SickRage, CouchPotato, Mylar3, Lidarr, DuckieTV, qBittorrent, Nefarious etc.) into tracker-site-specific http queries, parses the html or json response, and then sends results back to the requesting software.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Run it with Docker\n\n```\ndocker run -d \\\n  --name=jackett \\\n  -e PUID=1000 \\\n  -e PGID=1000 \\\n  -e TZ=Europe/Amsterdam \\\n  -e AUTO_UPDATE=true `#optional` \\\n  -p 9117:9117 \\\n  -v /root/env/jackett/config:/config \\\n  -v /root/env/jackett/cache:/downloads \\\n  --restart unless-stopped \\\n  lscr.io/linuxserver/jackett:latest\n```",
+			"updatedAt": "2024-12-15T23:36:49.025Z",
+			"createdAt": "2024-12-15T23:36:49.025Z"
+		},
+		{
+			"id": 19,
+			"slug": "qbittorrent",
+			"title": "Qbittorrent",
+			"subtitle": "qBittorrent is a cross-platform free and open-source BitTorrent client written in native C++.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"2.1\"\nservices:\n  qbittorrent:\n    image: lscr.io/linuxserver/qbittorrent:latest\n    container_name: qbittorrent\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Amsterdam\n      - WEBUI_PORT=8080\n    volumes:\n      - /home/$USER/env/config:/config\n      - /home/$USER/env/downloads:/downloads\n    ports:\n      - 8080:8080\n      - 6881:6881\n      - 6881:6881/udp\n    restart: unless-stopped\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```\n\n### Default credentials\n\n|Username|Password|\n|-|-|\n|admin|adminadmin|",
+			"updatedAt": "2024-12-15T23:36:22.648Z",
+			"createdAt": "2024-12-15T23:36:22.648Z"
+		},
+		{
+			"id": 18,
+			"slug": "wiki.js",
+			"title": "Wiki.js",
+			"subtitle": "Wiki.js is a wiki engine running on Node.js and written in JavaScript.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Run it with Docker\n\n```\ndocker run -d \\\n  --name=wiki \\\n  --restart unless-stopped \\\n  -e PUID=1000 \\\n  -e PGID=1000 \\\n  -e TZ=Europe/Amsterdam \\\n  -p 8080:3000 \\\n  -v /root/env/wiki/config:/config \\\n  -v /root/env/wiki/data:/data \\\n  --restart unless-stopped \\\n  lscr.io/linuxserver/wikijs:latest\n```",
+			"updatedAt": "2024-12-15T23:36:12.855Z",
+			"createdAt": "2024-12-15T23:36:12.855Z"
+		},
+		{
+			"id": 17,
+			"slug": "vaultwarden",
+			"title": "Vaultwarden",
+			"subtitle": "Unofficial Bitwarden compatible server written in Rust, Bitwarden is a freemium open-source password management service that stores sensitive information such as website credentials in an encrypted vault.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: '3'\n\nservices:\n  vaultwarden:\n    image: vaultwarden/server:latest\n    container_name: vaultwarden\n    restart: unless-stopped\n    volumes: [/home/$USER/env/:/data/]\n    ports: [8080:80]\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
+			"updatedAt": "2024-12-15T23:35:48.717Z",
+			"createdAt": "2024-12-15T23:35:48.717Z"
+		},
+		{
+			"id": 16,
+			"slug": "directus",
+			"title": "Directus",
+			"subtitle": "Directus is a free and open-source data platform built entirely in JavaScript. It instantly wraps any SQL database with a real-time GraphQL+REST API and an intuitive app for non-technical users.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Run it with Docker\n\n```\ndocker run -d \\\n  -e KEY=255d861b-5ea1-5996-9aa3-922530ec40b1 \\\n  -e SECRET=6116487b-cda1-52c2-b5b5-c8022c45e263 \\\n  --name directus \\\n  --restart unless-stopped \\\n  -p 8055:8055 \\\n  -e ADMIN_EMAIL=\"admin@example.com\" \\\n  -e ADMIN_PASSWORD=\"b00kst4ck\" \\\n  -v /root/env/directus/uploads:/directus/uploads \\\n  -v /root/env/directus/extensions:/directus/extensions \\\n  -v /root/env/directus/database:/directus/database \\\n  directus/directus\n```",
+			"updatedAt": "2024-12-15T23:35:36.549Z",
+			"createdAt": "2024-12-15T23:35:36.549Z"
+		},
+		{
+			"id": 15,
+			"slug": "photoprism",
+			"title": "Photoprism",
+			"subtitle": "Photoprism is an AI-Powered Photos App for the Decentralized Web. It makes use of the latest technologies to tag and find pictures automatically without getting in your way. You can run it at home, on a private server, or in the cloud.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Run it with Docker\n\n```\ndocker run -d \\\n  --name fotos \\\n  --restart unless-stopped \\\n  --security-opt seccomp=unconfined \\\n  --security-opt apparmor=unconfined \\\n  -p 2342:2342 \\\n  -e PHOTOPRISM_UPLOAD_NSFW=\"true\" \\\n  -e PHOTOPRISM_ADMIN_PASSWORD=\"admin\" \\\n  -v /root/env:/photoprism/storage \\\n  photoprism/photoprism\n```\n\n### About this stack\n\nThe following credentials can be used to sign in, do mind to **change them** when you've got the chance!\n\n|Username|Password|\n|-|-|\n|admin|admin|",
+			"updatedAt": "2024-12-15T23:35:24.711Z",
+			"createdAt": "2024-12-15T23:35:24.711Z"
+		},
+		{
+			"id": 14,
+			"slug": "wg-easy",
+			"title": "WG Easy",
+			"subtitle": "The easiest way to install & manage WireGuard on any Linux host, this docker image comes with a web ui to easily manage your whitelist vpn connections.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "# Install WG-Easy\n\n## 1. Generate a hash for your password\n\n```\ndocker run -it ghcr.io/wg-easy/wg-easy wgpw YOUR_PASSWORD\n```\n\n## 2. Copy the generated hash, use it in the compose file\n\n> Remove the single quotes and insert an extra $ before each existing $\n\n```\nservices:\n  wireguard:\n    image: ghcr.io/wg-easy/wg-easy\n    container_name: wireguard\n    environment:\n      WG_HOST: \"ext.heuve.link\"\n      PASSWORD_HASH: \"<Your Generated Hash>\"\n      WG_DEFAULT_DNS: 1.1.1.1\n    volumes:\n      - ./data:/etc/wireguard\n    ports:\n      - \"51820:51820/udp\"\n      - \"51821:51821/tcp\"\n    cap_add:\n      - NET_ADMIN\n      - SYS_MODULE\n    sysctls:\n      net.ipv4.conf.all.src_valid_mark: \"1\"\n      net.ipv4.ip_forward: \"1\"\n    restart: unless-stopped\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```\n\n#### Preview\n\n![Preview](https://wiki.thijmenheuvelink.nl/pb/api/files/kblyx6ommv2lhn8/vekg3an1er8tip8/image_2023_12_17_013354729_3NYLAwTxks.png?token=)",
+			"updatedAt": "2024-12-15T23:35:12.321Z",
+			"createdAt": "2024-12-15T23:35:12.321Z"
+		},
+		{
+			"id": 13,
+			"slug": "lychee",
+			"title": "Lychee",
+			"subtitle": "Lychee is a free photo-management tool, which runs on your server or web-space. Installing is a matter of seconds. Upload, manage and share photos like from a native application. Lychee comes with everything you need and all your photos are stored securely.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"3\"\nservices:\n  mariadb:\n    image: lscr.io/linuxserver/mariadb:latest\n    container_name: lychee-db\n    restart: unless-stopped\n    volumes:\n      - /root/env/fotos/db:/config\n    environment:\n      - MYSQL_ROOT_PASSWORD=wikirootpassword\n      - MYSQL_DATABASE=lychee\n      - MYSQL_USER=lychee\n      - MYSQL_PASSWORD=wikipassword\n      - PGID=1000\n      - PUID=1000\n      - TZ=Europe/Amsterdam\n  lychee:\n    image: lscr.io/linuxserver/lychee:latest\n    container_name: lychee\n    restart: unless-stopped\n    depends_on:\n      - mariadb\n    volumes:\n      - /root/env/fotos/config:/config\n      - /root/env/fotos/gallery:/pictures\n    environment:\n      - DB_HOST=mariadb\n      - DB_USERNAME=lychee\n      - DB_PASSWORD=wikipassword\n      - DB_DATABASE=lychee\n      - DB_PORT=3306\n      - PGID=1000\n      - PUID=1000\n      - TZ=Europe/Amsterdam\n    ports:\n      - 3001:80\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
+			"updatedAt": "2024-12-15T23:34:35.248Z",
+			"createdAt": "2024-12-15T23:34:35.248Z"
+		},
+		{
+			"id": 12,
+			"slug": "gitea",
+			"title": "Gitea",
+			"subtitle": "Gitea is a forge software package for hosting software development version control using Git as well as other collaborative features like bug tracking, code review, continuous integration, kanban boards, tickets, and wikis.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"3\"\n\nnetworks:\n  gitea:\n    external: false\n\nservices:\n  server:\n    image: gitea/gitea:1.16.9\n    container_name: gitea\n    environment:\n      - USER_UID=1000\n      - USER_GID=1000\n    restart: unless-stopped\n    networks:\n      - gitea\n    volumes:\n      - /root/env/gitea:/data\n      - /etc/timezone:/etc/timezone:ro\n      - /etc/localtime:/etc/localtime:ro\n    ports:\n      - \"3000:3000\"\n      - \"222:22\"\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```",
+			"updatedAt": "2024-12-15T23:34:23.457Z",
+			"createdAt": "2024-12-15T23:34:23.457Z"
+		},
+		{
+			"id": 11,
+			"slug": "pi-hole",
+			"title": "Pi Hole",
+			"subtitle": "Pi-hole is a Linux network-level advertisement and Internet tracker blocking application which acts as a DNS sinkhole and optionally a DHCP server, intended for use on a private network.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"3\"\n\nservices:\n  pihole:\n    container_name: pihole\n    image: pihole/pihole:latest\n    ports:\n      - \"53:53/tcp\"\n      - \"53:53/udp\"\n      - \"67:67/udp\"\n      - \"80:80/tcp\"\n    environment:\n      TZ: 'Europe/Amsterdam'\n      WEBPASSWORD: 'b00kst4ck'\n    volumes:\n      - './etc-pihole:/etc/pihole'\n      - './etc-dnsmasq.d:/etc/dnsmasq.d'\n    cap_add:\n      - NET_ADMIN\n    restart: unless-stopped\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```\n\n### OR install it without Docker\n\n```\ncurl -sSL https://install.pi-hole.net | bash\n```",
+			"updatedAt": "2024-12-15T23:34:03.160Z",
+			"createdAt": "2024-12-15T23:34:03.160Z"
+		},
+		{
+			"id": 10,
+			"slug": "uptime-kuma",
+			"title": "UpTime Kuma",
+			"subtitle": "Uptime Kuma is an easy-to-use self-hosted monitoring tool.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Run it with Docker\n\n```\ndocker run -d \\\n    --restart=unless-stopped \\\n    -p 3001:3001 \\\n    -v /root/env/uptime-kuma:/app/data \\\n    --name uptime-kuma \\\n    louislam/uptime-kuma:1\n```",
+			"updatedAt": "2024-12-15T23:33:49.011Z",
+			"createdAt": "2024-12-15T23:33:49.011Z"
+		},
+		{
+			"id": 9,
+			"slug": "wordpress",
+			"title": "Wordpress",
+			"subtitle": "WordPress is a web content management system.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"3.3\"\n    \nservices:\n  db:\n    image: mysql:5.7\n    volumes:\n      - /root/env/wp/db:/var/lib/mysql\n    restart: unless-stopped\n    environment:\n      MYSQL_USER: wp\n      MYSQL_DATABASE: wp\n      MYSQL_ROOT_PASSWORD: b00kst4ck\n      MYSQL_PASSWORD: b00kst4ck\n    \n  app:\n    depends_on:\n      - db\n    image: wordpress:latest\n    volumes:\n      - /root/env/wp/www:/var/www/html\n    ports:\n      - 8080:80\n    restart: unless-stopped\n    environment:\n      WORDPRESS_DB_HOST: db\n      WORDPRESS_DB_USER: wp\n      WORDPRESS_DB_NAME: wp\n      WORDPRESS_DB_PASSWORD: b00kst4ck\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```\n\n### Running it through Cloudflare\n\nIf You're routing wordpress through Cloudflare behind a reverse proxy like **Nginx Proxy Manager** then you must install a plugin on wordpress called \"**Flexible SSL for CloudFlare**\".",
+			"updatedAt": "2024-12-15T23:33:35.253Z",
+			"createdAt": "2024-12-15T23:33:35.253Z"
+		},
+		{
+			"id": 8,
+			"slug": "shlink",
+			"title": "Shlink",
+			"subtitle": "Keep control over all your shortened URLs, by serving them under your own domains, using this simple yet powerful tool.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"3\"\n\nservices:\n  shlink:\n    image: shlinkio/shlink:stable\n    restart: unless-stopped\n    container_name: shlink\n    environment:\n      - TZ=\"Europe/Amsterdam\"\n      - DEFAULT_DOMAIN=example.com\n      - GEOLITE_LICENSE_KEY=<YOUR KEY>\n      - DB_DRIVER=maria\n      - DB_USER=shlink\n      - DB_NAME=shlink\n      - DB_PASSWORD=b00kst4ck\n      - DB_HOST=database\n    ports:\n      - 8080:8080\n\n  database:\n    image: mariadb:latest\n    restart: unless-stopped\n    container_name: database\n    environment:\n      - MARIADB_ROOT_PASSWORD=b00kst4ck\n      - MARIADB_DATABASE=shlink\n      - MARIADB_USER=shlink\n      - MARIADB_PASSWORD=b00kst4ck\n    volumes:\n      - ./env/database:/var/lib/mysql\n\n  client:\n    image: shlinkio/shlink-web-client\n    restart: unless-stopped\n    container_name: client\n    volumes:\n      - ./env/client/servers.json:/usr/share/nginx/html/servers.json\n    ports:\n      - 3000:80\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```\n\n### About this stack\n\nGenerate an Access Token\n\n```\ndocker exec -it shlink shlink api-key:generate\n```",
+			"updatedAt": "2024-12-15T23:33:22.326Z",
+			"createdAt": "2024-12-15T23:33:22.326Z"
+		},
+		{
+			"id": 7,
+			"slug": "portainer",
+			"title": "Portainer",
+			"subtitle": "Portainer is your container management software to deploy, troubleshoot, and secure applications across cloud, datacenter, and Industrial IoT use cases.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Run it with Docker\n\n```\ndocker run \\\n    -p 8000:8000 -p 9000:9443 \\\n    -v /var/run/docker.sock:/var/run/docker.sock \\\n    -d --name portainer --restart unless-stopped \\\n    portainer/portainer-ce:2.16.2\n```\n\n#### Running into issues?\n\nCheckout the Catalogue on this wiki about Portainer not being accessible via Nginx Proxy Manager",
+			"updatedAt": "2024-12-15T23:33:10.457Z",
+			"createdAt": "2024-12-15T23:33:10.457Z"
+		},
+		{
+			"id": 6,
+			"slug": "nginx-proxy-manager",
+			"title": "Nginx Proxy Manager",
+			"subtitle": "Expose web services on your network, Free SSL with Let's Encrypt, designed with security in mind, perfect for home networks.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nservices:\n  npm:\n    image: 'jc21/nginx-proxy-manager:latest'\n    container_name: npm\n    restart: unless-stopped\n    ports:\n      - '80:80'\n      - '443:443'\n      - '81:81'\n    volumes:\n      - ./data/npm:/data\n      - ./data/letsencrypt:/etc/letsencrypt\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```\n\n### Logging in (default credentials)\n\n> Email: admin@example.com\n> Pass: changeme\n",
+			"updatedAt": "2024-12-15T23:32:57.644Z",
+			"createdAt": "2024-12-15T23:32:57.644Z"
+		},
+		{
+			"id": 5,
+			"slug": "nginx",
+			"title": "Nginx",
+			"subtitle": "Nginx is a web server that can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Run it with Docker\n\n```\ndocker run \\\n\t--restart unless-stopped \\\n\t--name nginx \\\n\t-d -p 8080:80 \\\n\t-v /home/$USER/env/nginx:/usr/share/nginx/html:ro \\\n\tnginx\n```\n\n### Run it with Docker Compose\n```\nservices:\n  nginx:\n    image: nginx:latest\n    container_name: nginx\n    restart: unless-stopped\n    ports: [ \"80:80\" ]\n    volumes: \n      - ./www:/usr/share/nginx/html:ro\n```",
+			"updatedAt": "2024-12-15T23:32:43.794Z",
+			"createdAt": "2024-12-15T23:32:43.794Z"
+		},
+		{
+			"id": 4,
+			"slug": "mongodb",
+			"title": "MongoDB",
+			"subtitle": "Get your ideas to market faster with a developer data platform built on the leading modern database. MongoDB makes working with data easy.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Run it with Docker\n\n```\ndocker run \\\n\t--name db \\\n\t-v /root/env/db:/data/db \\\n\t-p 12107:27017 \\\n\t-e MONGO_INITDB_ROOT_USERNAME=<username> \\\n\t-e MONGO_INITDB_ROOT_PASSWORD=<password> \\\n\t--restart unless-stopped \\\n\t-d mongo\n```",
+			"updatedAt": "2024-12-15T23:32:31.070Z",
+			"createdAt": "2024-12-15T23:32:31.070Z"
+		},
+		{
+			"id": 3,
+			"slug": "jellyfin",
+			"title": "Jellyfin",
+			"subtitle": "Jellyfin is the volunteer-built media solution that puts you in control of your media. Stream to any device from your own server, with no strings attached. Your media, your server, your way.",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"2.1\"\nservices:\n  jellyfin:\n    image: lscr.io/linuxserver/jellyfin:latest\n    container_name: jellyfin\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Amsterdam\n    volumes:\n      - ./config:/config\n      - ./data/movies:/data/media/movies\n      - ./data/series:/data/media/series\n    ports:\n      - 8096:8096\n      - 8920:8920\n      - 7359:7359/udp\n      - 1900:1900/udp\n    restart: unless-stopped\n```\n\n### Start it\n\n```\ndocker-compose up -d\n```",
+			"updatedAt": "2024-12-15T23:32:18.479Z",
+			"createdAt": "2024-12-15T23:32:18.479Z"
+		},
+		{
+			"id": 2,
+			"slug": "filebrowser",
+			"title": "Filebrowser",
+			"subtitle": "This is surely one of the greatest open-source file manager that's accessible as a webapp, easily manage users and share your files via the web!",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "1. Create the database file:\n```\ntouch filebrowser.db\n```\n\n2. Create a docker-compose file:\n```\nservices:\n  filebrowser:\n    image: filebrowser/filebrowser\n    container_name: filebrowser\n    restart: unless-stopped\n    ports:\n      - \"8080:80\"\n    volumes:\n      - ./data:/srv\n      - ./branding:/branding\n      - ./filebrowser.db:/database.db\n```\n\n3. Run Docker Compose:\n```\ndocker-compose up -d\n```\n\n4. Visit the web ui and login\n\nGo to http://localhost:8080 and login with user: admin, pass: admin.",
+			"updatedAt": "2025-02-16T01:11:14.355Z",
+			"createdAt": "2024-12-15T23:32:06.416Z"
+		},
+		{
+			"id": 1,
+			"slug": "bookstack",
+			"title": "Bookstack",
+			"subtitle": "An easy-to-deploy opensource wiki, used to be this website!",
+			"category": {
+				"id": 5,
+				"slug": "docker",
+				"title": "Docker",
+				"subtitle": "Facilitate the deployment of containers swiftly by utilizing these ready-to-use scripts, minimizing the setup time and effort.",
+				"updatedAt": "2024-12-15T23:30:26.634Z",
+				"createdAt": "2024-12-15T23:30:26.634Z"
+			},
+			"markdown": "### Docker Compose\n\nSave the following contents as a docker-compose.yml file.\n\n```\nversion: \"2\"\nservices:\n  bookstack:\n    image: lscr.io/linuxserver/bookstack\n    container_name: bookstack\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - APP_URL=https://wiki.thijmenheuvelink.nl\n      - DB_HOST=bookstack_db\n      - DB_USER=bookstack\n      - DB_PASS=yourdbpass\n      - DB_DATABASE=bookstackapp\n    volumes:\n      - /root/wiki:/cli/config\n    ports:\n      - 6875:80\n    restart: unless-stopped\n    depends_on:\n      - bookstack_db\n  bookstack_db:\n    image: lscr.io/linuxserver/mariadb\n    container_name: bookstack_db\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - MYSQL_ROOT_PASSWORD=yourdbrootpass\n      - TZ=Europe/London\n      - MYSQL_DATABASE=bookstackapp\n      - MYSQL_USER=bookstack\n      - MYSQL_PASSWORD=yourdbpass\n    volumes:\n      - /root/wiki:/db/config\n    restart: unless-stopped\n```\n\n### Starting it\n\n```\ndocker-compose up -d\n```\n\n### About this stack\n\nLogin with the following credentials, do mind to **change them** in settings afterwards to something secure!\n\n|Username|Password|\n|-|-|\n|admin＠admin.com|password|",
+			"updatedAt": "2024-12-15T23:31:54.795Z",
+			"createdAt": "2024-12-15T23:31:54.795Z"
+		}
+	],
+	"metadata": {
+		"scraped_at": "2025-10-12T19:39:25.461143",
+		"source_url": "https://wiki.thijmenheuvelink.nl",
+		"total_categories": 6,
+		"total_pages": 69
+	}
 }

@@ -1,18 +1,13 @@
-import Link from "next/link"
-import { preloadedQueryResult } from "convex/nextjs"
-import { preloadQuery } from "convex/nextjs"
-import { api } from "@/convex/_generated/api"
+import { preloadedQueryResult, preloadQuery } from "convex/nextjs"
 import { ArrowLeft } from "lucide-react"
+import Link from "next/link"
+import Header from "@/components/wiki/Header"
 
 import Search from "@/components/wiki/Search"
-import Header from "@/components/wiki/Header"
 import Toolbar from "@/components/wiki/Toolbar"
+import { api } from "@/convex/_generated/api"
 
-export default async function Page({
-	params,
-}: {
-	params: Promise<{ category: string }>
-}) {
+export default async function Page({ params }: { params: Promise<{ category: string }> }) {
 	const { category: categorySlug } = await params
 
 	const preloadedPages = await preloadQuery(api.wiki.listPagesByCategory, { categorySlug })
@@ -42,9 +37,7 @@ export default async function Page({
 								href={`/${categorySlug}/${page.slug}`}
 							>
 								<p>{page.title}</p>
-								<p className="text-xs text-gray-600 dark:text-gray-400">
-									{page.subtitle}
-								</p>
+								<p className="text-xs text-gray-600 dark:text-gray-400">{page.subtitle}</p>
 							</Link>
 						</li>
 					))}

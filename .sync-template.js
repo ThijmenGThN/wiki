@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { execSync } from "child_process"
-import { fileURLToPath } from "url"
+import { execSync } from "node:child_process"
+import { fileURLToPath } from "node:url"
 
 const TEMPLATE_REPO = "https://github.com/ThijmenGThN/next-leaflet.git"
 const TEMPLATE_REMOTE = "next-leaflet" // Name matches the actual repo name
@@ -58,7 +58,7 @@ function main() {
 		// Check for uncommitted changes
 		logSection("pre-flight checks")
 		const status = execCommand("git status --porcelain", true)
-		if (status && status.trim()) {
+		if (status?.trim()) {
 			log("Uncommitted changes detected. Please commit them first.", "warning")
 			process.exit(1)
 		}

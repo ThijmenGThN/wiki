@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 /**
  * Wiki Data Import Tool for Convex
  *
@@ -14,10 +15,10 @@
  *   See .env.example for template
  */
 
+import { existsSync, readFileSync } from "node:fs"
+import { dirname, join } from "node:path"
+import { fileURLToPath } from "node:url"
 import { ConvexHttpClient } from "convex/browser"
-import { readFileSync, existsSync } from "fs"
-import { join, dirname } from "path"
-import { fileURLToPath } from "url"
 import { config } from "dotenv"
 
 const __filename = fileURLToPath(import.meta.url)
@@ -43,9 +44,7 @@ async function loadWikiData() {
 	const dataPath = join(DATA_DIR, "wiki_data.json")
 
 	if (!existsSync(dataPath)) {
-		throw new Error(
-			`Wiki data not found at ${dataPath}. Please ensure data/wiki_data.json exists.`,
-		)
+		throw new Error(`Wiki data not found at ${dataPath}. Please ensure data/wiki_data.json exists.`)
 	}
 
 	const rawData = readFileSync(dataPath, "utf-8")

@@ -1,10 +1,10 @@
 "use client"
 
+import { useQuery } from "convex/react"
+import { Search as SearchIcon } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
-import { useQuery } from "convex/react"
 import { api } from "@/convex/_generated/api"
-import { Search as SearchIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 export default function Search() {
@@ -38,9 +38,7 @@ export default function Search() {
 									href={`/${result.category?.slug}/${result.slug}`}
 								>
 									<p>{result.title}</p>
-									<p className="text-xs text-gray-600 dark:text-gray-400">
-										{result.subtitle}
-									</p>
+									<p className="text-xs text-gray-600 dark:text-gray-400">{result.subtitle}</p>
 								</Link>
 							</li>
 						))}

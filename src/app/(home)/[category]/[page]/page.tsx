@@ -1,14 +1,13 @@
+import { preloadedQueryResult, preloadQuery } from "convex/nextjs"
+import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
-import { preloadedQueryResult } from "convex/nextjs"
-import { preloadQuery } from "convex/nextjs"
-import { api } from "@/convex/_generated/api"
 import Markdown from "react-markdown"
 import remarkGfm from "remark-gfm"
-import { ArrowLeft } from "lucide-react"
+import Header from "@/components/wiki/Header"
 
 import Search from "@/components/wiki/Search"
-import Header from "@/components/wiki/Header"
 import Toolbar from "@/components/wiki/Toolbar"
+import { api } from "@/convex/_generated/api"
 
 export default async function Page({
 	params,

@@ -7,8 +7,6 @@ export default function Footer() {
 	const settings = useQuery(api.wiki.getSettings)
 
 	return (
-		<p className="my-16 mx-auto text-xs text-center w-3/4 sm:w-1/2">
-			{settings?.disclaimer || ""}
-		</p>
+		<p className="my-16 mx-auto text-xs text-center w-3/4 sm:w-1/2">{settings?.disclaimer || ""}</p>
 	)
 }

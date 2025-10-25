@@ -1,11 +1,10 @@
+import { preloadedQueryResult, preloadQuery } from "convex/nextjs"
 import Link from "next/link"
-import { preloadedQueryResult } from "convex/nextjs"
-import { preloadQuery } from "convex/nextjs"
-import { api } from "@/convex/_generated/api"
+import Header from "@/components/wiki/Header"
 
 import Search from "@/components/wiki/Search"
-import Header from "@/components/wiki/Header"
 import Toolbar from "@/components/wiki/Toolbar"
+import { api } from "@/convex/_generated/api"
 
 export default async function Page() {
 	const preloadedCategories = await preloadQuery(api.wiki.listCategories)
@@ -32,9 +31,7 @@ export default async function Page() {
 								href={`/${category.slug}`}
 							>
 								<p>{category.title}</p>
-								<p className="text-xs text-gray-600 dark:text-gray-400">
-									{category.subtitle}
-								</p>
+								<p className="text-xs text-gray-600 dark:text-gray-400">{category.subtitle}</p>
 							</Link>
 						</li>
 					))}
