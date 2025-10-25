@@ -1,7 +1,7 @@
 "use client"
 
 import { useMutation } from "convex/react"
-import { CheckCircle2, XCircle, Loader2, Mail } from "lucide-react"
+import { CheckCircle2, Loader2, Mail, XCircle } from "lucide-react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -71,7 +71,9 @@ export default function VerifyPage() {
 										<Loader2 className="h-16 w-16 text-primary animate-spin" />
 									</div>
 									<h1 className="text-2xl font-bold text-foreground">Verifying your email</h1>
-									<p className="text-muted-foreground">Please wait while we verify your email address...</p>
+									<p className="text-muted-foreground">
+										Please wait while we verify your email address...
+									</p>
 								</>
 							)}
 

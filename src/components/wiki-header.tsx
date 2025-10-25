@@ -1,26 +1,48 @@
 "use client"
 
-import { useQuery } from "convex/react"
-import { api } from "@/../convex/_generated/api"
-import Link from "next/link"
 import { useAuthActions } from "@convex-dev/auth/react"
-import { Button } from "@/components/ui/button"
+import { useQuery } from "convex/react"
 import { LogOut } from "lucide-react"
-import { WikiSearch } from "@/components/wiki/wiki-search"
+import Image from "next/image"
+import Link from "next/link"
+import { useTheme } from "next-themes"
+import { useEffect, useState } from "react"
+import { api } from "@/../convex/_generated/api"
+import LogoBlack from "@/assets/logo.black.png"
+import LogoWhite from "@/assets/logo.white.png"
 import { ThemeToggle } from "@/components/ThemeToggle"
+import { Button } from "@/components/ui/button"
+import { WikiSearch } from "@/components/wiki/wiki-search"
 
 export function WikiHeader() {
 	const user = useQuery(api.users.current)
 	const { signOut } = useAuthActions()
+	const { theme, resolvedTheme } = useTheme()
+	const [mounted, setMounted] = useState(false)
+
+	useEffect(() => {
+		setMounted(true)
+	}, [])
+
+	// Determine which logo to show based on theme
+	const logoSrc = mounted && (resolvedTheme === "dark" || theme === "dark") ? LogoWhite : LogoBlack
 
 	return (
 		<header className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
 			{/* Main navbar */}
-			<div className="container mx-auto px-4 py-4 flex items-center justify-center">
-				{/* Center - Wiki title and subtitle */}
-				<Link href="/" className="flex flex-col items-center hover:opacity-80 transition-opacity">
-					<h1 className="text-xl font-bold">Wiki</h1>
-					<p className="text-sm text-muted-foreground">
+			<div className="container mx-auto px-4 py-4 flex items-center justify-between relative">
+				{/* Left - Logo */}
+				<Link href="/" className="inline-block hover:opacity-80 transition-opacity">
+					<Image src={logoSrc} alt="Wiki Logo" className="h-10 w-auto" priority />
+				</Link>
+
+				{/* Center/Right - Wiki title and subtitle */}
+				<Link
+					href="/"
+					className="flex flex-col items-end md:items-center md:absolute md:left-1/2 md:-translate-x-1/2 hover:opacity-80 transition-opacity"
+				>
+					<h1 className="text-3xl font-bold">Wiki</h1>
+					<p className="text-sm text-muted-foreground hidden md:block">
 						Browse through our comprehensive knowledge base
 					</p>
 				</Link>

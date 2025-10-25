@@ -1,9 +1,9 @@
 "use client"
 
-import { useRecentlyViewed } from "@/hooks/use-recently-viewed"
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Clock } from "lucide-react"
 import Link from "next/link"
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { useRecentlyViewed } from "@/hooks/use-recently-viewed"
 
 export function RecentlyViewed() {
 	const { recentlyViewed } = useRecentlyViewed()

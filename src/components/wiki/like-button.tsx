@@ -1,13 +1,13 @@
 "use client"
 
+import { useMutation, useQuery } from "convex/react"
+import { Heart } from "lucide-react"
 import { useState } from "react"
-import { useQuery, useMutation } from "convex/react"
+import { toast } from "sonner"
 import { api } from "@/../convex/_generated/api"
 import type { Id } from "@/../convex/_generated/dataModel"
-import { Button } from "@/components/ui/button"
-import { Heart } from "lucide-react"
-import { toast } from "sonner"
 import { AuthDialog } from "@/components/auth-dialog"
+import { Button } from "@/components/ui/button"
 
 interface LikeButtonProps {
 	pageId: Id<"pages">

@@ -1,4 +1,3 @@
-
 import { spawnSync } from "child_process"
 import { config as loadEnvFile } from "dotenv"
 import fs from "fs"

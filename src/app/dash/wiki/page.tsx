@@ -1,23 +1,12 @@
 "use client"
 
-import { useQuery, useMutation } from "convex/react"
-import { api } from "@/../convex/_generated/api"
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Badge } from "@/components/ui/badge"
+import { useMutation, useQuery } from "convex/react"
+import { ExternalLink, Pencil, Plus, Trash2 } from "lucide-react"
 import Link from "next/link"
-import { Plus, Pencil, Trash2, ExternalLink } from "lucide-react"
-import { toast } from "sonner"
 import { useState } from "react"
+import { toast } from "sonner"
+import { api } from "@/../convex/_generated/api"
+import type { Id } from "@/../convex/_generated/dataModel"
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -28,7 +17,18 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
-import type { Id } from "@/../convex/_generated/dataModel"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from "@/components/ui/table"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export default function AdminWikiPage() {
 	const categories = useQuery(api.wiki.getCategories)
@@ -96,9 +96,7 @@ export default function AdminWikiPage() {
 
 					<TabsContent value="pages" className="space-y-4">
 						<div className="flex justify-between items-center">
-							<p className="text-sm text-muted-foreground">
-								{pages?.length ?? 0} total pages
-							</p>
+							<p className="text-sm text-muted-foreground">{pages?.length ?? 0} total pages</p>
 							<Link href="/dash/wiki/pages/new">
 								<Button className="gap-2">
 									<Plus className="h-4 w-4" />
@@ -206,9 +204,7 @@ export default function AdminWikiPage() {
 												<TableRow key={category._id}>
 													<TableCell className="font-medium">{category.title}</TableCell>
 													<TableCell className="font-mono text-sm">{category.slug}</TableCell>
-													<TableCell className="max-w-md truncate">
-														{category.subtitle}
-													</TableCell>
+													<TableCell className="max-w-md truncate">{category.subtitle}</TableCell>
 													<TableCell className="text-right">
 														<div className="flex justify-end gap-2">
 															<Link href={`/dash/wiki/categories/${category._id}/edit`}>
@@ -219,9 +215,7 @@ export default function AdminWikiPage() {
 															<Button
 																variant="ghost"
 																size="sm"
-																onClick={() =>
-																	handleDeleteCategory(category._id, category.title)
-																}
+																onClick={() => handleDeleteCategory(category._id, category.title)}
 															>
 																<Trash2 className="h-4 w-4" />
 															</Button>

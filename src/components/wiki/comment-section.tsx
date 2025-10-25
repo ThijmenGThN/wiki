@@ -1,17 +1,17 @@
 "use client"
 
+import { useMutation, useQuery } from "convex/react"
+import { formatDistanceToNow } from "date-fns"
+import { Trash2 } from "lucide-react"
 import { useState } from "react"
-import { useQuery, useMutation } from "convex/react"
+import { toast } from "sonner"
 import { api } from "@/../convex/_generated/api"
 import type { Id } from "@/../convex/_generated/dataModel"
-import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Card } from "@/components/ui/card"
-import { Trash2 } from "lucide-react"
-import { toast } from "sonner"
-import { formatDistanceToNow } from "date-fns"
 import { AuthDialog } from "@/components/auth-dialog"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
+import { Textarea } from "@/components/ui/textarea"
 
 interface CommentSectionProps {
 	pageId: Id<"pages">
@@ -61,7 +61,9 @@ export function CommentSection({ pageId }: CommentSectionProps) {
 					<Textarea
 						value={commentContent}
 						onChange={(e) => setCommentContent(e.target.value)}
-						placeholder={currentUser ? "Write a comment..." : "Write a comment... (login required to post)"}
+						placeholder={
+							currentUser ? "Write a comment..." : "Write a comment... (login required to post)"
+						}
 						rows={3}
 						className="bg-popover"
 					/>
@@ -82,9 +84,7 @@ export function CommentSection({ pageId }: CommentSectionProps) {
 							<div className="flex gap-3">
 								<Avatar className="h-10 w-10">
 									<AvatarImage src={comment.user?.image} />
-									<AvatarFallback>
-										{comment.user?.name?.[0]?.toUpperCase() ?? "U"}
-									</AvatarFallback>
+									<AvatarFallback>{comment.user?.name?.[0]?.toUpperCase() ?? "U"}</AvatarFallback>
 								</Avatar>
 								<div className="flex-1 space-y-2">
 									<div className="flex items-center justify-between">

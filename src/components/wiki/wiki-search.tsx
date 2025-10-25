@@ -1,19 +1,26 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import { useQuery } from "convex/react"
-import { api } from "@/../convex/_generated/api"
-import { useDebounce } from "@/hooks/use-debounce"
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
 import { Search } from "lucide-react"
 import Link from "next/link"
+import { useEffect, useState } from "react"
+import { api } from "@/../convex/_generated/api"
+import {
+	Command,
+	CommandEmpty,
+	CommandGroup,
+	CommandInput,
+	CommandItem,
+	CommandList,
+} from "@/components/ui/command"
+import { useDebounce } from "@/hooks/use-debounce"
 
 export function WikiSearch() {
 	const [searchTerm, setSearchTerm] = useState("")
 	const debouncedSearch = useDebounce(searchTerm, 300)
 	const searchResults = useQuery(
 		api.wiki.searchPages,
-		debouncedSearch.trim().length > 0 ? { searchTerm: debouncedSearch } : "skip"
+		debouncedSearch.trim().length > 0 ? { searchTerm: debouncedSearch } : "skip",
 	)
 
 	// Debug logging

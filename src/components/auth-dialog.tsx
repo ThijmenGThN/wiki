@@ -1,5 +1,9 @@
 "use client"
 
+import { useAuthActions } from "@convex-dev/auth/react"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import {
 	Dialog,
@@ -11,10 +15,6 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useAuthActions } from "@convex-dev/auth/react"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { toast } from "sonner"
 import { getAuthErrorMessage } from "@/lib/auth-errors"
 
 interface AuthDialogProps {
@@ -95,7 +95,11 @@ export function AuthDialog({ open, onOpenChange, message }: AuthDialogProps) {
 					</DialogDescription>
 				</DialogHeader>
 
-				<Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as "login" | "register")} className="mt-4">
+				<Tabs
+					value={activeTab}
+					onValueChange={(v) => setActiveTab(v as "login" | "register")}
+					className="mt-4"
+				>
 					<TabsList className="grid w-full grid-cols-2">
 						<TabsTrigger value="login">Login</TabsTrigger>
 						<TabsTrigger value="register">Register</TabsTrigger>
@@ -119,7 +123,9 @@ export function AuthDialog({ open, onOpenChange, message }: AuthDialogProps) {
 									disabled={isLoading}
 								/>
 								{loginForm.formState.errors.email && (
-									<p className="text-sm text-destructive">{loginForm.formState.errors.email.message}</p>
+									<p className="text-sm text-destructive">
+										{loginForm.formState.errors.email.message}
+									</p>
 								)}
 							</div>
 
@@ -133,7 +139,9 @@ export function AuthDialog({ open, onOpenChange, message }: AuthDialogProps) {
 									disabled={isLoading}
 								/>
 								{loginForm.formState.errors.password && (
-									<p className="text-sm text-destructive">{loginForm.formState.errors.password.message}</p>
+									<p className="text-sm text-destructive">
+										{loginForm.formState.errors.password.message}
+									</p>
 								)}
 							</div>
 
@@ -154,7 +162,9 @@ export function AuthDialog({ open, onOpenChange, message }: AuthDialogProps) {
 									disabled={isLoading}
 								/>
 								{registerForm.formState.errors.name && (
-									<p className="text-sm text-destructive">{registerForm.formState.errors.name.message}</p>
+									<p className="text-sm text-destructive">
+										{registerForm.formState.errors.name.message}
+									</p>
 								)}
 							</div>
 
@@ -174,7 +184,9 @@ export function AuthDialog({ open, onOpenChange, message }: AuthDialogProps) {
 									disabled={isLoading}
 								/>
 								{registerForm.formState.errors.email && (
-									<p className="text-sm text-destructive">{registerForm.formState.errors.email.message}</p>
+									<p className="text-sm text-destructive">
+										{registerForm.formState.errors.email.message}
+									</p>
 								)}
 							</div>
 
@@ -188,7 +200,9 @@ export function AuthDialog({ open, onOpenChange, message }: AuthDialogProps) {
 									disabled={isLoading}
 								/>
 								{registerForm.formState.errors.password && (
-									<p className="text-sm text-destructive">{registerForm.formState.errors.password.message}</p>
+									<p className="text-sm text-destructive">
+										{registerForm.formState.errors.password.message}
+									</p>
 								)}
 							</div>
 
@@ -198,11 +212,15 @@ export function AuthDialog({ open, onOpenChange, message }: AuthDialogProps) {
 									id="register-confirm"
 									type="password"
 									autoComplete="new-password"
-									{...registerForm.register("confirmPassword", { required: "Please confirm your password" })}
+									{...registerForm.register("confirmPassword", {
+										required: "Please confirm your password",
+									})}
 									disabled={isLoading}
 								/>
 								{registerForm.formState.errors.confirmPassword && (
-									<p className="text-sm text-destructive">{registerForm.formState.errors.confirmPassword.message}</p>
+									<p className="text-sm text-destructive">
+										{registerForm.formState.errors.confirmPassword.message}
+									</p>
 								)}
 							</div>
 

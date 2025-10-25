@@ -1,12 +1,12 @@
 "use client"
 
-import { useState } from "react"
 import { useQuery } from "convex/react"
-import { api } from "@/../convex/_generated/api"
-import { Input } from "@/components/ui/input"
-import { Card, CardTitle, CardDescription } from "@/components/ui/card"
-import { Search, Heart, MessageSquare, FileText } from "lucide-react"
+import { FileText, Heart, MessageSquare, Search } from "lucide-react"
 import Link from "next/link"
+import { useState } from "react"
+import { api } from "@/../convex/_generated/api"
+import { Card, CardDescription, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
 import { useDebounce } from "@/hooks/use-debounce"
 
 interface CategorySearchProps {
@@ -21,7 +21,7 @@ export function CategorySearch({ categorySlug }: CategorySearchProps) {
 		api.wiki.searchPagesByCategory,
 		debouncedSearchTerm.trim().length > 0
 			? { categorySlug, searchTerm: debouncedSearchTerm }
-			: "skip"
+			: "skip",
 	)
 
 	const hasResults = searchResults && searchResults.length > 0

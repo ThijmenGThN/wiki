@@ -2,7 +2,7 @@
 
 /**
  * Template Synchronization Script
- * 
+ *
  * Syncs the current repository with the next-leaflet template repository.
  * Handles remote configuration, fetching updates, and merging changes.
  */

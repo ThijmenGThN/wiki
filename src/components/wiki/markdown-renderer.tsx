@@ -1,11 +1,11 @@
 "use client"
 
+import { ExternalLink, Link as LinkIcon } from "lucide-react"
 import ReactMarkdown from "react-markdown"
 import rehypeHighlight from "rehype-highlight"
 import rehypeRaw from "rehype-raw"
 import remarkGfm from "remark-gfm"
 import { CodeBlock } from "./code-block"
-import { ExternalLink, Link as LinkIcon } from "lucide-react"
 import "highlight.js/styles/github.css"
 
 interface MarkdownRendererProps {
@@ -33,18 +33,10 @@ export function MarkdownRenderer({ content, className = "" }: MarkdownRendererPr
 					h2: ({ children }) => (
 						<h2 className="text-2xl font-bold mt-6 mb-3 pb-2 border-b">{children}</h2>
 					),
-					h3: ({ children }) => (
-						<h3 className="text-xl font-semibold mt-6 mb-2">{children}</h3>
-					),
-					h4: ({ children }) => (
-						<h4 className="text-lg font-semibold mt-4 mb-2">{children}</h4>
-					),
-					h5: ({ children }) => (
-						<h5 className="text-base font-semibold mt-4 mb-2">{children}</h5>
-					),
-					h6: ({ children }) => (
-						<h6 className="text-sm font-semibold mt-4 mb-2">{children}</h6>
-					),
+					h3: ({ children }) => <h3 className="text-xl font-semibold mt-6 mb-2">{children}</h3>,
+					h4: ({ children }) => <h4 className="text-lg font-semibold mt-4 mb-2">{children}</h4>,
+					h5: ({ children }) => <h5 className="text-base font-semibold mt-4 mb-2">{children}</h5>,
+					h6: ({ children }) => <h6 className="text-sm font-semibold mt-4 mb-2">{children}</h6>,
 
 					// Paragraphs
 					p: ({ children }) => <p className="mb-4 leading-7">{children}</p>,
@@ -127,26 +119,16 @@ export function MarkdownRenderer({ content, className = "" }: MarkdownRendererPr
 					// Tables
 					table: ({ children }) => (
 						<div className="overflow-x-auto mb-4">
-							<table className="min-w-full border-collapse border border-border">
-								{children}
-							</table>
+							<table className="min-w-full border-collapse border border-border">{children}</table>
 						</div>
 					),
-					thead: ({ children }) => (
-						<thead className="bg-muted">{children}</thead>
-					),
+					thead: ({ children }) => <thead className="bg-muted">{children}</thead>,
 					tbody: ({ children }) => <tbody>{children}</tbody>,
-					tr: ({ children }) => (
-						<tr className="border-b border-border">{children}</tr>
-					),
+					tr: ({ children }) => <tr className="border-b border-border">{children}</tr>,
 					th: ({ children }) => (
-						<th className="border border-border px-4 py-2 text-left font-semibold">
-							{children}
-						</th>
+						<th className="border border-border px-4 py-2 text-left font-semibold">{children}</th>
 					),
-					td: ({ children }) => (
-						<td className="border border-border px-4 py-2">{children}</td>
-					),
+					td: ({ children }) => <td className="border border-border px-4 py-2">{children}</td>,
 
 					// Horizontal rule
 					hr: () => <hr className="my-8 border-border" />,

@@ -1,13 +1,13 @@
 import { preloadedQueryResult, preloadQuery } from "convex/nextjs"
+import Link from "next/link"
+import { notFound } from "next/navigation"
 import { api } from "@/../convex/_generated/api"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { MarkdownRenderer } from "@/components/wiki/markdown-renderer"
-import { LikeButton } from "@/components/wiki/like-button"
 import { CommentSection } from "@/components/wiki/comment-section"
+import { LikeButton } from "@/components/wiki/like-button"
+import { MarkdownRenderer } from "@/components/wiki/markdown-renderer"
 import { PageViewTracker } from "@/components/wiki/page-view-tracker"
-import Link from "next/link"
-import { notFound } from "next/navigation"
 
 export default async function WikiPageDetail({
 	params,

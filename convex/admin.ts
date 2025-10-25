@@ -1,5 +1,5 @@
 import { v } from "convex/values"
-import type { QueryCtx, MutationCtx } from "./_generated/server"
+import type { MutationCtx, QueryCtx } from "./_generated/server"
 import { mutation, query } from "./_generated/server"
 import { auth } from "./auth"
 

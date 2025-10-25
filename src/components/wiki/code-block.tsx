@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react"
 import { Check, Copy } from "lucide-react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 
 interface CodeBlockProps {
@@ -31,11 +31,7 @@ export function CodeBlock({ children, className, language }: CodeBlockProps) {
 					onClick={handleCopy}
 					className="h-7 px-2.5 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm"
 				>
-					{copied ? (
-						<Check className="h-3.5 w-3.5" />
-					) : (
-						<Copy className="h-3.5 w-3.5" />
-					)}
+					{copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
 				</Button>
 			</div>
 			<pre className="bg-muted/50 rounded-lg p-4 overflow-x-auto border border-border">

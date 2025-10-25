@@ -1,10 +1,9 @@
-import { preloadedQueryResult } from "convex/nextjs"
-import { preloadQuery } from "convex/nextjs"
+import { preloadedQueryResult, preloadQuery } from "convex/nextjs"
+import { ArrowRight, Heart, MessageSquare } from "lucide-react"
+import Link from "next/link"
 import { api } from "@/../convex/_generated/api"
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { RecentlyViewed } from "@/components/wiki/recently-viewed"
-import Link from "next/link"
-import { ArrowRight, Heart, MessageSquare } from "lucide-react"
 
 export default async function Page() {
 	const categoriesQuery = await preloadQuery(api.wiki.getCategories)

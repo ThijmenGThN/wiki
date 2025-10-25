@@ -1,10 +1,10 @@
 import { preloadedQueryResult, preloadQuery } from "convex/nextjs"
-import { api } from "@/../convex/_generated/api"
-import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import Link from "next/link"
 import { FileText, Heart, MessageSquare } from "lucide-react"
+import Link from "next/link"
 import { notFound } from "next/navigation"
+import { api } from "@/../convex/_generated/api"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card"
 
 export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
 	const { category } = await params

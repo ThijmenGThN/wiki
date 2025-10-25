@@ -1,7 +1,7 @@
 "use client"
 
 import { useConvexAuth, useMutation } from "convex/react"
-import { Moon, Sun, Monitor } from "lucide-react"
+import { Monitor, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
@@ -57,7 +57,12 @@ export function ThemeToggle({ size = "icon", variant = "toggle" }: ThemeTogglePr
 
 	if (!mounted) {
 		return (
-			<Button variant="ghost" size={size} className="bg-popover hover:bg-popover/80 ring-1 ring-border" disabled>
+			<Button
+				variant="ghost"
+				size={size}
+				className="bg-popover hover:bg-popover/80 ring-1 ring-border"
+				disabled
+			>
 				<Moon className="h-4 w-4" />
 			</Button>
 		)

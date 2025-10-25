@@ -1,12 +1,16 @@
 "use client"
 
-import { use, useState, useEffect } from "react"
-import { useQuery, useMutation } from "convex/react"
+import { useMutation, useQuery } from "convex/react"
+import { ArrowLeft } from "lucide-react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { use, useEffect, useState } from "react"
+import { toast } from "sonner"
 import { api } from "@/../convex/_generated/api"
 import type { Id } from "@/../convex/_generated/dataModel"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import {
 	Select,
@@ -15,12 +19,8 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ArrowLeft } from "lucide-react"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { toast } from "sonner"
+import { Textarea } from "@/components/ui/textarea"
 import { MarkdownRenderer } from "@/components/wiki/markdown-renderer"
 
 export default function EditPagePage({ params }: { params: Promise<{ id: string }> }) {
@@ -53,7 +53,13 @@ export default function EditPagePage({ params }: { params: Promise<{ id: string 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
 
-		if (!formData.slug || !formData.title || !formData.subtitle || !formData.categoryId || !formData.markdown) {
+		if (
+			!formData.slug ||
+			!formData.title ||
+			!formData.subtitle ||
+			!formData.categoryId ||
+			!formData.markdown
+		) {
 			toast.error("All fields are required")
 			return
 		}

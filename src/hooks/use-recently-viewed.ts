@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 const STORAGE_KEY = "wiki_recently_viewed"
 const MAX_ITEMS = 5
