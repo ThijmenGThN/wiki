@@ -138,7 +138,7 @@ export default function Page() {
 							</div>
 
 							<div className="flex flex-col items-center space-y-4">
-								<ProfilePicture user={user} size="xl" />
+								<ProfilePicture user={user ?? null} size="xl" />
 								<div className="flex gap-2">
 									<Button
 										size="sm"
