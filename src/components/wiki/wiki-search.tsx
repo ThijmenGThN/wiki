@@ -103,7 +103,14 @@ export function WikiSearch() {
 						) : searchResults && searchResults.length > 0 ? (
 							<CommandGroup heading="Pages">
 								{searchResults.map((page, index) => (
-									<Link key={page._id} href={`/${page.category?.slug}/${page.slug}`}>
+									<Link
+										key={page._id}
+										href={`/${page.category?.slug}/${page.slug}`}
+										onClick={() => {
+											setSearchTerm("")
+											inputRef?.blur()
+										}}
+									>
 										<CommandItem
 											className={`flex flex-col items-start gap-1 cursor-pointer ${index === selectedIndex ? "bg-accent" : ""}`}
 											onMouseEnter={() => setSelectedIndex(index)}
