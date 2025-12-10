@@ -1,0 +1,49 @@
+
+# - Database
+# Create a Postgres database service via Dokploy's Create Service > Database.
+# IMPORTANT: Set the table to "convex_self_hosted" and ensure you set an 
+# external port to something that's available (e.g., 5433) also update
+# the POSTGRES_URL in the backend service accordingly.
+
+# - Ports
+# backend: 
+#   * WS: 3210
+#   * HTTP/ACTIONS: 3211
+# dashboard: 6791
+
+services:
+
+  backend:
+    image: ghcr.io/get-convex/convex-backend:latest
+    restart: unless-stopped
+    volumes:
+      - "convex:/convex/data"
+      # Optionally, you can mount a local directory to persist file storage.
+      # - "./files:/convex/data/storage/files"
+    environment:
+      DISABLE_BEACON: "true"
+      DO_NOT_REQUIRE_SSL: "1"
+      INSTANCE_NAME: "convex-self-hosted"
+      # Generate a new secret with `openssl rand -hex 32`.
+      INSTANCE_SECRET: "0325575490a14277350af7c1c20c31d32dd2ce102b9766adee8b6d9acc468780"
+      # Points to the PostgreSQL database.
+      POSTGRES_URL: "postgresql://postgres:8nBAyt9SvGBzTbWBxBY5@172.17.0.1:5432"
+      # Points to convex actions at port 3211 (Example: "https://cvx-actions.next-leaflet.app").
+      CONVEX_SITE_ORIGIN: "http://localhost:3211"
+      # Points to convex api at port 3210 (Example: "https://cvx-api.next-leaflet.app").
+      CONVEX_CLOUD_ORIGIN: "http://localhost:3210"
+    stop_grace_period: 10s
+    stop_signal: SIGINT
+
+  dashboard:
+    image: ghcr.io/get-convex/convex-dashboard:latest
+    restart: unless-stopped
+    ports: [ "6791:6791" ]
+    environment:
+      # Points to convex api at port 3210 (Example: "https://cvx-api.next-leaflet.app").
+      NEXT_PUBLIC_DEPLOYMENT_URL: "http://localhost:3210"
+    stop_grace_period: 10s
+    stop_signal: SIGINT
+
+volumes:
+  convex:

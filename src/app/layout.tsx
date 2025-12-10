@@ -1,13 +1,14 @@
-import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server"
-import type { Metadata } from "next"
 import { ThemeProvider } from "next-themes"
 
-import ConvexClientProvider from "@/components/ConvexClientProvider"
+import ConvexClientProvider from "@/components/convex/ConvexClientProvider"
+import { RouteGuard } from "@/components/convex/RouteGuard"
 import { ThemeSync } from "@/components/ThemeSync"
 import { WikiHeader } from "@/components/wiki-header"
+import { Toaster } from "@/components/ui/sonner"
+
+import type { Metadata } from "next"
 
 import "@/styles/globals.css"
-import { Toaster } from "@/components/ui/sonner"
 
 export const metadata: Metadata = {
 	title: "Wiki",
@@ -16,19 +17,19 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
 	return (
-		<ConvexAuthNextjsServerProvider>
-			<html lang="en" suppressHydrationWarning>
-				<body>
-					<ConvexClientProvider>
-						<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-							<ThemeSync />
+		<html lang="en" suppressHydrationWarning>
+			<body>
+				<ConvexClientProvider>
+					<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+						<ThemeSync />
+						<RouteGuard>
 							<WikiHeader />
 							{children}
-						</ThemeProvider>
-					</ConvexClientProvider>
-					<Toaster />
-				</body>
-			</html>
-		</ConvexAuthNextjsServerProvider>
+						</RouteGuard>
+					</ThemeProvider>
+				</ConvexClientProvider>
+				<Toaster />
+			</body>
+		</html>
 	)
 }

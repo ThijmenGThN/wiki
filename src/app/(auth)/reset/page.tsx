@@ -6,6 +6,7 @@ import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
+import { ROUTE_CONFIG } from "@/components/convex/RouteGuard"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -85,7 +86,7 @@ export default function ResetPasswordForm() {
 		return (
 			<div className="space-y-4">
 				<Button asChild variant="ghost" size="sm" className="self-start">
-					<Link href="/login">
+					<Link href={ROUTE_CONFIG.DEFAULT_UNAUTHENTICATED_ROUTE}>
 						<ArrowLeft className="h-4 w-4 mr-2" />
 						Back to login
 					</Link>
@@ -99,7 +100,7 @@ export default function ResetPasswordForm() {
 								<p className="text-muted-foreground">We sent a password reset link to {email}</p>
 							</div>
 							<Button asChild variant="outline" className="w-full">
-								<Link href="/login">Back to login</Link>
+								<Link href={ROUTE_CONFIG.DEFAULT_UNAUTHENTICATED_ROUTE}>Back to login</Link>
 							</Button>
 						</div>
 					</CardContent>
@@ -112,7 +113,7 @@ export default function ResetPasswordForm() {
 		return (
 			<div className="space-y-4">
 				<Button asChild variant="ghost" size="sm" className="self-start">
-					<Link href="/login">
+					<Link href={ROUTE_CONFIG.DEFAULT_UNAUTHENTICATED_ROUTE}>
 						<ArrowLeft className="h-4 w-4 mr-2" />
 						Back to login
 					</Link>
@@ -126,7 +127,7 @@ export default function ResetPasswordForm() {
 								<p className="text-muted-foreground">You're all set, continue to login.</p>
 							</div>
 							<Button asChild className="w-full">
-								<Link href="/login">Sign in with new password</Link>
+								<Link href={ROUTE_CONFIG.DEFAULT_UNAUTHENTICATED_ROUTE}>Sign in with new password</Link>
 							</Button>
 						</div>
 					</CardContent>
@@ -139,7 +140,7 @@ export default function ResetPasswordForm() {
 		return (
 			<div className="space-y-4">
 				<Button asChild variant="ghost" size="sm" className="self-start">
-					<Link href="/login">
+					<Link href={ROUTE_CONFIG.DEFAULT_UNAUTHENTICATED_ROUTE}>
 						<ArrowLeft className="h-4 w-4 mr-2" />
 						Back to login
 					</Link>
@@ -192,7 +193,7 @@ export default function ResetPasswordForm() {
 	return (
 		<div className="space-y-4">
 			<Button asChild variant="ghost" size="sm" className="self-start">
-				<Link href="/login">
+				<Link href={ROUTE_CONFIG.DEFAULT_UNAUTHENTICATED_ROUTE}>
 					<ArrowLeft className="h-4 w-4 mr-2" />
 					Back to login
 				</Link>
@@ -227,7 +228,7 @@ export default function ResetPasswordForm() {
 						<div className="text-center pt-4 border-t border-border">
 							<p className="text-sm text-muted-foreground">
 								Remember your password?{" "}
-								<Link href="/login" className="text-primary hover:underline font-medium">
+								<Link href={ROUTE_CONFIG.DEFAULT_UNAUTHENTICATED_ROUTE} className="text-primary hover:underline font-medium">
 									Sign in
 								</Link>
 							</p>

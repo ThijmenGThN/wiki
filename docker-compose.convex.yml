@@ -1,3 +1,10 @@
+# - Using Dokploy?
+#
+# Backend & Dashboard: Use 172.17.0.1 in the DATABASE_URL, remove port mappings,
+#       otherwise traefix won't route properly and you'd get Bad Gateway errors.
+# Database: Use Create Service > Database and get rid of the service in here,
+#       when you create the postgres database ensure you set an external port
+#       to something that's available and update the port in the backend service.
 
 services:
 
@@ -5,25 +12,38 @@ services:
     image: ghcr.io/get-convex/convex-backend:latest
     restart: unless-stopped
     ports: [ "3210:3210", "3211:3211" ]
-    volumes: [ "convex:/convex/data" ]
+    volumes:
+      - "convex:/convex/data"
+      # Optionally, you can mount a local directory to persist file storage.
+      # - "./files:/convex/data/storage/files"
     environment:
-      # Points to convex api at port 3210.
-      CONVEX_CLOUD_ORIGIN: "http://localhost:3210" 
-      # Points to convex actions at port 3211.
+      DISABLE_BEACON: "true"
+      DO_NOT_REQUIRE_SSL: "1"
+      INSTANCE_NAME: "convex-self-hosted"
+      # Generate a new secret with `openssl rand -hex 32`.
+      INSTANCE_SECRET: "0325575490a14277350af7c1c20c31d32dd2ce102b9766adee8b6d9acc468780"
+      # Points to the PostgreSQL database.
+      POSTGRES_URL: "postgresql://postgres:8nBAyt9SvGBzTbWBxBY5@database:5432"
+      # Points to convex actions at port 3211 (Example: "https://cvx-actions.next-leaflet.app").
       CONVEX_SITE_ORIGIN: "http://localhost:3211"
+      # Points to convex api at port 3210 (Example: "https://cvx-api.next-leaflet.app").
+      CONVEX_CLOUD_ORIGIN: "http://localhost:3210"
     stop_grace_period: 10s
     stop_signal: SIGINT
     healthcheck:
       test: curl -f http://localhost:3210/version
       interval: 5s
       start_period: 10s
+    depends_on:
+      database:
+        condition: service_healthy
 
   dashboard:
     image: ghcr.io/get-convex/convex-dashboard:latest
     restart: unless-stopped
     ports: [ "6791:6791" ]
     environment:
-      # Points to convex api at port 3210.
+      # Points to convex api at port 3210 (Example: "https://cvx-api.next-leaflet.app").
       NEXT_PUBLIC_DEPLOYMENT_URL: "http://localhost:3210"
     stop_grace_period: 10s
     stop_signal: SIGINT
@@ -31,16 +51,20 @@ services:
       backend:
         condition: service_healthy
 
-  postgres:
-    image: postgres:17.6
+  database:
+    image: postgres:17-alpine
     restart: unless-stopped
     environment:
-      POSTGRES_DB: next
-      POSTGRES_USER: next
-      POSTGRES_PASSWORD: 6zE5...48W0
-    volumes: [ "postgres:/var/lib/postgresql/data" ]
-    ports: [ "5432:5432" ]
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 8nBAyt9SvGBzTbWBxBY5
+      POSTGRES_DB: convex_self_hosted
+    volumes: [ "database:/var/lib/postgresql/data" ]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      timeout: 2s
+      retries: 10
 
 volumes:
   convex:
-  postgres:
+  database:

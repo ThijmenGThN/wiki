@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
+import { ROUTE_CONFIG } from "@/components/convex/RouteGuard"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -38,9 +39,9 @@ export default function LoginForm() {
 			formData.set("flow", "signIn")
 
 			await signIn("password", formData)
+			router.push(ROUTE_CONFIG.DEFAULT_AUTHENTICATED_ROUTE)
 		} catch (error: unknown) {
 			toast.error(getAuthErrorMessage(error))
-		} finally {
 			setIsLoading(false)
 		}
 	}
@@ -48,7 +49,7 @@ export default function LoginForm() {
 	const handleGitHubSignIn = async () => {
 		setIsLoading(true)
 		try {
-			await signIn("github")
+			await signIn("github", { redirectTo: ROUTE_CONFIG.DEFAULT_AUTHENTICATED_ROUTE })
 		} catch (error: unknown) {
 			toast.error(getAuthErrorMessage(error))
 			setIsLoading(false)
@@ -138,7 +139,7 @@ export default function LoginForm() {
 						<div className="text-center pt-4 border-t border-border">
 							<p className="text-sm text-muted-foreground">
 								Don&apos;t have an account?{" "}
-								<Link href="/register" className="text-primary hover:underline font-medium">
+								<Link href={ROUTE_CONFIG.AUTH_ROUTES[1]} className="text-primary hover:underline font-medium">
 									Create account
 								</Link>
 							</p>
