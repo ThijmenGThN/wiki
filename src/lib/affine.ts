@@ -103,11 +103,12 @@ export interface WikiPage extends WikiPageMeta {
 // In-memory cache for page data
 interface CachedData {
 	categories: WikiCategory[]
-	pages: WikiPageMeta[]
+	pages: WikiPageWithPreview[]
 	timestamp: number
 }
 
 let cache: CachedData | null = null
+let refreshInProgress: Promise<void> | null = null
 const CACHE_TTL = 60 * 1000 // 60 seconds
 
 export class AffineUnavailableError extends Error {
@@ -117,71 +118,97 @@ export class AffineUnavailableError extends Error {
 	}
 }
 
-async function fetchAllPages(): Promise<{ categories: WikiCategory[]; pages: WikiPageMeta[] }> {
-	if (cache && Date.now() - cache.timestamp < CACHE_TTL) {
-		return { categories: cache.categories, pages: cache.pages }
+async function refreshCache(): Promise<void> {
+	const sessionToken = await getSessionToken()
+	const reader = createReader(sessionToken)
+
+	const pageMetas = await reader.getDocPageMetas()
+	if (!pageMetas) {
+		cache = { categories: [], pages: [], timestamp: Date.now() }
+		return
 	}
 
-	try {
-		const sessionToken = await getSessionToken()
-		const reader = createReader(sessionToken)
+	const categoryMap = new Map<string, { title: string; count: number }>()
+	const pageBatch: { meta: (typeof pageMetas)[number]; categorySlug: string; categoryTitle: string }[] = []
 
-		const pageMetas = await reader.getDocPageMetas()
-		if (!pageMetas) {
-			return { categories: [], pages: [] }
+	for (const meta of pageMetas) {
+		if (meta.trash) continue
+
+		const tags: string[] = meta.properties?.tags ?? []
+		if (tags.length === 0) continue
+
+		const categoryTitle = tags[0]
+		const categorySlug = slugify(categoryTitle)
+
+		if (!categoryMap.has(categorySlug)) {
+			categoryMap.set(categorySlug, { title: categoryTitle, count: 0 })
 		}
+		categoryMap.get(categorySlug)!.count++
 
-		const categoryMap = new Map<string, { title: string; count: number }>()
-		const pages: WikiPageMeta[] = []
+		pageBatch.push({ meta, categorySlug, categoryTitle })
+	}
 
-		for (const meta of pageMetas) {
-			if (meta.trash) continue
-
-			const tags: string[] = meta.properties?.tags ?? []
-			if (tags.length === 0) continue
-
-			// Use the first tag as the category
-			const categoryTitle = tags[0]
-			const categorySlug = slugify(categoryTitle)
-
-			if (!categoryMap.has(categorySlug)) {
-				categoryMap.set(categorySlug, { title: categoryTitle, count: 0 })
-			}
-			categoryMap.get(categorySlug)!.count++
-
-			pages.push({
+	const pages: WikiPageWithPreview[] = await Promise.all(
+		pageBatch.map(async ({ meta, categorySlug, categoryTitle }) => {
+			let preview = ""
+			try {
+				const doc = await reader.getDocMarkdown(meta.id)
+				preview = extractPreview(doc?.md || "")
+			} catch {}
+			return {
 				id: meta.id,
 				slug: slugify(meta.title),
 				title: meta.title,
 				categorySlug,
 				categoryTitle,
 				createdAt: meta.createDate,
-			})
-		}
+				preview,
+			}
+		}),
+	)
 
-		const categories: WikiCategory[] = Array.from(categoryMap.entries()).map(
-			([slug, { title, count }]) => ({
-				slug,
-				title,
-				pageCount: count,
-			}),
-		)
+	const categories: WikiCategory[] = Array.from(categoryMap.entries()).map(
+		([slug, { title, count }]) => ({
+			slug,
+			title,
+			pageCount: count,
+		}),
+	)
 
-		categories.sort((a, b) => a.title.localeCompare(b.title))
-		pages.sort((a, b) => b.createdAt - a.createdAt)
+	categories.sort((a, b) => a.title.localeCompare(b.title))
+	pages.sort((a, b) => b.createdAt - a.createdAt)
 
-		cache = { categories, pages, timestamp: Date.now() }
-		return { categories, pages }
-	} catch (err) {
-		// If we have stale cache, serve it rather than failing
+	cache = { categories, pages, timestamp: Date.now() }
+}
+
+async function fetchAllPages(): Promise<{ categories: WikiCategory[]; pages: WikiPageWithPreview[] }> {
+	const isStale = !cache || Date.now() - cache.timestamp > CACHE_TTL
+
+	if (isStale && !refreshInProgress) {
+		// If we have stale cache, serve it and refresh in the background
+		// If no cache at all (cold start), we must wait
 		if (cache) {
-			console.warn("AFFiNE unavailable, serving stale cache:", err)
-			return { categories: cache.categories, pages: cache.pages }
+			refreshInProgress = refreshCache()
+				.catch((err) => console.warn("Background cache refresh failed:", err))
+				.finally(() => { refreshInProgress = null })
+		} else {
+			refreshInProgress = refreshCache().finally(() => { refreshInProgress = null })
+			try {
+				await refreshInProgress
+			} catch (err) {
+				throw new AffineUnavailableError(
+					err instanceof Error ? err.message : "Failed to connect to AFFiNE",
+				)
+			}
 		}
-		throw new AffineUnavailableError(
-			err instanceof Error ? err.message : "Failed to connect to AFFiNE",
-		)
 	}
+
+	if (cache) {
+		return { categories: cache.categories, pages: cache.pages }
+	}
+
+	// Should only happen if cold start refresh failed
+	throw new AffineUnavailableError("No cached data available")
 }
 
 export async function getCategories(): Promise<WikiCategory[]> {
@@ -211,22 +238,7 @@ export async function getCategoryBySlug(
 	if (!category) return null
 
 	const categoryPages = pages.filter((p) => p.categorySlug === slug)
-
-	const sessionToken = await getSessionToken()
-	const reader = createReader(sessionToken)
-
-	const pagesWithPreviews = await Promise.all(
-		categoryPages.map(async (page) => {
-			try {
-				const doc = await reader.getDocMarkdown(page.id)
-				return { ...page, preview: extractPreview(doc?.md || "") }
-			} catch {
-				return { ...page, preview: "" }
-			}
-		}),
-	)
-
-	return { category, pages: pagesWithPreviews }
+	return { category, pages: categoryPages }
 }
 
 export async function getPageBySlug(
@@ -256,21 +268,7 @@ export async function getPageBySlug(
 
 export async function getRecentPages(limit = 5): Promise<WikiPageWithPreview[]> {
 	const { pages } = await fetchAllPages()
-	const recentPages = pages.slice(0, limit)
-
-	const sessionToken = await getSessionToken()
-	const reader = createReader(sessionToken)
-
-	return Promise.all(
-		recentPages.map(async (page) => {
-			try {
-				const doc = await reader.getDocMarkdown(page.id)
-				return { ...page, preview: extractPreview(doc?.md || "") }
-			} catch {
-				return { ...page, preview: "" }
-			}
-		}),
-	)
+	return pages.slice(0, limit)
 }
 
 export async function searchPages(query: string): Promise<WikiPageMeta[]> {
@@ -279,4 +277,9 @@ export async function searchPages(query: string): Promise<WikiPageMeta[]> {
 	return pages.filter(
 		(p) => p.title.toLowerCase().includes(q) || p.categoryTitle.toLowerCase().includes(q),
 	)
+}
+
+// Warm up cache on server startup so the first request is fast
+if (typeof globalThis !== "undefined") {
+	refreshCache().catch((err) => console.warn("Cache warmup failed:", err))
 }
