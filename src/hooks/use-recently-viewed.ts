@@ -8,8 +8,8 @@ export interface RecentlyViewedPage {
 	categorySlug: string
 	pageSlug: string
 	title: string
-	subtitle: string
 	categoryTitle: string
+	preview: string
 	viewedAt: number
 }
 
@@ -17,7 +17,6 @@ export function useRecentlyViewed() {
 	const [recentlyViewed, setRecentlyViewed] = useState<RecentlyViewedPage[]>([])
 
 	useEffect(() => {
-		// Load from localStorage on mount
 		const stored = localStorage.getItem(STORAGE_KEY)
 		if (stored) {
 			try {
@@ -32,15 +31,9 @@ export function useRecentlyViewed() {
 
 	const addRecentlyViewed = useCallback((page: Omit<RecentlyViewedPage, "viewedAt">) => {
 		setRecentlyViewed((prev) => {
-			// Remove existing entry for this page if it exists
 			const filtered = prev.filter((p) => p.pageId !== page.pageId)
-
-			// Add new entry at the beginning
 			const updated = [{ ...page, viewedAt: Date.now() }, ...filtered].slice(0, MAX_ITEMS)
-
-			// Save to localStorage
 			localStorage.setItem(STORAGE_KEY, JSON.stringify(updated))
-
 			return updated
 		})
 	}, [])

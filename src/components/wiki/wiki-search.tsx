@@ -1,11 +1,9 @@
 "use client"
 
-import { useQuery } from "convex/react"
 import { Search } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { api } from "@/../convex/_generated/api"
 import {
 	Command,
 	CommandEmpty,
@@ -16,26 +14,44 @@ import {
 } from "@/components/ui/command"
 import { useDebounce } from "@/hooks/use-debounce"
 
+interface SearchResult {
+	id: string
+	slug: string
+	title: string
+	categorySlug: string
+	categoryTitle: string
+}
+
 export function WikiSearch() {
 	const [searchTerm, setSearchTerm] = useState("")
 	const [selectedIndex, setSelectedIndex] = useState(0)
 	const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null)
+	const [searchResults, setSearchResults] = useState<SearchResult[] | undefined>(undefined)
+	const [isSearching, setIsSearching] = useState(false)
 	const router = useRouter()
 	const debouncedSearch = useDebounce(searchTerm, 300)
-	const searchResults = useQuery(
-		api.wiki.searchPages,
-		debouncedSearch.trim().length > 0 ? { searchTerm: debouncedSearch } : "skip",
-	)
 
-	// Reset selected index when search results change
+	// Fetch search results
 	useEffect(() => {
-		setSelectedIndex(0)
-	}, [searchResults])
+		if (debouncedSearch.trim().length === 0) {
+			setSearchResults(undefined)
+			return
+		}
+
+		setIsSearching(true)
+		fetch(`/api/search?q=${encodeURIComponent(debouncedSearch)}`)
+			.then((res) => res.json())
+			.then((data) => {
+				setSearchResults(data)
+				setSelectedIndex(0)
+			})
+			.catch(() => setSearchResults([]))
+			.finally(() => setIsSearching(false))
+	}, [debouncedSearch])
 
 	// Handle keyboard navigation and shortcuts
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {
-			// Handle "/" shortcut to focus search (only if not already focused)
 			if (e.key === "/" && document.activeElement !== inputRef) {
 				e.preventDefault()
 				inputRef?.focus()
@@ -63,7 +79,7 @@ export function WikiSearch() {
 					e.preventDefault()
 					if (searchResults[selectedIndex]) {
 						const page = searchResults[selectedIndex]
-						router.push(`/${page.category?.slug}/${page.slug}`)
+						router.push(`/${page.categorySlug}/${page.slug}`)
 						setSearchTerm("")
 						inputRef?.blur()
 					}
@@ -90,14 +106,14 @@ export function WikiSearch() {
 				/>
 				{searchTerm && (
 					<CommandList className="absolute top-full left-0 right-0 mt-1 max-h-[400px] rounded-lg border shadow-lg bg-popover z-50">
-						{searchResults === undefined ? (
+						{isSearching ? (
 							<div className="py-6 text-center text-sm">Searching...</div>
 						) : searchResults && searchResults.length > 0 ? (
 							<CommandGroup heading="Pages">
 								{searchResults.map((page, index) => (
 									<Link
-										key={page._id}
-										href={`/${page.category?.slug}/${page.slug}`}
+										key={page.id}
+										href={`/${page.categorySlug}/${page.slug}`}
 										onClick={() => {
 											setSearchTerm("")
 											inputRef?.blur()
@@ -112,9 +128,7 @@ export function WikiSearch() {
 												<span className="font-medium">{page.title}</span>
 											</div>
 											<div className="flex items-center gap-2 text-sm text-muted-foreground">
-												<span>{page.category?.title}</span>
-												<span>•</span>
-												<span className="line-clamp-1">{page.subtitle}</span>
+												<span>{page.categoryTitle}</span>
 											</div>
 										</CommandItem>
 									</Link>

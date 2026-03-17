@@ -6,7 +6,7 @@ import rehypeHighlight from "rehype-highlight"
 import rehypeRaw from "rehype-raw"
 import remarkGfm from "remark-gfm"
 import { CodeBlock } from "./code-block"
-import "highlight.js/styles/github.css"
+import "@/styles/hljs.css"
 
 interface MarkdownRendererProps {
 	content: string

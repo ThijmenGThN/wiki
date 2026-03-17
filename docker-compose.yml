@@ -1,0 +1,10 @@
+services:
+  wiki:
+    build: .
+    container_name: wiki
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file: .env.local
+    volumes:
+      - ./data:/app/data

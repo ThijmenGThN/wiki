@@ -8,8 +8,8 @@ interface PageViewTrackerProps {
 	categorySlug: string
 	pageSlug: string
 	title: string
-	subtitle: string
 	categoryTitle: string
+	preview: string
 }
 
 export function PageViewTracker({
@@ -17,8 +17,8 @@ export function PageViewTracker({
 	categorySlug,
 	pageSlug,
 	title,
-	subtitle,
 	categoryTitle,
+	preview,
 }: PageViewTrackerProps) {
 	const { addRecentlyViewed } = useRecentlyViewed()
 
@@ -28,10 +28,10 @@ export function PageViewTracker({
 			categorySlug,
 			pageSlug,
 			title,
-			subtitle,
 			categoryTitle,
+			preview,
 		})
-	}, [pageId, categorySlug, pageSlug, title, subtitle, categoryTitle, addRecentlyViewed])
+	}, [pageId, categorySlug, pageSlug, title, categoryTitle, preview, addRecentlyViewed])
 
 	return null
 }

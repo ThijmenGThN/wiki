@@ -1,50 +1,33 @@
 "use client"
 
-import { useConvexAuth, useMutation } from "convex/react"
 import { Monitor, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
-import { api } from "@/convex/_generated/api"
 
 interface ThemeToggleProps {
 	size?: "default" | "sm" | "lg" | "icon"
-	variant?: "toggle" | "cycle" // toggle: light/dark only, cycle: light/dark/system
+	variant?: "toggle" | "cycle"
 }
 
 export function ThemeToggle({ size = "icon", variant = "toggle" }: ThemeToggleProps) {
 	const [mounted, setMounted] = useState(false)
 	const { theme, setTheme } = useTheme()
-	const { isAuthenticated } = useConvexAuth()
-	const updateTheme = useMutation(api.users.updateTheme)
 
 	useEffect(() => {
 		setMounted(true)
 	}, [])
 
-	const handleThemeChange = async (newTheme: "light" | "dark" | "system") => {
-		setTheme(newTheme)
-		// Only save to Convex if user is authenticated
-		if (isAuthenticated && newTheme !== "system") {
-			try {
-				await updateTheme({ theme: newTheme })
-			} catch {
-				// Silently fail if update fails
-			}
-		}
-	}
-
 	const cycleTheme = () => {
 		if (variant === "toggle") {
-			handleThemeChange(theme === "dark" ? "light" : "dark")
+			setTheme(theme === "dark" ? "light" : "dark")
 		} else {
-			// Cycle through light -> dark -> system -> light
 			if (theme === "light") {
-				handleThemeChange("dark")
+				setTheme("dark")
 			} else if (theme === "dark") {
-				handleThemeChange("system")
+				setTheme("system")
 			} else {
-				handleThemeChange("light")
+				setTheme("light")
 			}
 		}
 	}

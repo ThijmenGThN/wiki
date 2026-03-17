@@ -1,14 +1,14 @@
 import { ThemeProvider } from "next-themes"
+import { Sour_Gummy } from "next/font/google"
 
-import ConvexClientProvider from "@/components/convex/ConvexClientProvider"
-import { RouteGuard } from "@/components/convex/RouteGuard"
-import { ThemeSync } from "@/components/ThemeSync"
 import { WikiHeader } from "@/components/wiki-header"
 import { Toaster } from "@/components/ui/sonner"
 
 import type { Metadata } from "next"
 
 import "@/styles/globals.css"
+
+const sourGummy = Sour_Gummy({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
 	title: "Wiki",
@@ -18,16 +18,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
 	return (
 		<html lang="en" suppressHydrationWarning>
-			<body>
-				<ConvexClientProvider>
-					<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-						<ThemeSync />
-						<RouteGuard>
-							<WikiHeader />
-							{children}
-						</RouteGuard>
-					</ThemeProvider>
-				</ConvexClientProvider>
+			<body className={sourGummy.className}>
+				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+					<WikiHeader />
+					{children}
+				</ThemeProvider>
 				<Toaster />
 			</body>
 		</html>

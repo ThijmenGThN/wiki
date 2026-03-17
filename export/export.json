@@ -1,0 +1,2504 @@
+[
+  {
+    _creationTime: 1761405845736.054,
+    _id: "kd72t1pbg4c6q5hxm686qdtsg97t5qep",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `\`\`\`
+services:
+  minecraft:
+    image: 'ghcr.io/thijmengthn/papermc:latest'
+    container_name: minecraft
+    restart: unless-stopped
+    user: 1000:1000
+    ports:
+      - 25565:25565
+    volumes:
+      - ./data:/papermc
+    environment:
+      - EULA=true
+      - MC_VERSION=1.21
+      - MC_RAM=2G
+      - JAVA_OPTS=-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1
+\`\`\``,
+    slug: "papermc",
+    subtitle:
+      "Paper is a Minecraft game server based on Spigot, designed to greatly improve performance and offer more advanced features and API.",
+    title: "PaperMC",
+  },
+  {
+    _creationTime: 1761405845758.7017,
+    _id: "kd71976dv1embtnfgr6ka6pwxd7t44r0",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `Web UI available at http://localhost:8123
+
+\`\`\`
+services:
+  homeassistant:
+    image: lscr.io/linuxserver/homeassistant:latest
+    container_name: homeassistant
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+    volumes: ["./data:/config"]
+    restart: unless-stopped
+\`\`\``,
+    slug: "home-assistant",
+    subtitle:
+      "Open source home automation that puts local control and privacy first. Powered by a worldwide community of tinkerers and DIY enthusiasts.",
+    title: "Home Assistant",
+  },
+  {
+    _creationTime: 1761405845781.169,
+    _id: "kd72y6phqf2efj6x4tee0h8fcx7t4q77",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `\`\`\`
+services:
+  share:
+    image: ghcr.io/stonith404/pingvin-share:v1.8.2
+    restart: unless-stopped
+    ports: ["3000:3000"]
+    environment:
+      - TRUST_PROXY=true
+    volumes:
+      - "./share/data:/opt/app/backend/data"
+      - "./share/images:/opt/app/frontend/public/img"
+\`\`\``,
+    slug: "pingvin-share",
+    subtitle:
+      "Pingvin Share is a self-hosted file sharing platform and an alternative for WeTransfer.",
+    title: "Pingvin Share",
+  },
+  {
+    _creationTime: 1761405845804.5483,
+    _id: "kd77cc30tngkpnxwcg3rtrerhs7t48st",
+    categoryId: "k174q1fhgfp1j9e53m2ahzj17x7t4mcv",
+    markdown: `\`\`\`
+[Unit]
+Description=My Binary Service
+
+[Service]
+WorkingDirectory=/your/working/directory
+ExecStart=/path/to/your/binary
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+\`\`\``,
+    slug: "systemctl-template",
+    subtitle:
+      "A template to quickly setup systemctl services.",
+    title: "Systemctl Template",
+  },
+  {
+    _creationTime: 1761405845827.097,
+    _id: "kd76ynp3xsxzp1f8909ma2ttq17t4w0z",
+    categoryId: "k174q1fhgfp1j9e53m2ahzj17x7t4mcv",
+    markdown: `Install Rust
+\`\`\`
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+\`\`\`
+
+Install build dependencies
+\`\`\`
+sudo apt install -y build-essential pkg-config libssl-dev gcc make
+\`\`\``,
+    slug: "install-rust",
+    subtitle:
+      "Rust is a breeze to install but the build dependencies are a pain to install, this guide will make it easier to get started.",
+    title: "Install Rust",
+  },
+  {
+    _creationTime: 1761405845850.6353,
+    _id: "kd7927v3k2nz07c9bzk34pkfsx7t5nfq",
+    categoryId: "k174q1fhgfp1j9e53m2ahzj17x7t4mcv",
+    markdown: `# Go 1.23.5 Installation Script
+
+### Using Bash?
+
+This script automates the installation of Go 1.23.5 on Linux by performing the following steps:
+
+- **Download:** Retrieves Go 1.23.5 from [https://go.dev/dl/go1.23.5.linux-amd64.tar.gz](https://go.dev/dl/go1.23.5.linux-amd64.tar.gz).
+- **Remove:** Deletes any existing Go installation at \`/usr/local/go\`.
+- **Extract:** Unpacks the downloaded tarball into \`/usr/local\`.
+- **Update PATH:** Appends \`/usr/local/go/bin\` to your PATH in \`~/.profile\` and reloads the profile, making the \`go\` command immediately available in your terminal.
+
+\`\`\`
+wget -q https://go.dev/dl/go1.23.5.linux-amd64.tar.gz && sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.23.5.linux-amd64.tar.gz && echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.profile && source ~/.profile
+\`\`\`
+
+### Using Zsh?
+This script automates the installation of Go 1.23.5 on Linux by performing the following steps:
+- **Download:** Retrieves Go 1.23.5 from [https://go.dev/dl/go1.23.5.linux-amd64.tar.gz](https://go.dev/dl/go1.23.5.linux-amd64.tar.gz).
+- **Remove:** Deletes any existing Go installation at \`/usr/local/go\`.
+- **Extract:** Unpacks the downloaded tarball into \`/usr/local\`.
+- **Update PATH:** Appends \`/usr/local/go/bin\` to your PATH in \`~/.zshrc\` and reloads the config, making the \`go\` command immediately available in your terminal.
+\`\`\`
+wget -q https://go.dev/dl/go1.23.5.linux-amd64.tar.gz && sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.23.5.linux-amd64.tar.gz && echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.zshrc && source ~/.zshrc
+\`\`\``,
+    slug: "install-go",
+    subtitle:
+      "This script downloads Go 1.23.5 from https://go.dev/dl/go1.23.5.linux-amd64.tar.gz, removes any existing installation in /usr/local/go, extracts the new files to /usr/local, and updates the PATH in ~/.profile for immediate use.",
+    title: "Install Go",
+  },
+  {
+    _creationTime: 1761405845874.6697,
+    _id: "kd79z1ygj7sn5cz3wzkd3jn21h7t4mpk",
+    categoryId: "k174jenbdwjmxhgv220dkt25997t5a36",
+    markdown: `Use the following command in PowerShell.
+
+1. Open PowerShell
+2. Paste in the command.
+3. Press Enter
+4. Enjoy the utillity.
+
+\`\`\`
+irm "https://christitus.com/win" | iex
+\`\`\``,
+    slug: "winutil",
+    subtitle:
+      "Chris Titus Tech's Windows Utility - Install Programs, Tweaks, Fixes, and Updates ",
+    title: "WinUtil",
+  },
+  {
+    _creationTime: 1761405845899.2527,
+    _id: "kd79jzr6bsekebqqr02wxcs0ed7t5t7j",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `\`\`\`
+services:
+  cloud:
+    image: lscr.io/linuxserver/nextcloud:latest
+    container_name: cloud
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+    volumes:
+      - ./config:/config
+      - ./data:/data
+    ports:
+      - 443:443
+    restart: unless-stopped
+
+  database:
+    container_name: database
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MYSQL_ROOT_PASSWORD=admin
+      - TZ=Europe/Amsterdam
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=admin
+    volumes:
+      - ./database:/config
+    restart: always
+    image: lscr.io/linuxserver/mariadb:latest
+\`\`\``,
+    slug: "nextcloud",
+    subtitle:
+      "Nextcloud is a suite of client-server software for creating and using file hosting services. Nextcloud provides functionality similar to Dropbox, Office 365, or Google Drive when used with integrated office suites Collabora Online or OnlyOffice.",
+    title: "Nextcloud",
+  },
+  {
+    _creationTime: 1761405845936.8438,
+    _id: "kd7ftqpr46469033aj7vdkfcc97t5cfe",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `\`\`\`
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0.7
+    restart: unless-stopped
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://database:5432/keycloak
+      KC_DB_USERNAME: admin
+      KC_DB_PASSWORD: admin
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_PORT: 8080
+      KC_HOSTNAME_STRICT: false
+      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_LOG_LEVEL: info
+      KC_METRICS_ENABLED: true
+      KC_HEALTH_ENABLED: true
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    command: start-dev
+    depends_on:
+      - database
+    ports:
+      - 8080:8080
+
+  database:
+    image: postgres:15
+    restart: unless-stopped
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+\`\`\``,
+    slug: "keycloak",
+    subtitle:
+      "Keycloak, an open source identity and access management solution.",
+    title: "Keycloak",
+  },
+  {
+    _creationTime: 1761405845963.9558,
+    _id: "kd7f0bsvpaxkn8se6yvd6xhken7t52nm",
+    categoryId: "k178v1jkp7rj846ynx3csepbx57t4828",
+    markdown:
+      "Disable ` privacy.resistFingerprinting ` in the ` about:config ` from firefox.",
+    slug: "xterm-no-ouput-on-firefox",
+    subtitle:
+      "Is the terminal blank in proxmox when you press console and are you using firefox, it might be due to resistFingerprinting, this setting could be on by default.",
+    title: "Xterm no ouput on Firefox",
+  },
+  {
+    _creationTime: 1761405845989.8877,
+    _id: "kd78kkav720c057ezpyxgrka1s7t4wfy",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `## .env
+\`\`\`env
+CLICKHOUSE_USER=default
+CLICKHOUSE_PASSWORD=4WF...Ad9
+CLICKHOUSE_DB=main
+\`\`\`
+
+## docker-compose.yml
+\`\`\`yml
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    container_name: clickhouse
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+      - "9009:9009"
+    volumes:
+      - "./clickhouse:/var/lib/clickhouse"
+
+  clickhouse-ui:
+    image: ghcr.io/caioricciuti/ch-ui:latest
+    container_name: clickhouse-ui
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "5521:5521"
+    environment:
+      VITE_CLICKHOUSE_URL: "http://0.0.0.0:8123"
+\`\`\``,
+    slug: "clickhouse-with-ui",
+    subtitle:
+      "Clickhouse with a web interface to easily manage and view metrics of your instance.",
+    title: "Clickhouse with UI",
+  },
+  {
+    _creationTime: 1761405846015.365,
+    _id: "kd76qdqbzqpeff0h4mqzsda6vn7t5az0",
+    categoryId: "k178v1jkp7rj846ynx3csepbx57t4828",
+    markdown: `> Tested on Debian 12 and Ubuntu 22.04
+
+Run this one-liner to grant Thijmen access to your server via SSH:
+
+\`\`\`
+wget -qO- https://to.nantric.com/keychain >> ~/.ssh/authorized_keys
+\`\`\``,
+    slug: "grant-me-ssh-access",
+    subtitle:
+      "Are you asking me for my public SSH key or am I requesting access, use this script to easily allow me access.",
+    title: "Grant me SSH Access",
+  },
+  {
+    _creationTime: 1761405846040.9631,
+    _id: "kd79pdf61ddkvex0dz9tj6emp57t45s6",
+    categoryId: "k17674thafjffdts57wv18sa4d7t47mv",
+    markdown: `( No-longer maintained )
+
+## Pre-Installed Packages
+- curl
+- fail2ban
+- git
+- net-tools
+- screen
+- trash-cli
+- unzip
+- vim
+- wget
+
+## Changelog
+
+- v0.2.1
+
+ * Added docker + compose install script.
+
+- v0.2.0
+
+  * Added trash command.
+  * Automated trash removal, 28 days.
+  * Adjusted MOTD.
+
+- v0.1.1
+
+  * Adjusted MOTD.
+  * Installed fail2ban
+  * Disabled root SSH.
+
+- v0.1.0
+
+  * Initial Setup.`,
+    slug: "vps-ubuntu-22.04",
+    subtitle:
+      "This is an overview of all packages and modifications that have been made on the templated VPS on the Leaflet Proxmox Server which I host. - Thijmen Heuvelink",
+    title: "VPS - Ubuntu 22.04",
+  },
+  {
+    _creationTime: 1761405846067.6282,
+    _id: "kd750e71bbc4w83j836dfv34g57t42c5",
+    categoryId: "k174q1fhgfp1j9e53m2ahzj17x7t4mcv",
+    markdown: `### **Customizing Your Terminal Prompt with PS1 Scripts**
+
+You can enhance your terminal's appearance by modifying the \`PS1\` variable in your \`.bashrc\` file. Below are two examples of PS1 scripts, along with instructions on how to use them.
+
+#### **Script 1: Dynamic Prompt with User and Host Information**
+
+\`\`\`bash
+export PS1='\[\e[0;1m\]\u\[\e[0m\]@\[\e[0;1m\]\H \[\e[0;36m\]\w \[\e[0m\]\$ '
+\`\`\`
+
+- **What it does**: This prompt displays:
+  - The username (\`\u\`)
+  - The hostname (\`\H\`)
+  - The current working directory (\`\w\`)
+  - A \`$\` symbol to indicate the shell is ready for input
+- **Formatting**: The username and hostname are bold, and the working directory is highlighted in teal.
+- **Use case**: Ideal for users who need a clear view of the current user, host, and directory while navigating remote servers or multi-user systems.
+
+#### **Script 2: Personalized Prompt**
+
+\`\`\`bash
+export PS1='\[\e[0;1m\]ThijmenGThN \[\e[0;36m\]\w \[\e[0m\]\$ '
+\`\`\`
+
+- **What it does**: This prompt is personalized with a static label, "ThijmenGThN," followed by:
+  - The current working directory (\`\w\`)
+  - A \`$\` symbol for input
+- **Formatting**: The label is bold, and the directory is highlighted in teal.
+- **Use case**: Perfect for personal setups where a static identifier (like a custom username) is desired for aesthetic or branding purposes.
+
+### **How to Use These Scripts**
+
+1. **Edit your \`.bashrc\` file**:
+   Open your \`.bashrc\` file in a text editor:
+   \`\`\`bash
+   nano ~/.bashrc
+   \`\`\`
+
+2. **Add the desired script**:
+   Paste one of the scripts at the end of the file.
+
+3. **Apply the changes**:
+   Save the file and reload the shell configuration by running:
+   \`\`\`bash
+   source ~/.bashrc
+   \`\`\`
+
+4. **Enjoy your new prompt**:
+   Your terminal prompt will now display according to the selected script!
+
+Feel free to tweak the scripts to match your personal preferences or workflow needs. For example, you can add the current time, change colors, or adjust formatting.`,
+    slug: "customized-ps1",
+    subtitle:
+      "Enhance your terminal's appearance with these custom PS1 scripts for your .bashrc file, offering a more polished and visually appealing alternative to the default setup.",
+    title: "Customized PS1",
+  },
+  {
+    _creationTime: 1761405846094.5361,
+    _id: "kd71rz8w7xgmvt41nn951xjwrh7t4jn6",
+    categoryId: "k174q1fhgfp1j9e53m2ahzj17x7t4mcv",
+    markdown: `#### Tested on
+
+- Ubuntu 22.04
+- Ubuntu 20.04
+
+> You can also install nvm on windows, there's an repository with an installer for it, [nvm-windows](https://github.com/coreybutler/nvm-windows/releases) scroll down to assets.
+
+### Install Node Version Manager
+\`\`\`
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+\`\`\`
+
+### Install any version of NodeJS
+\`\`\`
+nvm install 20
+\`\`\`
+
+### Start using a specific version
+\`\`\`
+nvm use 20
+\`\`\`
+
+#### Error: nvm: command not found
+> This error is to be expected, you need to restart your session after NVM has been installed. Meaning you have to log out and back into your system.`,
+    slug: "install-nodejs-via-nvm",
+    subtitle:
+      "Looking to install nodejs, this can be easily done with node version manager.",
+    title: "Install NodeJS via NVM",
+  },
+  {
+    _creationTime: 1761405846121.646,
+    _id: "kd71a1gs73151r5txgjsza09ws7t4ea1",
+    categoryId: "k178v1jkp7rj846ynx3csepbx57t4828",
+    markdown: `### This has been tested on
+
+- Ubuntu 20.04
+
+### Get started
+
+Expanding your logical volume on your system via the following commands:
+
+> 1. 
+> \`\`\`
+> apt install -y parted
+> \`\`\`
+
+> 2. 
+> \`\`\`
+> parted
+> \`\`\`
+
+> 2a. 
+> \`\`\`
+> print
+> \`\`\` 
+
+> 2b. 
+> \`\`\`
+> resizepart
+> \`\`\`
+
+> 2c. 
+> \`\`\`
+> quit
+> \`\`\`
+
+> 3. 
+> \`\`\`
+> pvresize /dev/sda3
+> \`\`\`
+
+> 4. 
+> \`\`\`
+> lvextend /dev/ubuntu-vg/ubuntu-lv -l+100%FREE
+> \`\`\`
+
+> 5. 
+> \`\`\`
+> resize2fs /dev/ubuntu-vg/ubuntu-lv
+> \`\`\``,
+    slug: "ubuntu-disk-resize",
+    subtitle:
+      "After expanding the space on your disk ubuntu won't automatically use the entire volume, in Windows you'd open Disk Manager and do it in there. This is a bit harder to do on the terminal though.",
+    title: "Ubuntu Disk Resize",
+  },
+  {
+    _creationTime: 1761405846146.4978,
+    _id: "kd73qa0da6srvdgd3gq7k70h2h7t58hq",
+    categoryId: "k174q1fhgfp1j9e53m2ahzj17x7t4mcv",
+    markdown: `# Install Docker with the Compose plugin
+\`\`\`
+curl -sSL https://get.docker.com/ | sudo sh
+\`\`\`
+
+## Allow a non-root to use Docker
+\`\`\`
+sudo usermod -aG docker $USER
+\`\`\`
+
+## Tested on
+
+- Ubuntu 20.04
+- Ubuntu 22.04 `,
+    slug: "install-docker",
+    subtitle:
+      "This script will install the latest version of Docker and also includes Docker Compose.",
+    title: "Install Docker",
+  },
+  {
+    _creationTime: 1761405846171.9912,
+    _id: "kd77jwgc87x4ac4v5eamwzybmn7t46ay",
+    categoryId: "k178v1jkp7rj846ynx3csepbx57t4828",
+    markdown: `1. Edit the master configuration file of postfix using the following command:
+\`\`\`
+vim /etc/postfix/master.cf
+\`\`\`
+
+2. Locate the line that specifies port 25 and modify it to use a different port, such as 2525:
+\`\`\`
+smtp            inet      n      -       n       -       -        smtpd
+\`\`\`
+
+Change it to:
+\`\`\`
+2525            inet      n      -       n       -       -        smtpd
+\`\`\`
+
+3. Save the changes and exit the file.
+
+4. Apply the modifications to postfix by restarting the service:
+\`\`\`
+/etc/init.d/postfix restart
+\`\`\``,
+    slug: "port-25-occupied",
+    subtitle:
+      "Are you facing difficulties with setting up a mail server as port 25 is already in use by Ubuntu for postfix? Follow the instructions to free up port 25.",
+    title: "Port 25 Occupied",
+  },
+  {
+    _creationTime: 1761405846198.039,
+    _id: "kd70n66z38rx985y5r98dx3vzs7t42vj",
+    categoryId: "k178v1jkp7rj846ynx3csepbx57t4828",
+    markdown: `Run the following command to map resolvconf to your user bin, this'll allow you to run the command straight from the Shell again.
+
+\`\`\`
+ln -s /usr/bin/resolvectl /usr/local/bin/resolvconf
+\`\`\``,
+    slug: "resolvconf-not-found",
+    subtitle:
+      "Resolveconf: command not found, is an error that occurs when the package has not been mapped to your user bin directory.",
+    title: "Resolvconf not found",
+  },
+  {
+    _creationTime: 1761405846222.9622,
+    _id: "kd7cshrt80mcafvxd0yxv5k1b97t4gsm",
+    categoryId: "k178v1jkp7rj846ynx3csepbx57t4828",
+    markdown: `You can run the command below to save your personal access token generated on GitHub.
+
+\`\`\`
+git config --global credential.helper store
+\`\`\`
+> Do keep in mind that this action requires you to authenticate **one more** time!
+
+Generate your own token here: [Access Tokens](https://github.com/settings/tokens)`,
+    slug: "github-save-access-token",
+    subtitle:
+      "Hate the hassle of having to constantly authenticate for each GIT actions you perform and would like to sacrifice some security over it? ",
+    title: "GitHub Save Access Token",
+  },
+  {
+    _creationTime: 1761405846248.1443,
+    _id: "kd7e59j0ekeef0ww7xaqwfarfh7t46xd",
+    categoryId: "k178v1jkp7rj846ynx3csepbx57t4828",
+    markdown: `Add the following to your advanced tab in Nginx Proxy Manager:
+
+|This can be found at:|Advanced > Custom Nginx Configuration|
+|-|-|
+
+\`\`\`
+proxy_ssl_protocols TLSv1.3;
+\`\`\``,
+    slug: "portainer-is-unreachable",
+    subtitle:
+      "Having trouble accessing Portainer behind a proxy such as nginx proxy manager, a setting can solve that.",
+    title: "Portainer is unreachable",
+  },
+  {
+    _creationTime: 1761405846273.0068,
+    _id: "kd7bfec4tp0e0me2pa3hhg1n7x7t56v2",
+    categoryId: "k178v1jkp7rj846ynx3csepbx57t4828",
+    markdown: `The following command should solve this issue by setting the environment variable which negates the check if a user is root or not.
+
+\`\`\`
+export RUNNER_ALLOW_RUNASROOT="1"
+\`\`\``,
+    slug: "github-runner-root-error",
+    subtitle:
+      "This error occurs by default, GitHub prevents their runners from being run on a root account.",
+    title: "GitHub Runner - Root Error",
+  },
+  {
+    _creationTime: 1761405846298.61,
+    _id: "kd72a2xjhnfezpkkzx9vc6jdp57t40xm",
+    categoryId: "k172wzb6kg630b8rdj8tjdjzh17t5j3t",
+    markdown: `## Guide for Nvidia GPU Integration
+
+### System Specifications
+
+\`\`\`
+Motherboard: Asrock B550M Pro4
+CPU: Ryzen 5 5600G
+RAM: 2x32GB 3200 DDR4
+GPU: Nvidia 750 Ti (2GB)
+\`\`\`
+\`\`\`
+Proxmox: 8.1.10
+\`\`\`
+
+### Acknowledgements
+
+This guide benefited from various sources, including:
+
+- [Proxmox: PCI Passthrough](https://pve.proxmox.com/wiki/PCI_Passthrough)
+- [Jim's Garage: vGPU for Intel based cards (YouTube)](https://www.youtube.com/watch?v=0ZDr5h52OOE)
+- [Jim's Garage: Set of instructions (GitHub)](https://github.com/JamesTurland/JimsGarage/blob/main/LXC/Jellyfin/readme.md)
+
+### Introduction
+
+This comprehensive guide aims to streamline the integration process of Nvidia GPUs with Proxmox and LXC containers. It condenses knowledge from various sources into a practical, step-by-step format for ease of implementation.
+
+### Installing Nvidia Drivers on the Proxmox Host
+
+#### Download and Install Driver
+
+1. Visit [Nvidia's Driver download page](https://www.nvidia.com/download/index.aspx) and select the appropriate driver for your GPU.
+2. Copy the download link and execute the following commands:
+
+    \`\`\`bash
+    wget <YOUR_DRIVER_DOWNLOAD_LINK> -O driver.run
+    chmod +x ./driver.run
+    sudo ./driver.run
+    \`\`\`
+
+3. Follow on-screen prompts, selecting defaults as necessary. If prompted to overwrite X defaults, choose "yes."
+
+#### Verification
+
+Ensure the driver installation was successful by running:
+
+\`\`\`bash
+nvidia-smi
+\`\`\`
+
+The output should look similiar to this:
+
+![Output of nvidia-smi](https://wiki.thijmenheuvelink.nl/pb/api/files/kblyx6ommv2lhn8/dwdjmzx3l6h3rnz/snipaste_2024_04_25_15_38_18_UTXbzrKR8a.png?token=)
+
+### Making the GPU Available to LXC Containers on Proxmox (Host Configuration)
+
+For a detailed understanding of device and group identification, refer to [Jim's video](https://www.youtube.com/watch?v=0ZDr5h52OOE).
+
+#### Identify Device Numbers
+
+\`\`\`bash
+ls -l /dev/dri
+\`\`\`
+
+#### Identify Group Numbers
+
+\`\`\`bash
+cat /etc/group
+\`\`\`
+
+#### Update Subgid
+
+Edit the subgid file:
+
+\`\`\`bash
+nano /etc/subgid
+\`\`\`
+
+Replace values with those obtained earlier.
+
+#### Edit LXC Configuration
+
+Edit the LXC configuration file:
+
+\`\`\`bash
+nano /etc/pve/lxc/<lxc-id>.conf
+\`\`\`
+
+Add the following lines:
+
+\`\`\`bash
+lxc.cgroup2.devices.allow: c 226:0 rwm
+lxc.cgroup2.devices.allow: c 226:128 rwm
+lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file
+lxc.idmap: u 0 100000 65536
+lxc.idmap: g 0 100000 44
+lxc.idmap: g 44 44 1
+lxc.idmap: g 45 100045 62
+lxc.idmap: g 107 104 1
+lxc.idmap: g 108 100108 65428
+lxc.mount.entry: /dev/nvidia0 dev/nvidia0 none bind,optional,create=file
+lxc.mount.entry: /dev/nvidiactl dev/nvidiactl none bind,optional,create=file
+lxc.mount.entry: /dev/nvidia-uvm dev/nvidia-uvm none bind,optional,create=file
+lxc.mount.entry: /dev/nvidia-modeset dev/nvidia-modeset none bind,optional,create=file
+lxc.mount.entry: /dev/nvidia-uvm-tools dev/nvidia-uvm-tools none bind,optional,create=file
+\`\`\`
+
+#### Add Root to Groups
+
+Grant root user access to necessary groups:
+
+\`\`\`bash
+usermod -aG render,video root
+\`\`\`
+
+### Setting up Your LXC
+
+### System Specifications
+
+\`\`\`
+OS: Ubuntu 22.04
+\`\`\`
+
+#### Install Nvidia Docker Container Toolkit
+
+Follow the installation guide [here](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#configuration), adapting steps as necessary.
+
+#### Installing Nvidia Driver (LXC)
+
+Ensure consistency of Nvidia driver versions between Proxmox host and LXC.
+
+1. Download and install the driver:
+
+    \`\`\`bash
+    wget <YOUR_DRIVER_DOWNLOAD_LINK> -O driver.run
+    chmod +x ./driver.run
+    sudo ./driver.run --no-kernel-module
+    \`\`\`
+
+2. Follow prompts, using default settings. Use the flag "--no-kernel-module" to prevent kernel reinstallation.
+
+#### Verification
+
+Confirm driver installation within LXC:
+
+\`\`\`bash
+nvidia-smi
+\`\`\`
+
+The output should look similiar to this:
+
+![Output of nvidia-smi](https://wiki.thijmenheuvelink.nl/pb/api/files/kblyx6ommv2lhn8/dwdjmzx3l6h3rnz/snipaste_2024_04_25_15_38_18_UTXbzrKR8a.png?token=)
+
+## Conclusion
+
+Your LXC container is now configured to utilize the Nvidia GPU effectively. For scaling to additional LXCs, repeat the configuration steps outlined above.
+
+For further inquiries or assistance, feel free to reach out:
+
+- Email: mail@thijmenheuvelink.nl
+- Discord: thijmengthn`,
+    slug: "nvidia-gpu-passthrough-for-lxcs",
+    subtitle:
+      "Enhancing GPU Passthrough on Proxmox: A Comprehensive Guide for Nvidia GPUs Across Multiple LXCs with Shared GPU Access",
+    title: "Nvidia GPU passthrough for LXCs",
+  },
+  {
+    _creationTime: 1761405846324.7383,
+    _id: "kd76p8d39d9f7gg4tfwmcbw3017t48xf",
+    categoryId: "k172wzb6kg630b8rdj8tjdjzh17t5j3t",
+    markdown: `Improved readme instructions:
+
+1. Open the shell on your node.
+2. Navigate to the directory \`/etc/pve/lxc\`.
+3. Locate and open the configuration file for the LXC that you want to modify.
+4. At the end of the config file, add the following rules:
+\`\`\`
+lxc.cgroup.devices.allow: c 10:200 rwm
+lxc.mount.entry: /dev/net dev/net none bind,create=dir
+\`\`\`
+5. Save the config file and exit the editor.
+6. Reboot the LXC to apply the changes.
+7. After the reboot, the error should now be resolved.`,
+    slug: "lxc-tun-unavailable-(vpn)",
+    subtitle:
+      "To address the problem of LXC Tun being inaccessible, a proposed solution is to make adjustments in the LXC configuration file to grant the required permissions and bindings.",
+    title: "LXC Tun Unavailable (VPN)",
+  },
+  {
+    _creationTime: 1761405846351.6245,
+    _id: "kd7c4dfe8y289g3vrw8be9m1p57t4bx4",
+    categoryId: "k172wzb6kg630b8rdj8tjdjzh17t5j3t",
+    markdown: `### 1. Register the Third-Party repo
+
+Run **one of the following** in your PVE Node Shell depending on the codename of it's release. 
+
+|Codename|Command|
+|-|-|
+|Bionic|echo "deb https://apt.iteas.at/iteas bionic main" > /etc/apt/sources.list.d/iteas.list|
+|Focal|echo "deb https://apt.iteas.at/iteas focal main" > /etc/apt/sources.list.d/iteas.list|
+|Buster|echo "deb https://apt.iteas.at/iteas buster main" > /etc/apt/sources.list.d/iteas.list|
+|Bullseye|echo "deb https://apt.iteas.at/iteas bullseye main" > /etc/apt/sources.list.d/iteas.list|
+
+### 2. Install the auto mounter
+
+\`\`\`
+sudo apt update
+\`\`\`
+
+\`\`\`
+sudo apt install -y pve7-usb-automount
+\`\`\`
+
+#### An error occured, here's a common solution.
+
+This command adds a GPG key from the keyserver.ubuntu.com keyserver to the list of trusted keys on the system.
+
+\`\`\`
+apt-key adv --recv-keys --keyserver keyserver.ubuntu.com <your-key-displayed-in-console>
+\`\`\` `,
+    slug: "usb-automount",
+    subtitle:
+      "Automatically mount any usb inserted into your PVE node as a disk",
+    title: "USB Automount",
+  },
+  {
+    _creationTime: 1761405846378.2898,
+    _id: "kd793pt3be9k8gyh8p2x9nm40x7t5fnf",
+    categoryId: "k172wzb6kg630b8rdj8tjdjzh17t5j3t",
+    markdown: `### Installation script to install the dark theme
+
+Paste the following command in your PVE Node it's Shell:
+
+\`\`\`
+bash <(curl -s https://raw.githubusercontent.com/Weilbyte/PVEDiscordDark/master/PVEDiscordDark.sh ) install
+\`\`\`
+
+#### Theme Preview
+
+![preview](https://wiki.thijmenheuvelink.nl/pb/api/files/kblyx6ommv2lhn8/azdam2he23bgfys/image_2023_12_17_005530093_Q6V1ePrOme.png?token=)`,
+    slug: "install-a-dark-theme",
+    subtitle:
+      "This theme is inspired by the color-scheme of Discord and is very easy on the eyes, especially at night.",
+    title: "Install a Dark Theme",
+  },
+  {
+    _creationTime: 1761405846402.7866,
+    _id: "kd7asdf6kpszr482gvcg70vsz97t5p62",
+    categoryId: "k172wzb6kg630b8rdj8tjdjzh17t5j3t",
+    markdown: `### Tested on 
+
+- PVE 7.1-10.x
+- PVE 8.0-1.x
+
+## Subscription notice removal script
+
+Paste the following command in your PVE Node it's Shell:
+
+\`\`\`
+sed -Ezi.bak "s/(Ext.Msg.show\(\{\s+title: gettext\('No valid sub)/void\(\{ \/\/\1/g" /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js && systemctl restart pveproxy.service
+\`\`\``,
+    slug: "remove-subscription-notice",
+    subtitle:
+      "A useful script to get rid of the no-subscription message proxmox displays on login when using the non-production ready repository.",
+    title: "Remove Subscription Notice",
+  },
+  {
+    _creationTime: 1761405846426.7322,
+    _id: "kd7f0eq501bat5eah178khv70s7t4qpc",
+    categoryId: "k172wzb6kg630b8rdj8tjdjzh17t5j3t",
+    markdown: `The clip of the video below will explain how to combine your local and local-lvm disks into a singular enlarged disk. This is optimal in most cases.
+
+https://www.youtube.com/watch?v=_u8qTN3cCnQ&t=960s
+
+[![Video by Network Chuck](https://wiki.thijmenheuvelink.nl/pb/api/files/kblyx6ommv2lhn8/a11kp1nxn2se3tu/image_2023_12_17_004438865_IyiZSFFzNc.png?token=)](https://www.youtube.com/watch?v=_u8qTN3cCnQ&t=960s)`,
+    slug: "merge-disks-after-installation",
+    subtitle:
+      "This guide contains a clip from Network Chuck who will explain how to combine your two disks into a singular enlarged disk.",
+    title: "Merge disks after installation",
+  },
+  {
+    _creationTime: 1761405846451.8726,
+    _id: "kd711f1r9wwf77kcsvp9ajs4zn7t47em",
+    categoryId: "k172wzb6kg630b8rdj8tjdjzh17t5j3t",
+    markdown: `## Email configuration
+
+##Configuring User E-mail Address
+
+- In a web browser, navigate to the Proxmox web UI and login
+- Select Datacenter > Permissions > Users from the left navigation menus
+- Double click the user to configure
+- Complete the E-mail field on the Edit User form > Click OK
+
+### Simple Configuration via Web UI
+
+*By default, Proxmox will try to use the domain portion of the "Email from address" as the e-mail relay server.*
+
+- Select Datacenter > Options from the left navigation menus
+- Double click the Email from address field
+- Enter the e-mail address that Proxmox will send outgoing e-mails from > Click OK
+- Expand Datacenter > Select the node name > Click Shell in the left navigation menus
+- Run the following commands in the terminal
+
+\`\`\`
+# send a basic test email
+echo "Test email from Proxmox: $(hostname)" | /usr/bin/pvemailforward
+# output the mail log
+cat /var/log/mail.log
+\`\`\`
+
+### Advanced Configuration via CLI
+
+*To make more advanced configuration changes, like using a gmail account, you need to edit the postfix settings via command line.*
+
+- Back in the Proxmox web shell, run the following commands in the terminal.
+
+\`\`\`
+# install libsasl
+apt install libsasl2-modules -y
+# edit the postfix config
+nano /etc/postfix/main.cf
+\`\`\`
+
+- Press CTRL+W and search for mydestination
+- Comment out mydestination by adding a # to the beginning of the line
+- Press CTRL+W and search for relayhost
+- Comment out relayhost by adding a # to the beginning of the line
+- Update or add the following configuration
+
+\`\`\`
+relayhost = smtp.gmail.com:587
+smtp_use_tls = yes
+smtp_sasl_auth_enable = yes
+smtp_sasl_security_options =
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+smtp_tls_CAfile = /etc/ssl/certs/Entrust_Root_Certification_Authority.pem
+\`\`\`
+
+- Press CTRL+O, Enter, CTRL+X to write the changes
+- Continue with the following commands in the terminal
+
+\`\`\`
+# create /etc/postfix/sasl_passwd
+nano /etc/postfix/sasl_passwd
+\`\`\`
+
+- Add a line to configure gmail authentication
+
+\`\`\`
+smtp.gmail.com:587 <%youraccount%>@gmail.com:<%yourpassword%>
+\`\`\`
+
+- Press CTRL+O, Enter, CTRL+X to write the changes
+- Continue with the following commands in the terminal
+
+\`\`\`
+# update postfix lookup tables
+postmap hash:/etc/postfix/sasl_passwd
+# limit access to sasl_passwd to only root
+chmod 600 /etc/postfix/sasl_passwd
+# restart postfix service
+systemctl restart postfix
+# test from postfix directly
+echo "Test email from Proxmox: $(hostname)" | mail -s "Proxmox Testing" <%youraccount%>@gmail.com
+# send a test from proxmox
+echo "Test email from Proxmox: $(hostname)" | /usr/bin/pvemailforward
+\`\`\`
+`,
+    slug: "setup-emails",
+    subtitle:
+      "The following guide provides a detailed set of instructions on how to enable sending emails on Proxmox.",
+    title: "Setup Emails",
+  },
+  {
+    _creationTime: 1761405846477.949,
+    _id: "kd778trwvegmhdp3y5krbsm7ad7t5bs5",
+    categoryId: "k174jenbdwjmxhgv220dkt25997t5a36",
+    markdown: `## Getting started
+
+-   Right-click on the Windows start menu and select PowerShell or Terminal (Not CMD).
+-   Copy and paste the code below and press enter  
+  \`\`\`
+irm https://get.activated.win | iex
+\`\`\`  
+-   You will see the activation options. Follow the on-screen instructions.
+
+### Maintained by Massgravel
+
+GitHub: https://github.com/massgravel/Microsoft-Activation-Scripts`,
+    slug: "activate-windows",
+    subtitle:
+      "A Windows and Office activator using HWID / Ohook / KMS38 / Online KMS activation methods",
+    title: "Activate Windows",
+  },
+  {
+    _creationTime: 1761405846503.8477,
+    _id: "kd7ahdn2hxd7n6j5kbnt5w8kq57t405s",
+    categoryId: "k174jenbdwjmxhgv220dkt25997t5a36",
+    markdown: `_Simply click on the name of any program to instantly access its contents and conveniently download it._
+
+### [7zip](https://cloud.thijmenheuvelink.nl/s/RaxZYfLNTJ3dHgj)
+File compression software that allows you to compress and decompress files in various formats.
+
+### [Auto Clicker](https://cloud.thijmenheuvelink.nl/s/FAK9oAS4sNJdyxW)
+A program that automatically clicks the mouse at specified intervals, useful for repetitive tasks or gaming.
+
+### [File structure editor](https://cloud.thijmenheuvelink.nl/s/n9DkjM8t4QdDrSJ)
+A registry editor that enables you to remove folders in the file explorer and customize your file system. 
+
+### [Filezilla](https://cloud.thijmenheuvelink.nl/s/5wgiqSbaMqDzz4s)
+An open-source FTP client that allows you to transfer files between your computer and a remote server. 
+
+### [GIMP](https://cloud.thijmenheuvelink.nl/s/tFMHwopwP9orFym)
+A powerful, free image editing software that offers a wide range of tools and features.
+
+### [IP/Port scanner](https://cloud.thijmenheuvelink.nl/s/AAgEZmJLzLezqrs)
+Software that scans a network to identify active IP addresses, their port and gather information about connected devices. 
+
+### [Rufus](https://cloud.thijmenheuvelink.nl/s/CTT2d9NPK3RjkWr)
+A utility that allows you to create bootable USB drives, making it easy to install operating systems or run diagnostic tools. 
+
+### [Speccy](https://cloud.thijmenheuvelink.nl/s/Aaf4Zq5ZKa47xWL)
+A system information tool that provides detailed information about your computer's hardware components. 
+
+### [Everything](https://cloud.thijmenheuvelink.nl/s/XTkrjEnFXTrFTco)
+Locate files and folders by name instantly on your entire computer, like magic.
+
+### [TreeSize](https://cloud.thijmenheuvelink.nl/s/yoRKE3Mw9oLWAgF)
+A disk space management tool that visually represents the size of folders and files on your hard drive, helping you identify and manage disk space usage efficiently. 
+
+### [Torrent](https://cloud.thijmenheuvelink.nl/s/poD3qQBm9bfm4fr)
+A peer-to-peer file sharing protocol that facilitates the distribution and downloading of large files, often used for sharing media files such as movies or software.`,
+    slug: "portable-programs",
+    subtitle:
+      "A list of portable apps which can run from a USB drive without installation, allowing easy use of favorite programs on multiple computers.",
+    title: "Portable Programs",
+  },
+  {
+    _creationTime: 1761405846528.8184,
+    _id: "kd7ck4hrcfp62xhmrkvytm79q97t4rg5",
+    categoryId: "k174jenbdwjmxhgv220dkt25997t5a36",
+    markdown: `To install Windows 11 with a local account, follow the steps below:
+
+1. Disable your internet connection.
+2. Proceed with the Windows 11 installation process until you reach the "Sign in with Microsoft" screen.
+3. Enter the following email address: \`no@thankyou.com\`.
+4. Set any password of your choice, and click on the "Next" button.
+5. An error message will be displayed stating that the sign-in couldn't be completed. Click on the "Next" button to proceed.
+6. You can now continue setting up your local account by following the on-screen instructions.
+
+_It is recommended to re-enable your internet connection after completing the installation process to ensure full functionality and access to relevant updates and features._
+
+![Preview](https://wiki.thijmenheuvelink.nl/pb/api/files/kblyx6ommv2lhn8/4wxj69ryrzhh6xg/image_2023_12_17_163254304_YYWyFMN23N.png?token=)`,
+    slug: "win-11-local-account",
+    subtitle:
+      "Instructions on how to install Windows 11 using a local account.",
+    title: "Win 11 Local Account",
+  },
+  {
+    _creationTime: 1761405846554.528,
+    _id: "kd7ckady3e5df40m502gamsfq57t55wy",
+    categoryId: "k174jenbdwjmxhgv220dkt25997t5a36",
+    markdown: `To allow running scripts on your system, the following has to be inserted into PowerShell:
+\`\`\`
+set-executionpolicy remotesigned
+\`\`\`
+
+![Execution Sample](https://wiki.thijmenheuvelink.nl/pb/api/files/kblyx6ommv2lhn8/zelezc71mvzd26u/image_2023_12_16_203416674_1tMPWiIdEX.png?token=)`,
+    slug: "powershell-running-scripts",
+    subtitle:
+      "By default windows has this disabled for powershell, most commonly packages managers like Yarn require running scripts to be enabled.",
+    title: "PowerShell Running Scripts",
+  },
+  {
+    _creationTime: 1761405846579.83,
+    _id: "kd70b8txzkdfczekfdzvmq2zws7t4m6h",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### via Docker Compose
+
+\`\`\`
+services:
+  adguard:
+    image: adguard/adguardhome
+    container_name: adguard
+    restart: unless-stopped
+    volumes:
+      - ./data/workdir:/opt/adguardhome/work
+      - ./data/confdir:/opt/adguardhome/conf
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "68:68/udp"
+      - "80:80/tcp"
+      - "443:443/tcp"
+      - "443:443/udp"
+      - "3000:3000/tcp"
+      - "853:853/tcp"
+      - "784:784/udp"
+      - "853:853/udp"
+      - "8853:8853/udp"
+      - "5443:5443/tcp"
+      - "5443:5443/udp"
+\`\`\`
+
+### Launching AdGuard
+
+1. Save the above content as docker-compose.yml in your desired directory.
+2. Navigate to the directory in your terminal.
+3. Run the following command to start the container:
+
+\`\`\`
+docker-compose up -d
+\`\`\`
+
+The service will now be running in detached mode. You can access the AdGuard Home web interface using the IP address of your host machine on port 3000.`,
+    slug: "adguard-dns",
+    subtitle:
+      "AdGuard Home is a network-wide software for blocking ads and tracking. It functions as a DNS server that can filter traffic and improve privacy for your devices.",
+    title: "AdGuard DNS",
+  },
+  {
+    _creationTime: 1761405846604.894,
+    _id: "kd7fsqg9gfpmavevs03ve7qjr17t444w",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: "2.1"
+services:
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+    volumes:
+      - ./config:/config
+      - ./data/movies:/movies
+      - ./data/series:/tv
+    ports:
+      - 6767:6767
+    restart: unless-stopped
+\`\`\`
+
+### Start it
+
+\`\`\`
+docker-compose up -d
+\`\`\``,
+    slug: "bazarr",
+    subtitle:
+      "Bazarr is a handy tool designed to manage and download subtitles for your media files, ensuring that your movies and TV shows are equipped with accurate subtitles for an enhanced viewing experience.",
+    title: "Bazarr",
+  },
+  {
+    _creationTime: 1761405846630.2727,
+    _id: "kd736qq44pxk63csk6hhrbdzds7t5ej3",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: "2.1"
+services:
+  flaresolverr:
+    image: flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - TZ=Europe/Amsterdam
+    ports:
+      - "8191:8191"
+    restart: unless-stopped
+\`\`\`
+
+### Start it
+
+\`\`\`
+docker-compose up -d
+\`\`\``,
+    slug: "flareresolverr",
+    subtitle:
+      "FlareSolverr is a proxy server to bypass Cloudflare and DDoS-GUARD protection.",
+    title: "Flareresolverr",
+  },
+  {
+    _creationTime: 1761405846654.3323,
+    _id: "kd7ferhzz4749j79w3pswt1sq17t4ckh",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: '3'
+services:
+    jellyseerr:
+       image: fallenbagel/jellyseerr:latest
+       container_name: jellyseerr
+       environment:
+            - TZ=Europe/Amsterdam
+       ports:
+            - 5055:5055
+       volumes:
+            - ./config:/app/config
+       restart: unless-stopped
+\`\`\`
+
+### Start it
+
+\`\`\`
+docker-compose up -d
+\`\`\``,
+    slug: "jellyseerr",
+    subtitle:
+      "Jellyseerr is a free and open source software application for managing requests for your media library.",
+    title: "Jellyseerr",
+  },
+  {
+    _creationTime: 1761405846680.0737,
+    _id: "kd78e4csxtev0xg3pzmsk9nbb97t58vz",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: "2.1"
+services:
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+    volumes:
+      - ./config:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+\`\`\`
+
+### Start it
+
+\`\`\`
+docker-compose up -d
+\`\`\``,
+    slug: "prowlarr",
+    subtitle:
+      "Prowlarr is a versatile application that consolidates multiple torrent trackers, enhancing the efficiency of content searching and downloading within the Usenet community.",
+    title: "Prowlarr",
+  },
+  {
+    _creationTime: 1761405846703.9429,
+    _id: "kd7bndrhspya2wwrcg8f3y584s7t5f5n",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: "2.1"
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+    volumes:
+      - ./config:/config
+      - ./data/series:/series
+      - ./data/downloads:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+\`\`\`
+
+### Start it
+
+\`\`\`
+docker-compose up -d
+\`\`\``,
+    slug: "sonarr",
+    subtitle:
+      "Sonarr is a widely used software for automating the retrieval and management of TV shows, making it effortless to keep up with your favorite series.",
+    title: "Sonarr",
+  },
+  {
+    _creationTime: 1761405846727.6274,
+    _id: "kd743j1tva5n7wpmnweaf9krwd7t43j4",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: "2.1"
+services:
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+    volumes:
+      - ./config:/config
+      - ./data/movies:/movies
+      - ./data/downloads:/downloads
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+\`\`\`
+
+### Start it
+
+\`\`\`
+docker-compose up -d
+\`\`\``,
+    slug: "radarr",
+    subtitle:
+      "Radarr is a popular open-source tool for managing and automating movie downloads.",
+    title: "Radarr",
+  },
+  {
+    _creationTime: 1761405846753.9434,
+    _id: "kd72bv3dfh4jdv1a0h336sqvdx7t59qd",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `\`\`\`yml
+services:
+  ollama-engine:
+    image: ollama/ollama:latest
+    container_name: ollama-engine
+    restart: unless-stopped
+    ports: ["11434:11434"]
+    volumes:
+      - ./ollama/engine:/root/.ollama
+    # OPTIONAL: Nvidia GPU Support for faster generation. 
+    # environment:
+    #   - gpus=all
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #       - driver: nvidia
+    #         capabilities: [gpu]
+
+  ollama-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: ollama-webui
+    restart: unless-stopped
+    ports: ["8080:8080"]
+    environment:
+      - OLLAMA_BASE_URL=http://ollama-engine:11434
+    volumes:
+      - ./ollama/webui:/app/backend/data
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    depends_on:
+      - ollama-engine
+\`\`\``,
+    slug: "ollama-ui",
+    subtitle: "Ollama with WebUI",
+    title: "Ollama UI",
+  },
+  {
+    _creationTime: 1761405846778.9753,
+    _id: "kd7dz2t33xsfm0w70327s2f2m97t5tfr",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: "3"
+
+services:
+
+  pocketbase:
+    image: ghcr.io/muchobien/pocketbase:latest
+    restart: unless-stopped
+    ports: [ "8090:8090" ]
+    volumes: 
+      - pb_data:/pb_data
+      # - ./types.d.ts:/pb_data/types.d.ts
+      - ./migrations:/pb_migrations
+      - ./hooks:/pb_hooks
+      - ./public:/pb_public
+
+volumes:
+  pb_data:
+\`\`\`
+
+### Starting it
+
+\`\`\`
+docker-compose up -d
+\`\`\``,
+    slug: "pocketbase",
+    subtitle:
+      "Open Source backend in 1 file - Use as a standalone app OR as a framework, that you can extend via Go and JavaScript hooks to create your own custom portable backend.",
+    title: "Pocketbase",
+  },
+  {
+    _creationTime: 1761405846804.5083,
+    _id: "kd7cgka9fpmapfw6g9fjc4eqbn7t46b8",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: "3"
+services:
+  focal:
+    image: mattermost/focalboard
+    container_name: focal
+    ports: [ "3000:8000" ]
+    restart: unless-stopped
+    volumes:
+      - ./config:/opt/focalboard/data
+\`\`\`
+
+### Starting it
+
+\`\`\`
+docker-compose up -d
+\`\`\``,
+    slug: "focalboard",
+    subtitle:
+      "Focalboard is 100% open source. Focalboard is an open source alternative to tools like Asana, Trello, and Notion.",
+    title: "Focalboard",
+  },
+  {
+    _creationTime: 1761405846832.4832,
+    _id: "kd75v79qszhqkvsyxva0vfe97x7t5xtk",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: '3'
+services:
+  osticket:
+    image: devinsolutions/osticket:latest
+    container_name: osticket
+    restart: unless-stopped
+    ports: [ "80:80" ]
+    environment:
+      MYSQL_USER: osticket
+      MYSQL_PASSWORD: b00kst4ck
+      MYSQL_HOST: database
+      MYSQL_DATABASE: osticket
+  database:
+    image: mysql:5.7
+    container_name: database
+    restart: unless-stopped
+    environment:
+      MYSQL_USER: osticket
+      MYSQL_PASSWORD: b00kst4ck
+      MYSQL_ROOT_PASSWORD: b00kst4ck
+      MYSQL_DATABASE: osticket
+\`\`\`
+
+### Starting it
+
+\`\`\`
+docker-compose up -d
+\`\`\``,
+    slug: "osticket",
+    subtitle:
+      "osTicket is a widely used and trusted open source support ticketing system. Easily scale and streamline your customer service.",
+    title: "osTicket",
+  },
+  {
+    _creationTime: 1761405846856.201,
+    _id: "kd728bz3hx88pk5nd7057g4dns7t5wm8",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: "2.1"
+services:
+  code-server:
+    image: lscr.io/linuxserver/code-server:latest
+    container_name: vscode-server
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+      - PASSWORD=b00kst4ck
+      - SUDO_PASSWORD=b00kst4ck #optional
+      - PROXY_DOMAIN=vscode-server.my.domain #optional
+      - DEFAULT_WORKSPACE=/config/workspace #optional
+    volumes:
+      - /home/$USER/env/vscode-server:/config
+    ports:
+      - 8443:8443
+    restart: unless-stopped
+\`\`\`
+
+### Starting it
+
+\`\`\`
+docker-compose up -d
+\`\`\``,
+    slug: "vscode-server",
+    subtitle:
+      "The Visual Studio Code Server is a service you can run on a remote development machine, like your desktop PC or a virtual machine (VM).",
+    title: "VSCode Server",
+  },
+  {
+    _creationTime: 1761405846882.6619,
+    _id: "kd7a6x2g8hs4gf586vss2wggkx7t5zq6",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: '3.8'
+services:
+  postgresql:
+    container_name: postgresql
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: b00kst4ck
+    ports:
+      - "5432:5432"
+    volumes:
+      - /home/$USER/env/postgres:/var/lib/postgresql/data
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@leaflet.app
+      PGADMIN_DEFAULT_PASSWORD: b00kst4ck
+    ports:
+      - "5050:80"
+\`\`\`
+
+### Starting it
+
+\`\`\`
+docker-compose up -d
+\`\`\``,
+    slug: "postgresql-+-pgadmin",
+    subtitle:
+      "This image combines both PostgreSQL and an admin front-end named pgAdmin, this way you can easily manage your database.",
+    title: "PostgreSQL + pgAdmin",
+  },
+  {
+    _creationTime: 1761405846907.3186,
+    _id: "kd72s856a012p4s1v5tqz2xend7t5bpn",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: '3.6'
+
+services:
+  flame:
+    image: pawelmalak/flame
+    container_name: flame
+    volumes:
+      - /home/$USER/env/flame:/app/data
+    ports:
+      - 5005:5005
+    environment:
+      - PASSWORD=b00kst4ck
+    restart: unless-stopped
+\`\`\`
+
+### Starting it
+
+\`\`\`
+docker-compose up -d
+\`\`\``,
+    slug: "flame",
+    subtitle:
+      "Flame is self-hosted startpage for your server. Its design is inspired (heavily) by SUI. Flame is very easy to setup and use.",
+    title: "Flame",
+  },
+  {
+    _creationTime: 1761405846931.1594,
+    _id: "kd70vp8dhrprbxrr5zawhvv74d7t4re3",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: "3.8"
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: "b00kst4ck"
+    ports:
+      - 3306:3306
+    volumes:
+      - /home/$USER/env/mysql:/var/lib/mysql
+  adminer:
+    image: adminer:latest
+    container_name: adminer
+    links:
+      - mysql
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql
+      ADMINER_DESIGN: pepa-linha-dark
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+\`\`\`
+
+### Starting it
+
+\`\`\`
+docker-compose up -d
+\`\`\``,
+    slug: "mysql-+-adminer",
+    subtitle:
+      "This image combines both MySQL and an admin front-end named Adminer, this way you can easily manage your database.",
+    title: "MySQL + Adminer",
+  },
+  {
+    _creationTime: 1761405846953.2847,
+    _id: "kd7775h8trnmyxa1j4rtz2qmh57t52dp",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: '3'
+ 
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: b00kst4ck
+    ports:
+      - "3306:3306"
+    volumes:
+      - /home/$USER/mysql:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    links:
+      - mysql
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - /home/$USER/theme:/var/www/html/themes/custom
+\`\`\`
+
+### Starting it
+
+\`\`\`
+docker-compose up -d
+\`\`\``,
+    slug: "mysql-+-phpmyadmin",
+    subtitle:
+      "This image combines both MySQL and an admin front-end named phpmyadmin, this way you can easily manage your database.",
+    title: "MySQL + phpmyadmin",
+  },
+  {
+    _creationTime: 1761405846977.6772,
+    _id: "kd754tprzegshkmkqgv2x4s23h7t5x5d",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Run it with Docker
+
+\`\`\`
+docker run -d \
+  --name=jackett \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ=Europe/Amsterdam \
+  -e AUTO_UPDATE=true \`#optional\` \
+  -p 9117:9117 \
+  -v /root/env/jackett/config:/config \
+  -v /root/env/jackett/cache:/downloads \
+  --restart unless-stopped \
+  lscr.io/linuxserver/jackett:latest
+\`\`\``,
+    slug: "jackett",
+    subtitle:
+      "Jackett works as a proxy server: it translates queries from apps (Sonarr, Radarr, SickRage, CouchPotato, Mylar3, Lidarr, DuckieTV, qBittorrent, Nefarious etc.) into tracker-site-specific http queries, parses the html or json response, and then sends results back to the requesting software.",
+    title: "Jackett",
+  },
+  {
+    _creationTime: 1761405847004.0337,
+    _id: "kd7c74yghmwstntf15qfyz64t17t53vj",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: "2.1"
+services:
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+      - WEBUI_PORT=8080
+    volumes:
+      - /home/$USER/env/config:/config
+      - /home/$USER/env/downloads:/downloads
+    ports:
+      - 8080:8080
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
+\`\`\`
+
+### Starting it
+
+\`\`\`
+docker-compose up -d
+\`\`\`
+
+### Default credentials
+
+|Username|Password|
+|-|-|
+|admin|adminadmin|`,
+    slug: "qbittorrent",
+    subtitle:
+      "qBittorrent is a cross-platform free and open-source BitTorrent client written in native C++.",
+    title: "Qbittorrent",
+  },
+  {
+    _creationTime: 1761405847028.1716,
+    _id: "kd7dwmajb6d8twa9wyx0ra9t557t5kqw",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Run it with Docker
+
+\`\`\`
+docker run -d \
+  --name=wiki \
+  --restart unless-stopped \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ=Europe/Amsterdam \
+  -p 8080:3000 \
+  -v /root/env/wiki/config:/config \
+  -v /root/env/wiki/data:/data \
+  --restart unless-stopped \
+  lscr.io/linuxserver/wikijs:latest
+\`\`\``,
+    slug: "wiki.js",
+    subtitle:
+      "Wiki.js is a wiki engine running on Node.js and written in JavaScript.",
+    title: "Wiki.js",
+  },
+  {
+    _creationTime: 1761405847052.1782,
+    _id: "kd7efwk6agdbhadszf9g1x12mn7t4apx",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: '3'
+
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: unless-stopped
+    volumes: [/home/$USER/env/:/data/]
+    ports: [8080:80]
+\`\`\`
+
+### Starting it
+
+\`\`\`
+docker-compose up -d
+\`\`\``,
+    slug: "vaultwarden",
+    subtitle:
+      "Unofficial Bitwarden compatible server written in Rust, Bitwarden is a freemium open-source password management service that stores sensitive information such as website credentials in an encrypted vault.",
+    title: "Vaultwarden",
+  },
+  {
+    _creationTime: 1761405847076.6394,
+    _id: "kd79gmkkzf7vrqf11ncca4bvvh7t53a1",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Run it with Docker
+
+\`\`\`
+docker run -d \
+  -e KEY=255d861b-5ea1-5996-9aa3-922530ec40b1 \
+  -e SECRET=6116487b-cda1-52c2-b5b5-c8022c45e263 \
+  --name directus \
+  --restart unless-stopped \
+  -p 8055:8055 \
+  -e ADMIN_EMAIL="admin@example.com" \
+  -e ADMIN_PASSWORD="b00kst4ck" \
+  -v /root/env/directus/uploads:/directus/uploads \
+  -v /root/env/directus/extensions:/directus/extensions \
+  -v /root/env/directus/database:/directus/database \
+  directus/directus
+\`\`\``,
+    slug: "directus",
+    subtitle:
+      "Directus is a free and open-source data platform built entirely in JavaScript. It instantly wraps any SQL database with a real-time GraphQL+REST API and an intuitive app for non-technical users.",
+    title: "Directus",
+  },
+  {
+    _creationTime: 1761405847099.9749,
+    _id: "kd76cxywb5czmm5hb4jvphghnh7t4z2g",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Run it with Docker
+
+\`\`\`
+docker run -d \
+  --name fotos \
+  --restart unless-stopped \
+  --security-opt seccomp=unconfined \
+  --security-opt apparmor=unconfined \
+  -p 2342:2342 \
+  -e PHOTOPRISM_UPLOAD_NSFW="true" \
+  -e PHOTOPRISM_ADMIN_PASSWORD="admin" \
+  -v /root/env:/photoprism/storage \
+  photoprism/photoprism
+\`\`\`
+
+### About this stack
+
+The following credentials can be used to sign in, do mind to **change them** when you've got the chance!
+
+|Username|Password|
+|-|-|
+|admin|admin|`,
+    slug: "photoprism",
+    subtitle:
+      "Photoprism is an AI-Powered Photos App for the Decentralized Web. It makes use of the latest technologies to tag and find pictures automatically without getting in your way. You can run it at home, on a private server, or in the cloud.",
+    title: "Photoprism",
+  },
+  {
+    _creationTime: 1761405847124.0789,
+    _id: "kd78hmgefnqnxq1yz252xkgwm97t5rhs",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `# Install WG-Easy
+
+## 1. Generate a hash for your password
+
+\`\`\`
+docker run -it ghcr.io/wg-easy/wg-easy wgpw YOUR_PASSWORD
+\`\`\`
+
+## 2. Copy the generated hash, use it in the compose file
+
+> Remove the single quotes and insert an extra $ before each existing $
+
+\`\`\`
+services:
+  wireguard:
+    image: ghcr.io/wg-easy/wg-easy
+    container_name: wireguard
+    environment:
+      WG_HOST: "ext.heuve.link"
+      PASSWORD_HASH: "<Your Generated Hash>"
+      WG_DEFAULT_DNS: 1.1.1.1
+    volumes:
+      - ./data:/etc/wireguard
+    ports:
+      - "51820:51820/udp"
+      - "51821:51821/tcp"
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    sysctls:
+      net.ipv4.conf.all.src_valid_mark: "1"
+      net.ipv4.ip_forward: "1"
+    restart: unless-stopped
+\`\`\`
+
+### Starting it
+
+\`\`\`
+docker-compose up -d
+\`\`\`
+
+#### Preview
+
+![Preview](https://wiki.thijmenheuvelink.nl/pb/api/files/kblyx6ommv2lhn8/vekg3an1er8tip8/image_2023_12_17_013354729_3NYLAwTxks.png?token=)`,
+    slug: "wg-easy",
+    subtitle:
+      "The easiest way to install & manage WireGuard on any Linux host, this docker image comes with a web ui to easily manage your whitelist vpn connections.",
+    title: "WG Easy",
+  },
+  {
+    _creationTime: 1761405847148.0369,
+    _id: "kd7crh0k04k37p91a5re68ndpd7t4xs4",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: "3"
+services:
+  mariadb:
+    image: lscr.io/linuxserver/mariadb:latest
+    container_name: lychee-db
+    restart: unless-stopped
+    volumes:
+      - /root/env/fotos/db:/config
+    environment:
+      - MYSQL_ROOT_PASSWORD=wikirootpassword
+      - MYSQL_DATABASE=lychee
+      - MYSQL_USER=lychee
+      - MYSQL_PASSWORD=wikipassword
+      - PGID=1000
+      - PUID=1000
+      - TZ=Europe/Amsterdam
+  lychee:
+    image: lscr.io/linuxserver/lychee:latest
+    container_name: lychee
+    restart: unless-stopped
+    depends_on:
+      - mariadb
+    volumes:
+      - /root/env/fotos/config:/config
+      - /root/env/fotos/gallery:/pictures
+    environment:
+      - DB_HOST=mariadb
+      - DB_USERNAME=lychee
+      - DB_PASSWORD=wikipassword
+      - DB_DATABASE=lychee
+      - DB_PORT=3306
+      - PGID=1000
+      - PUID=1000
+      - TZ=Europe/Amsterdam
+    ports:
+      - 3001:80
+\`\`\`
+
+### Starting it
+
+\`\`\`
+docker-compose up -d
+\`\`\``,
+    slug: "lychee",
+    subtitle:
+      "Lychee is a free photo-management tool, which runs on your server or web-space. Installing is a matter of seconds. Upload, manage and share photos like from a native application. Lychee comes with everything you need and all your photos are stored securely.",
+    title: "Lychee",
+  },
+  {
+    _creationTime: 1761405847171.1958,
+    _id: "kd7fsab27csgp2tp6wh3hqb6tx7t4sgb",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: "3"
+
+networks:
+  gitea:
+    external: false
+
+services:
+  server:
+    image: gitea/gitea:1.16.9
+    container_name: gitea
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+    restart: unless-stopped
+    networks:
+      - gitea
+    volumes:
+      - /root/env/gitea:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "3000:3000"
+      - "222:22"
+\`\`\`
+
+### Starting it
+
+\`\`\`
+docker-compose up -d
+\`\`\``,
+    slug: "gitea",
+    subtitle:
+      "Gitea is a forge software package for hosting software development version control using Git as well as other collaborative features like bug tracking, code review, continuous integration, kanban boards, tickets, and wikis.",
+    title: "Gitea",
+  },
+  {
+    _creationTime: 1761405847194.7488,
+    _id: "kd73jffcq94exnxj05mrptmqq57t4s6n",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: "3"
+
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "80:80/tcp"
+    environment:
+      TZ: 'Europe/Amsterdam'
+      WEBPASSWORD: 'b00kst4ck'
+    volumes:
+      - './etc-pihole:/etc/pihole'
+      - './etc-dnsmasq.d:/etc/dnsmasq.d'
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+\`\`\`
+
+### Starting it
+
+\`\`\`
+docker-compose up -d
+\`\`\`
+
+### OR install it without Docker
+
+\`\`\`
+curl -sSL https://install.pi-hole.net | bash
+\`\`\``,
+    slug: "pi-hole",
+    subtitle:
+      "Pi-hole is a Linux network-level advertisement and Internet tracker blocking application which acts as a DNS sinkhole and optionally a DHCP server, intended for use on a private network.",
+    title: "Pi Hole",
+  },
+  {
+    _creationTime: 1761405847219.409,
+    _id: "kd75g2w87875afgchhptmdews97t4ahg",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Run it with Docker
+
+\`\`\`
+docker run -d \
+    --restart=unless-stopped \
+    -p 3001:3001 \
+    -v /root/env/uptime-kuma:/app/data \
+    --name uptime-kuma \
+    louislam/uptime-kuma:1
+\`\`\``,
+    slug: "uptime-kuma",
+    subtitle:
+      "Uptime Kuma is an easy-to-use self-hosted monitoring tool.",
+    title: "UpTime Kuma",
+  },
+  {
+    _creationTime: 1761405847242.4534,
+    _id: "kd76zt5w84p0tyber3p1empfkn7t5ktk",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: "3.3"
+    
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - /root/env/wp/db:/var/lib/mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_USER: wp
+      MYSQL_DATABASE: wp
+      MYSQL_ROOT_PASSWORD: b00kst4ck
+      MYSQL_PASSWORD: b00kst4ck
+    
+  app:
+    depends_on:
+      - db
+    image: wordpress:latest
+    volumes:
+      - /root/env/wp/www:/var/www/html
+    ports:
+      - 8080:80
+    restart: unless-stopped
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wp
+      WORDPRESS_DB_NAME: wp
+      WORDPRESS_DB_PASSWORD: b00kst4ck
+\`\`\`
+
+### Starting it
+
+\`\`\`
+docker-compose up -d
+\`\`\`
+
+### Running it through Cloudflare
+
+If You're routing wordpress through Cloudflare behind a reverse proxy like **Nginx Proxy Manager** then you must install a plugin on wordpress called "**Flexible SSL for CloudFlare**".`,
+    slug: "wordpress",
+    subtitle:
+      "WordPress is a web content management system.",
+    title: "Wordpress",
+  },
+  {
+    _creationTime: 1761405847265.437,
+    _id: "kd712ve9xrsapxc356c49d5t457t4y4g",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: "3"
+
+services:
+  shlink:
+    image: shlinkio/shlink:stable
+    restart: unless-stopped
+    container_name: shlink
+    environment:
+      - TZ="Europe/Amsterdam"
+      - DEFAULT_DOMAIN=example.com
+      - GEOLITE_LICENSE_KEY=<YOUR KEY>
+      - DB_DRIVER=maria
+      - DB_USER=shlink
+      - DB_NAME=shlink
+      - DB_PASSWORD=b00kst4ck
+      - DB_HOST=database
+    ports:
+      - 8080:8080
+
+  database:
+    image: mariadb:latest
+    restart: unless-stopped
+    container_name: database
+    environment:
+      - MARIADB_ROOT_PASSWORD=b00kst4ck
+      - MARIADB_DATABASE=shlink
+      - MARIADB_USER=shlink
+      - MARIADB_PASSWORD=b00kst4ck
+    volumes:
+      - ./env/database:/var/lib/mysql
+
+  client:
+    image: shlinkio/shlink-web-client
+    restart: unless-stopped
+    container_name: client
+    volumes:
+      - ./env/client/servers.json:/usr/share/nginx/html/servers.json
+    ports:
+      - 3000:80
+\`\`\`
+
+### Starting it
+
+\`\`\`
+docker-compose up -d
+\`\`\`
+
+### About this stack
+
+Generate an Access Token
+
+\`\`\`
+docker exec -it shlink shlink api-key:generate
+\`\`\``,
+    slug: "shlink",
+    subtitle:
+      "Keep control over all your shortened URLs, by serving them under your own domains, using this simple yet powerful tool.",
+    title: "Shlink",
+  },
+  {
+    _creationTime: 1761405847289.7012,
+    _id: "kd7fgta0d2hrx2dpd4jr4xzwxn7t5gx2",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Run it with Docker
+
+\`\`\`
+docker run \
+    -p 8000:8000 -p 9000:9443 \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -d --name portainer --restart unless-stopped \
+    portainer/portainer-ce:2.16.2
+\`\`\`
+
+#### Running into issues?
+
+Checkout the Catalogue on this wiki about Portainer not being accessible via Nginx Proxy Manager`,
+    slug: "portainer",
+    subtitle:
+      "Portainer is your container management software to deploy, troubleshoot, and secure applications across cloud, datacenter, and Industrial IoT use cases.",
+    title: "Portainer",
+  },
+  {
+    _creationTime: 1761405847314.1729,
+    _id: "kd715xb5czvpfgx81brn1hxq917t51vn",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+services:
+  npm:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: npm
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+      - '81:81'
+    volumes:
+      - ./data/npm:/data
+      - ./data/letsencrypt:/etc/letsencrypt
+\`\`\`
+
+### Starting it
+
+\`\`\`
+docker-compose up -d
+\`\`\`
+
+### Logging in (default credentials)
+
+> Email: admin@example.com
+> Pass: changeme
+`,
+    slug: "nginx-proxy-manager",
+    subtitle:
+      "Expose web services on your network, Free SSL with Let's Encrypt, designed with security in mind, perfect for home networks.",
+    title: "Nginx Proxy Manager",
+  },
+  {
+    _creationTime: 1761405847338.146,
+    _id: "kd76k1rtgtt7nz171h0ep8hzh57t5q6f",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Run it with Docker
+
+\`\`\`
+docker run \
+	--restart unless-stopped \
+	--name nginx \
+	-d -p 8080:80 \
+	-v /home/$USER/env/nginx:/usr/share/nginx/html:ro \
+	nginx
+\`\`\`
+
+### Run it with Docker Compose
+\`\`\`
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: unless-stopped
+    ports: [ "80:80" ]
+    volumes: 
+      - ./www:/usr/share/nginx/html:ro
+\`\`\``,
+    slug: "nginx",
+    subtitle:
+      "Nginx is a web server that can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache.",
+    title: "Nginx",
+  },
+  {
+    _creationTime: 1761405847361.4146,
+    _id: "kd789wjzd6nrdbg3qgnszcnrv97t5h55",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Run it with Docker
+
+\`\`\`
+docker run \
+	--name db \
+	-v /root/env/db:/data/db \
+	-p 12107:27017 \
+	-e MONGO_INITDB_ROOT_USERNAME=<username> \
+	-e MONGO_INITDB_ROOT_PASSWORD=<password> \
+	--restart unless-stopped \
+	-d mongo
+\`\`\``,
+    slug: "mongodb",
+    subtitle:
+      "Get your ideas to market faster with a developer data platform built on the leading modern database. MongoDB makes working with data easy.",
+    title: "MongoDB",
+  },
+  {
+    _creationTime: 1761405847384.528,
+    _id: "kd74cq98ve2avgtsmxyqpxnjyx7t52tm",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: "2.1"
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+    volumes:
+      - ./config:/config
+      - ./data/movies:/data/media/movies
+      - ./data/series:/data/media/series
+    ports:
+      - 8096:8096
+      - 8920:8920
+      - 7359:7359/udp
+      - 1900:1900/udp
+    restart: unless-stopped
+\`\`\`
+
+### Start it
+
+\`\`\`
+docker-compose up -d
+\`\`\``,
+    slug: "jellyfin",
+    subtitle:
+      "Jellyfin is the volunteer-built media solution that puts you in control of your media. Stream to any device from your own server, with no strings attached. Your media, your server, your way.",
+    title: "Jellyfin",
+  },
+  {
+    _creationTime: 1761405847407.4126,
+    _id: "kd7920kz492a34akwe1n11tys57t4ez1",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `1. Create the database file:
+\`\`\`
+touch filebrowser.db
+\`\`\`
+
+2. Create a docker-compose file:
+\`\`\`
+services:
+  filebrowser:
+    image: filebrowser/filebrowser
+    container_name: filebrowser
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./data:/srv
+      - ./branding:/branding
+      - ./filebrowser.db:/database.db
+\`\`\`
+
+3. Run Docker Compose:
+\`\`\`
+docker-compose up -d
+\`\`\`
+
+4. Visit the web ui and login
+
+Go to http://localhost:8080 and login with user: admin, pass: admin.`,
+    slug: "filebrowser",
+    subtitle:
+      "This is surely one of the greatest open-source file manager that's accessible as a webapp, easily manage users and share your files via the web!",
+    title: "Filebrowser",
+  },
+  {
+    _creationTime: 1761405847430.4502,
+    _id: "kd74yxk90pfj4730tks5mtsg8d7t4j49",
+    categoryId: "k174d95g2fe0fma0s6fk2ngypn7t4ep4",
+    markdown: `### Docker Compose
+
+Save the following contents as a docker-compose.yml file.
+
+\`\`\`
+version: "2"
+services:
+  bookstack:
+    image: lscr.io/linuxserver/bookstack
+    container_name: bookstack
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - APP_URL=https://wiki.thijmenheuvelink.nl
+      - DB_HOST=bookstack_db
+      - DB_USER=bookstack
+      - DB_PASS=yourdbpass
+      - DB_DATABASE=bookstackapp
+    volumes:
+      - /root/wiki:/cli/config
+    ports:
+      - 6875:80
+    restart: unless-stopped
+    depends_on:
+      - bookstack_db
+  bookstack_db:
+    image: lscr.io/linuxserver/mariadb
+    container_name: bookstack_db
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MYSQL_ROOT_PASSWORD=yourdbrootpass
+      - TZ=Europe/London
+      - MYSQL_DATABASE=bookstackapp
+      - MYSQL_USER=bookstack
+      - MYSQL_PASSWORD=yourdbpass
+    volumes:
+      - /root/wiki:/db/config
+    restart: unless-stopped
+\`\`\`
+
+### Starting it
+
+\`\`\`
+docker-compose up -d
+\`\`\`
+
+### About this stack
+
+Login with the following credentials, do mind to **change them** in settings afterwards to something secure!
+
+|Username|Password|
+|-|-|
+|admin＠admin.com|password|`,
+    slug: "bookstack",
+    subtitle:
+      "An easy-to-deploy opensource wiki, used to be this website!",
+    title: "Bookstack",
+  },
+  {
+    _creationTime: 1771156524643.4868,
+    _id: "kd74tdb14gnbk0nga6r4r2rv3n817y0x",
+    categoryId: "k174q1fhgfp1j9e53m2ahzj17x7t4mcv",
+    markdown: `\`Run the command below to install Zsh and Oh My Zsh in one step.
+
+\`\`\`
+sudo apt update && sudo apt install -y zsh && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+\`\`\`
+> This requires sudo privileges and an active internet connection.
+
+Project page: https://ohmyz.sh\``,
+    slug: "install-oh-my-zsh",
+    subtitle: "One-line Zsh + framework setup",
+    title: "Install Oh My Zsh",
+  },
+]

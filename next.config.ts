@@ -1,11 +1,11 @@
 import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
-	reactCompiler: true,
+	output: "standalone",
 	images: {
 		unoptimized: true
 	},
-	reactProductionProfiling: true,
+	serverExternalPackages: ["better-sqlite3"],
 }
 
 export default nextConfig

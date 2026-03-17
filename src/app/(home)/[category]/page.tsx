@@ -1,17 +1,34 @@
-import { preloadedQueryResult, preloadQuery } from "convex/nextjs"
-import { FileText, Heart, MessageSquare } from "lucide-react"
+import { FileText } from "lucide-react"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { api } from "@/../convex/_generated/api"
+import { AffineUnavailableError, getCategoryBySlug } from "@/lib/affine"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardTitle } from "@/components/ui/card"
+
+export const dynamic = "force-dynamic"
+export const revalidate = 60
 
 export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
 	const { category } = await params
-	const dataQuery = await preloadQuery(api.wiki.getPagesByCategory, { categorySlug: category })
-	const data = preloadedQueryResult(dataQuery)
 
-	if (!data.category) {
+	let data: Awaited<ReturnType<typeof getCategoryBySlug>>
+	try {
+		data = await getCategoryBySlug(category)
+	} catch (err) {
+		if (err instanceof AffineUnavailableError) {
+			return (
+				<div className="container mx-auto py-16 px-4 max-w-7xl text-center">
+					<h1 className="text-2xl font-bold mb-2">Wiki temporarily unavailable</h1>
+					<p className="text-muted-foreground">
+						The content server is not responding. Try refreshing the page or check back later.
+					</p>
+				</div>
+			)
+		}
+		throw err
+	}
+
+	if (!data) {
 		notFound()
 	}
 
@@ -30,7 +47,6 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
 				{/* Category Header */}
 				<div>
 					<h1 className="text-4xl font-bold mb-2">{data.category.title}</h1>
-					<p className="text-lg text-muted-foreground">{data.category.subtitle}</p>
 				</div>
 
 				{/* Pages List */}
@@ -49,27 +65,20 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
 					) : (
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 							{data.pages.map((page) => (
-								<Link key={page._id} href={`/${category}/${page.slug}`}>
-									<Card className="h-full hover:shadow-lg flex flex-col justify-between p-4 transition-shadow cursor-pointer">
-										<div>
-											<CardTitle className="flex items-center gap-2">
-												<FileText className="h-5 w-5 flex-shrink-0" />
-												<span className="line-clamp-2">{page.title}</span>
-											</CardTitle>
-											<CardDescription className="mt-3 line-clamp-3">
-												{page.subtitle}
-											</CardDescription>
-										</div>
-										<div className="flex items-center gap-4 mt-3 text-sm text-muted-foreground">
-											<div className="flex items-center gap-1">
-												<Heart className="h-3.5 w-3.5" />
-												<span>{page.likeCount ?? 0}</span>
+								<Link key={page.id} href={`/${category}/${page.slug}`}>
+									<Card className="h-full hover:shadow-lg flex flex-col p-4 transition-shadow cursor-pointer overflow-hidden gap-0">
+										<CardTitle className="flex items-center gap-2">
+											<FileText className="h-5 w-5 flex-shrink-0" />
+											<span className="line-clamp-2">{page.title}</span>
+										</CardTitle>
+										{page.preview && (
+											<div className="relative mt-0.5 max-h-20 overflow-hidden">
+												<p className="text-sm text-muted-foreground leading-snug">
+													{page.preview}
+												</p>
+												<div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-card to-transparent" />
 											</div>
-											<div className="flex items-center gap-1">
-												<MessageSquare className="h-3.5 w-3.5" />
-												<span>{page.commentCount ?? 0}</span>
-											</div>
-										</div>
+										)}
 									</Card>
 								</Link>
 							))}

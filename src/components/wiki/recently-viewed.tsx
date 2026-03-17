@@ -2,7 +2,7 @@
 
 import { Clock } from "lucide-react"
 import Link from "next/link"
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardTitle } from "@/components/ui/card"
 import { useRecentlyViewed } from "@/hooks/use-recently-viewed"
 
 export function RecentlyViewed() {
@@ -18,16 +18,21 @@ export function RecentlyViewed() {
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
 				{recentlyViewed.map((page) => (
 					<Link key={page.pageId} href={`/${page.categorySlug}/${page.pageSlug}`}>
-						<Card className="h-full hover:shadow-lg p-4 transition-shadow cursor-pointer">
+						<Card className="h-full hover:shadow-lg p-4 transition-shadow cursor-pointer overflow-hidden gap-0">
 							<div className="flex items-start gap-2">
 								<Clock className="h-4 w-4 text-muted-foreground mt-1 flex-shrink-0" />
 								<div className="flex-1 min-w-0">
 									<CardTitle className="text-base line-clamp-2">{page.title}</CardTitle>
-									<CardDescription className="line-clamp-2 text-sm mt-1">
-										{page.subtitle}
-									</CardDescription>
 								</div>
 							</div>
+							{page.preview && (
+								<div className="relative mt-0.5 max-h-14 overflow-hidden">
+									<p className="text-xs text-muted-foreground leading-snug">
+										{page.preview}
+									</p>
+									<div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-card to-transparent" />
+								</div>
+							)}
 						</Card>
 					</Link>
 				))}

@@ -1,13 +1,15 @@
-import { preloadedQueryResult, preloadQuery } from "convex/nextjs"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { api } from "@/../convex/_generated/api"
+import { AffineUnavailableError, getPageBySlug, extractPreview } from "@/lib/affine"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { CommentSection } from "@/components/wiki/comment-section"
-import { LikeButton } from "@/components/wiki/like-button"
 import { MarkdownRenderer } from "@/components/wiki/markdown-renderer"
 import { PageViewTracker } from "@/components/wiki/page-view-tracker"
+import { ViewTracker } from "@/components/wiki/view-tracker"
+import { ViewCount } from "@/components/wiki/view-count"
+
+export const dynamic = "force-dynamic"
+export const revalidate = 60
 
 export default async function WikiPageDetail({
 	params,
@@ -15,26 +17,42 @@ export default async function WikiPageDetail({
 	params: Promise<{ category: string; slug: string }>
 }) {
 	const { category, slug } = await params
-	const pageQuery = await preloadQuery(api.wiki.getPageBySlug, {
-		categorySlug: category,
-		pageSlug: slug,
-	})
-	const page = preloadedQueryResult(pageQuery)
+
+	let page: Awaited<ReturnType<typeof getPageBySlug>>
+	try {
+		page = await getPageBySlug(category, slug)
+	} catch (err) {
+		if (err instanceof AffineUnavailableError) {
+			return (
+				<div className="container mx-auto py-16 px-4 max-w-4xl text-center">
+					<h1 className="text-2xl font-bold mb-2">Wiki temporarily unavailable</h1>
+					<p className="text-muted-foreground">
+						The content server is not responding. Try refreshing the page or check back later.
+					</p>
+				</div>
+			)
+		}
+		throw err
+	}
 
 	if (!page) {
 		notFound()
 	}
 
+	const pageKey = `${category}/${slug}`
+	const preview = extractPreview(page.markdown)
+
 	return (
 		<div className="container mx-auto py-8 px-4 max-w-4xl">
 			<PageViewTracker
-				pageId={page._id}
+				pageId={page.id}
 				categorySlug={category}
 				pageSlug={slug}
 				title={page.title}
-				subtitle={page.subtitle}
-				categoryTitle={page.category?.title ?? ""}
+				categoryTitle={page.categoryTitle}
+				preview={preview}
 			/>
+			<ViewTracker pageKey={pageKey} title={page.title} preview={preview} />
 			<div className="space-y-6">
 				{/* Breadcrumb Navigation */}
 				<div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -43,7 +61,7 @@ export default async function WikiPageDetail({
 					</Link>
 					<span>/</span>
 					<Link href={`/${category}`} className="hover:text-foreground transition-colors">
-						{page.category?.title}
+						{page.categoryTitle}
 					</Link>
 					<span>/</span>
 					<span className="text-foreground">{page.title}</span>
@@ -53,16 +71,11 @@ export default async function WikiPageDetail({
 				<div className="space-y-3">
 					<Link href={`/${category}`}>
 						<Badge variant="secondary" className="cursor-pointer hover:bg-secondary/80">
-							{page.category?.title}
+							{page.categoryTitle}
 						</Badge>
 					</Link>
 					<h1 className="text-4xl font-bold mt-3">{page.title}</h1>
-					<p className="text-lg text-muted-foreground">{page.subtitle}</p>
-
-					{/* Like Button */}
-					<div className="flex items-center gap-3 pt-2">
-						<LikeButton pageId={page._id} />
-					</div>
+					<ViewCount pageKey={pageKey} />
 				</div>
 
 				<Separator />
@@ -71,11 +84,6 @@ export default async function WikiPageDetail({
 				<div className="prose-wrapper">
 					<MarkdownRenderer content={page.markdown} />
 				</div>
-
-				<Separator />
-
-				{/* Comments */}
-				<CommentSection pageId={page._id} />
 			</div>
 		</div>
 	)
