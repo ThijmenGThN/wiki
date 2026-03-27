@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache"
 import { getBlocksuiteReader } from "affine-reader"
 
 const AFFINE_BASE_URL = process.env.AFFINE_BASE_URL || "http://10.0.0.133"
@@ -5,6 +6,7 @@ const AFFINE_EMAIL = process.env.AFFINE_EMAIL || ""
 const AFFINE_PASSWORD = process.env.AFFINE_PASSWORD || ""
 const AFFINE_WORKSPACE_ID = process.env.AFFINE_WORKSPACE_ID || ""
 
+// Session token is the only in-memory state — just an auth optimization
 let cachedSessionToken: string | null = null
 let tokenExpiry = 0
 
@@ -100,124 +102,15 @@ export interface WikiPage extends WikiPageMeta {
 	markdown: string
 }
 
-// In-memory cache for page data
-interface CachedData {
-	categories: WikiCategory[]
-	pages: WikiPageWithPreview[]
-	timestamp: number
+export interface WikiPageWithPreview extends WikiPageMeta {
+	preview: string
 }
-
-let cache: CachedData | null = null
-let refreshInProgress: Promise<void> | null = null
-const CACHE_TTL = 60 * 1000 // 60 seconds
 
 export class AffineUnavailableError extends Error {
 	constructor(message: string) {
 		super(message)
 		this.name = "AffineUnavailableError"
 	}
-}
-
-async function refreshCache(): Promise<void> {
-	const sessionToken = await getSessionToken()
-	const reader = createReader(sessionToken)
-
-	const pageMetas = await reader.getDocPageMetas()
-	if (!pageMetas) {
-		cache = { categories: [], pages: [], timestamp: Date.now() }
-		return
-	}
-
-	const categoryMap = new Map<string, { title: string; count: number }>()
-	const pageBatch: { meta: (typeof pageMetas)[number]; categorySlug: string; categoryTitle: string }[] = []
-
-	for (const meta of pageMetas) {
-		if (meta.trash) continue
-
-		const tags: string[] = meta.properties?.tags ?? []
-		if (tags.length === 0) continue
-
-		const categoryTitle = tags[0]
-		const categorySlug = slugify(categoryTitle)
-
-		if (!categoryMap.has(categorySlug)) {
-			categoryMap.set(categorySlug, { title: categoryTitle, count: 0 })
-		}
-		categoryMap.get(categorySlug)!.count++
-
-		pageBatch.push({ meta, categorySlug, categoryTitle })
-	}
-
-	const pages: WikiPageWithPreview[] = await Promise.all(
-		pageBatch.map(async ({ meta, categorySlug, categoryTitle }) => {
-			let preview = ""
-			try {
-				const doc = await reader.getDocMarkdown(meta.id)
-				preview = extractPreview(doc?.md || "")
-			} catch {}
-			return {
-				id: meta.id,
-				slug: slugify(meta.title),
-				title: meta.title,
-				categorySlug,
-				categoryTitle,
-				createdAt: meta.createDate,
-				preview,
-			}
-		}),
-	)
-
-	const categories: WikiCategory[] = Array.from(categoryMap.entries()).map(
-		([slug, { title, count }]) => ({
-			slug,
-			title,
-			pageCount: count,
-		}),
-	)
-
-	categories.sort((a, b) => a.title.localeCompare(b.title))
-	pages.sort((a, b) => b.createdAt - a.createdAt)
-
-	cache = { categories, pages, timestamp: Date.now() }
-}
-
-async function fetchAllPages(): Promise<{ categories: WikiCategory[]; pages: WikiPageWithPreview[] }> {
-	const isStale = !cache || Date.now() - cache.timestamp > CACHE_TTL
-
-	if (isStale && !refreshInProgress) {
-		// If we have stale cache, serve it and refresh in the background
-		// If no cache at all (cold start), we must wait
-		if (cache) {
-			refreshInProgress = refreshCache()
-				.catch((err) => console.warn("Background cache refresh failed:", err))
-				.finally(() => { refreshInProgress = null })
-		} else {
-			refreshInProgress = refreshCache().finally(() => { refreshInProgress = null })
-			try {
-				await refreshInProgress
-			} catch (err) {
-				throw new AffineUnavailableError(
-					err instanceof Error ? err.message : "Failed to connect to AFFiNE",
-				)
-			}
-		}
-	}
-
-	if (cache) {
-		return { categories: cache.categories, pages: cache.pages }
-	}
-
-	// Should only happen if cold start refresh failed
-	throw new AffineUnavailableError("No cached data available")
-}
-
-export async function getCategories(): Promise<WikiCategory[]> {
-	const { categories } = await fetchAllPages()
-	return categories
-}
-
-export interface WikiPageWithPreview extends WikiPageMeta {
-	preview: string
 }
 
 export function extractPreview(markdown: string): string {
@@ -230,35 +123,111 @@ export function extractPreview(markdown: string): string {
 		.slice(0, 200)
 }
 
+// Cached data fetchers — Next.js manages the cache (file-based, survives restarts)
+const fetchPageMetas = unstable_cache(
+	async (): Promise<{ categories: WikiCategory[]; pages: WikiPageMeta[] }> => {
+		const sessionToken = await getSessionToken()
+		const reader = createReader(sessionToken)
+		const metas = await reader.getDocPageMetas()
+
+		if (!metas) return { categories: [], pages: [] }
+
+		const categoryMap = new Map<string, { title: string; count: number }>()
+		const pages: WikiPageMeta[] = []
+
+		for (const meta of metas) {
+			if (meta.trash) continue
+			const tags: string[] = meta.properties?.tags ?? []
+			if (tags.length === 0) continue
+
+			const categoryTitle = tags[0]
+			const categorySlug = slugify(categoryTitle)
+
+			if (!categoryMap.has(categorySlug)) {
+				categoryMap.set(categorySlug, { title: categoryTitle, count: 0 })
+			}
+			categoryMap.get(categorySlug)!.count++
+
+			pages.push({
+				id: meta.id,
+				slug: slugify(meta.title),
+				title: meta.title,
+				categorySlug,
+				categoryTitle,
+				createdAt: meta.createDate,
+			})
+		}
+
+		const categories = Array.from(categoryMap.entries())
+			.map(([slug, { title, count }]) => ({ slug, title, pageCount: count }))
+			.sort((a, b) => a.title.localeCompare(b.title))
+
+		pages.sort((a, b) => b.createdAt - a.createdAt)
+
+		return { categories, pages }
+	},
+	["affine-page-metas"],
+	{ revalidate: 60 },
+)
+
+const fetchPageMarkdown = unstable_cache(
+	async (pageId: string): Promise<string> => {
+		const sessionToken = await getSessionToken()
+		const reader = createReader(sessionToken)
+		const doc = await reader.getDocMarkdown(pageId)
+		return doc?.md || ""
+	},
+	["affine-page-markdown"],
+	{ revalidate: 60 },
+)
+
+// Public API — consumers don't need to change
+export async function getCategories(): Promise<WikiCategory[]> {
+	try {
+		const { categories } = await fetchPageMetas()
+		return categories
+	} catch (err) {
+		throw new AffineUnavailableError(
+			err instanceof Error ? err.message : "Failed to connect to AFFiNE",
+		)
+	}
+}
+
 export async function getCategoryBySlug(
 	slug: string,
 ): Promise<{ category: WikiCategory; pages: WikiPageWithPreview[] } | null> {
-	const { categories, pages } = await fetchAllPages()
-	const category = categories.find((c) => c.slug === slug)
-	if (!category) return null
+	try {
+		const { categories, pages } = await fetchPageMetas()
+		const category = categories.find((c) => c.slug === slug)
+		if (!category) return null
 
-	const categoryPages = pages.filter((p) => p.categorySlug === slug)
-	return { category, pages: categoryPages }
+		const categoryPages = pages.filter((p) => p.categorySlug === slug)
+		const pagesWithPreviews = await Promise.all(
+			categoryPages.map(async (page) => {
+				const markdown = await fetchPageMarkdown(page.id)
+				return { ...page, preview: extractPreview(markdown) }
+			}),
+		)
+
+		return { category, pages: pagesWithPreviews }
+	} catch (err) {
+		throw new AffineUnavailableError(
+			err instanceof Error ? err.message : "Failed to connect to AFFiNE",
+		)
+	}
 }
 
 export async function getPageBySlug(
 	categorySlug: string,
 	pageSlug: string,
 ): Promise<WikiPage | null> {
-	const { pages } = await fetchAllPages()
-	const pageMeta = pages.find((p) => p.categorySlug === categorySlug && p.slug === pageSlug)
-	if (!pageMeta) return null
-
 	try {
-		const sessionToken = await getSessionToken()
-		const reader = createReader(sessionToken)
-		const doc = await reader.getDocMarkdown(pageMeta.id)
-		if (!doc) return null
+		const { pages } = await fetchPageMetas()
+		const pageMeta = pages.find((p) => p.categorySlug === categorySlug && p.slug === pageSlug)
+		if (!pageMeta) return null
 
-		return {
-			...pageMeta,
-			markdown: doc.md || "",
-		}
+		const markdown = await fetchPageMarkdown(pageMeta.id)
+		return { ...pageMeta, markdown }
 	} catch (err) {
 		throw new AffineUnavailableError(
 			err instanceof Error ? err.message : "Failed to fetch page content",
@@ -267,19 +236,33 @@ export async function getPageBySlug(
 }
 
 export async function getRecentPages(limit = 5): Promise<WikiPageWithPreview[]> {
-	const { pages } = await fetchAllPages()
-	return pages.slice(0, limit)
+	try {
+		const { pages } = await fetchPageMetas()
+		const recent = pages.slice(0, limit)
+
+		return await Promise.all(
+			recent.map(async (page) => {
+				const markdown = await fetchPageMarkdown(page.id)
+				return { ...page, preview: extractPreview(markdown) }
+			}),
+		)
+	} catch (err) {
+		throw new AffineUnavailableError(
+			err instanceof Error ? err.message : "Failed to connect to AFFiNE",
+		)
+	}
 }
 
 export async function searchPages(query: string): Promise<WikiPageMeta[]> {
-	const { pages } = await fetchAllPages()
-	const q = query.toLowerCase()
-	return pages.filter(
-		(p) => p.title.toLowerCase().includes(q) || p.categoryTitle.toLowerCase().includes(q),
-	)
-}
-
-// Warm up cache on server startup so the first request is fast
-if (typeof globalThis !== "undefined") {
-	refreshCache().catch((err) => console.warn("Cache warmup failed:", err))
+	try {
+		const { pages } = await fetchPageMetas()
+		const q = query.toLowerCase()
+		return pages.filter(
+			(p) => p.title.toLowerCase().includes(q) || p.categoryTitle.toLowerCase().includes(q),
+		)
+	} catch (err) {
+		throw new AffineUnavailableError(
+			err instanceof Error ? err.message : "Failed to connect to AFFiNE",
+		)
+	}
 }

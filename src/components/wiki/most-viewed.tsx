@@ -4,6 +4,7 @@ import { Eye } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { Card, CardTitle } from "@/components/ui/card"
+import { HoverCard } from "@/components/ui/hover-card-motion"
 
 interface MostViewedPage {
 	pageKey: string
@@ -31,9 +32,9 @@ export function MostViewed() {
 			<h2 className="text-2xl font-semibold mb-4">Most Viewed</h2>
 			<div className="space-y-3">
 				{pages.map((page) => (
-					<div key={page.pageKey}>
+					<HoverCard key={page.pageKey}>
 						<Link href={`/${page.pageKey}`}>
-							<Card className="hover:shadow-md transition-shadow p-4 cursor-pointer overflow-hidden gap-0">
+							<Card className="relative hover:shadow-md transition-shadow p-4 cursor-pointer overflow-hidden gap-0">
 								<div className="flex items-center justify-between gap-4">
 									<CardTitle className="text-lg">{page.title}</CardTitle>
 									<div className="flex items-center gap-1 text-sm text-muted-foreground whitespace-nowrap">
@@ -42,16 +43,14 @@ export function MostViewed() {
 									</div>
 								</div>
 								{page.preview && (
-									<div className="relative mt-0.5 max-h-16 overflow-hidden">
-										<p className="text-sm text-muted-foreground leading-snug">
-											{page.preview}
-										</p>
-										<div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-card to-transparent" />
+									<div className="mt-0.5 max-h-16 overflow-hidden">
+										<p className="text-sm text-muted-foreground leading-snug">{page.preview}</p>
 									</div>
 								)}
+								<div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-card to-transparent" />
 							</Card>
 						</Link>
-					</div>
+					</HoverCard>
 				))}
 			</div>
 		</div>

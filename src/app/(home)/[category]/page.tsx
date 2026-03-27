@@ -1,11 +1,11 @@
 import { FileText } from "lucide-react"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { AffineUnavailableError, getCategoryBySlug } from "@/lib/affine"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardTitle } from "@/components/ui/card"
+import { HoverCard } from "@/components/ui/hover-card-motion"
+import { AffineUnavailableError, getCategoryBySlug } from "@/lib/affine"
 
-export const dynamic = "force-dynamic"
 export const revalidate = 60
 
 export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
@@ -65,22 +65,24 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
 					) : (
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 							{data.pages.map((page) => (
-								<Link key={page.id} href={`/${category}/${page.slug}`}>
-									<Card className="h-full hover:shadow-lg flex flex-col p-4 transition-shadow cursor-pointer overflow-hidden gap-0">
-										<CardTitle className="flex items-center gap-2">
-											<FileText className="h-5 w-5 flex-shrink-0" />
-											<span className="line-clamp-2">{page.title}</span>
-										</CardTitle>
-										{page.preview && (
-											<div className="relative mt-0.5 max-h-20 overflow-hidden">
-												<p className="text-sm text-muted-foreground leading-snug">
-													{page.preview}
-												</p>
-												<div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-card to-transparent" />
-											</div>
-										)}
-									</Card>
-								</Link>
+								<HoverCard key={page.id}>
+									<Link href={`/${category}/${page.slug}`}>
+										<Card className="relative h-full hover:shadow-lg flex flex-col p-4 transition-shadow cursor-pointer overflow-hidden gap-0">
+											<CardTitle className="flex items-center gap-2">
+												<FileText className="h-5 w-5 flex-shrink-0" />
+												<span className="line-clamp-2">{page.title}</span>
+											</CardTitle>
+											{page.preview && (
+												<div className="mt-0.5 max-h-20 overflow-hidden">
+													<p className="text-sm text-muted-foreground leading-snug">
+														{page.preview}
+													</p>
+												</div>
+											)}
+											<div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-card to-transparent" />
+										</Card>
+									</Link>
+								</HoverCard>
 							))}
 						</div>
 					)}

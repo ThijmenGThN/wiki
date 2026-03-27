@@ -8,7 +8,6 @@ import { PageViewTracker } from "@/components/wiki/page-view-tracker"
 import { ViewTracker } from "@/components/wiki/view-tracker"
 import { ViewCount } from "@/components/wiki/view-count"
 
-export const dynamic = "force-dynamic"
 export const revalidate = 60
 
 export default async function WikiPageDetail({
