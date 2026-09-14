@@ -19,7 +19,7 @@ and generate custom color palettes for your project.
   --secondary: oklch(0.1884 0.0128 248.5103);
   --secondary-foreground: oklch(1.0000 0 0);
   --muted: oklch(0.9222 0.0013 286.3737);
-  --muted-foreground: oklch(0.1884 0.0128 248.5103);
+  --muted-foreground: oklch(0.4907 0.0244 237.2100);
   --accent: oklch(0.9392 0.0166 250.8453);
   --accent-foreground: oklch(0.6723 0.1606 244.9955);
   --destructive: oklch(0.6188 0.2376 25.7658);

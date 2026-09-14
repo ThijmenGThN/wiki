@@ -1,5 +1,5 @@
 import { ThemeProvider } from "next-themes";
-import { Sour_Gummy } from "next/font/google";
+import { Capriola, Sour_Gummy } from "next/font/google";
 import Script from "next/script";
 
 import { WikiHeader } from "@/components/wiki-header";
@@ -9,7 +9,7 @@ import type { Metadata } from "next";
 
 import "@/styles/globals.css";
 
-const sourGummy = Sour_Gummy({ subsets: ["latin"] });
+const capriola = Capriola({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
   title: "Wiki",
@@ -21,7 +21,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={sourGummy.className}>
+      <body className={capriola.className}>
         <Script
           src="/stats/script.js"
           data-website-id="746201ec-fa02-4595-b007-9ae7bfdc6a6c"
